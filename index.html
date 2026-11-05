@@ -673,7 +673,19 @@
         let g = gcdBigInt(a, b);
         let k = (a * b) / g;
         
-        res.innerHTML = tTitle + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${k}</div>`;
+        // ویدیوی آپارات ک.م.م
+        let videoCard = `
+            <div class="video-card">
+                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;">
+                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> 
+                    اگه میخوای خودت بتونی ک.م.م اعداد مختلف رو بدست بیاری این ویدیو رو ببین
+                </p>
+                <div class="video-wrapper">
+                    <iframe src="https://www.aparat.com/video/video/embed/videohash/xhcsubj/vt/frame" allowFullScreen="true"></iframe>
+                </div>
+            </div>`;
+            
+        res.innerHTML = tTitle + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${k}</div>` + videoCard;
         triggerResultAnim('result-2');
     }
 
@@ -682,31 +694,38 @@
         let start = parseInt(cleanNumber(document.getElementById('sieveStart').value));
         let end = parseInt(cleanNumber(document.getElementById('sieveEnd').value));
         let res = document.getElementById('result-3');
+        triggerResultAnim('result-3');
         
         if (isNaN(start) || isNaN(end) || start > end || start < 1) {
             res.innerHTML = `<div class="result-title"><i class="fa-solid fa-triangle-exclamation"></i> خطا:</div> لطفاً بازه معتبری وارد کنید. (عدد اول کوچکتر از عدد دوم باشد)`;
-            triggerResultAnim('result-3');
             return;
         }
         
-        // چک کردن محدودیت 1000 تایی
         if (end - start > 1000) {
-            res.innerHTML = `<div class="result-title" style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت:</div> طبق اخطار ثبت شده، حداکثر اختلاف مجاز ۱۰۰۰ عدد است.`;
-            triggerResultAnim('result-3');
+            res.innerHTML = `<div class="result-title" style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت:</div> اختلاف اعداد بیش از حد مجاز است. طبق نکته، حداکثر اختلاف باید ۱۰۰۰ باشد.`;
             return;
         }
 
         res.innerHTML = `
             <div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div>
             <div id="numGrid" class="num-grid"></div>
+            <div id="sieveVideo" style="display: none; opacity: 0; transition: opacity 0.8s ease;">
+                <div class="video-card">
+                    <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;">
+                        <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 18px; vertical-align: -2px; margin-left: 5px;"></i> 
+                        اگه میخوای خودت بتونی غربال انجام بدی این ویدیو رو ببین
+                    </p>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.aparat.com/video/video/embed/videohash/mjir865/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+                    </div>
+                </div>
+            </div>
         `;
-        triggerResultAnim('result-3');
         
         let grid = document.getElementById('numGrid');
         let title = document.getElementById('sieveTitle');
         let elements = [];
 
-        // ایجاد گرید اعداد به صورت LTR
         for (let i = start; i <= end; i++) {
             let span = document.createElement('span');
             span.className = 'num-item';
@@ -715,30 +734,32 @@
             elements.push({ el: span, val: i });
         }
 
-        // مکث اولیه و سپس شروع انیمیشن
         setTimeout(() => {
             elements.forEach((item, index) => {
                 setTimeout(() => {
                     if (!isPrimeSimple(item.val)) {
-                        // اعداد مرکب پرواز میکنند
                         item.el.classList.add('fly-away');
                     } else {
-                        // اعداد اول درخشان میشوند
                         item.el.classList.add('prime-glow');
                     }
-                }, index * (800 / elements.length)); // Stagger effect
+                }, index * (800 / elements.length)); 
             });
 
-            // پایان انیمیشن
             setTimeout(() => {
                 elements.forEach(item => {
                     if (!isPrimeSimple(item.val)) {
-                        item.el.style.display = 'none'; // حذف فیزیکی اعداد مرکب
+                        item.el.style.display = 'none';
                     }
                 });
-                title.innerHTML = `<i class="fa-solid fa-star"></i> اعداد اول یافت شد!`;
+                title.innerHTML = `<i class="fa-solid fa-star"></i> اعداد اول`;
                 title.style.color = "var(--success)";
-                title.style.transform = "scale(1.1)";
+                title.style.transform = "scale(1.15)";
+                
+                // Show video smoothly after animation finishes
+                let videoBox = document.getElementById('sieveVideo');
+                videoBox.style.display = 'block';
+                setTimeout(() => { videoBox.style.opacity = '1'; }, 50);
+
             }, 1000 + (800)); 
 
         }, 1200);
