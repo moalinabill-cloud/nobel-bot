@@ -441,16 +441,19 @@
     <div class="tab-content" id="tab-3">
         <div class="sieve-warning">
             <i class="fa-solid fa-triangle-exclamation"></i>
-            <strong>اخطار:</strong> حداکثر اختلاف مجاز بین دو عدد، ۱۰۰۰ می‌باشد.
+            <div>
+                <strong>نکته :</strong> حداکثر اختلاف مجاز بین دو عدد ، 1000 میباشد.<br>
+                <strong>نکته :</strong> عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.
+            </div>
         </div>
         <div class="dual-inputs">
             <div class="input-group">
                 <i class="fa-solid fa-play"></i>
-                <input type="text" id="sieveStart" placeholder="شروع بازه">
+                <input type="text" id="sieveStart" placeholder="عدد شروع (کوچک)">
             </div>
             <div class="input-group">
                 <i class="fa-solid fa-stop"></i>
-                <input type="text" id="sieveEnd" placeholder="پایان بازه">
+                <input type="text" id="sieveEnd" placeholder="عدد پایان (بزرگ)">
             </div>
         </div>
         <div class="result-box" id="result-3"></div>
@@ -697,12 +700,12 @@
         triggerResultAnim('result-3');
         
         if (isNaN(start) || isNaN(end) || start > end || start < 1) {
-            res.innerHTML = `<div class="result-title"><i class="fa-solid fa-triangle-exclamation"></i> خطا:</div> لطفاً بازه معتبری وارد کنید. (عدد اول کوچکتر از عدد دوم باشد)`;
+            res.innerHTML = `<div class="result-title"><i class="fa-solid fa-triangle-exclamation"></i> خطا:</div> لطفاً دقت کنید: عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.`;
             return;
         }
         
         if (end - start > 1000) {
-            res.innerHTML = `<div class="result-title" style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت:</div> اختلاف اعداد بیش از حد مجاز است. طبق نکته، حداکثر اختلاف باید ۱۰۰۰ باشد.`;
+            res.innerHTML = `<div class="result-title" style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت:</div> طبق نکته اول، حداکثر اختلاف مجاز بین دو عدد ، 1000 میباشد.`;
             return;
         }
 
