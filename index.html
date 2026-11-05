@@ -4,132 +4,221 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نوبل بات - دستیار هوشمند ریاضی</title>
+    <!-- اضافه کردن آیکون‌های FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* اضافه کردن فونت ایران یکان */
+        @font-face {
+            font-family: 'iranyekan';
+            src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebRegular.woff2') format('woff2');
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: 'iranyekan';
+            src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebBold.woff2') format('woff2');
+            font-weight: bold;
+        }
+
+        :root {
+            --primary: #6366f1; /* رنگ مدرن نیلی/بنفش */
+            --primary-hover: #4f46e5;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --input-border: #e5e7eb;
+            --success: #10b981;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Tahoma, Arial, sans-serif;
+            font-family: 'iranyekan', Tahoma, sans-serif;
         }
+
         body {
-            background-color: #f4f7f6;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
+
         .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 550px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        h1 {
+
+        .header {
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 24px;
+            margin-bottom: 10px;
         }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .header h1 i {
+            margin-left: 8px;
+        }
+
         .tabs {
             display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            background: #e9ecef;
-            padding: 5px;
-            border-radius: 8px;
+            gap: 8px;
+            background: #f8fafc;
+            padding: 8px;
+            border-radius: 12px;
             overflow-x: auto;
         }
+
         .tab-btn {
             flex: 1;
-            padding: 10px 5px;
+            padding: 12px 10px;
             border: none;
             background: transparent;
             cursor: pointer;
             font-weight: bold;
             font-size: 13px;
-            color: #495057;
-            border-radius: 6px;
-            transition: 0.3s;
+            color: var(--text-muted);
+            border-radius: 8px;
+            transition: all 0.3s ease;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
         .tab-btn.active {
-            background: #007bff;
+            background: var(--primary);
             color: #fff;
-            box-shadow: 0 2px 5px rgba(0,123,255,0.3);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
+
         .tab-content {
             display: none;
+            animation: fadeIn 0.4s ease;
         }
+
         .tab-content.active {
             display: block;
         }
-        .section-box {
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-group {
+            position: relative;
             margin-bottom: 15px;
         }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
-            font-size: 14px;
+
+        .input-group i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 18px;
         }
-        input {
+
+        .input-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 15px 45px 15px 15px;
+            border: 2px solid var(--input-border);
+            border-radius: 12px;
             font-size: 16px;
-            text-align: center;
             outline: none;
-            transition: border-color 0.3s;
+            transition: 0.3s;
+            background: #f9fafb;
+            color: var(--text-dark);
+            font-weight: bold;
         }
-        input:focus {
-            border-color: #007bff;
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            background: #fff;
         }
-        .row-inputs {
+
+        .dual-inputs {
             display: flex;
-            gap: 10px;
-        }
-        .btn-calc {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .btn-calc:hover {
-            background: #218838;
-        }
-        .result-box {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            min-height: 80px;
-            font-size: 15px;
-            line-height: 1.6;
-            word-break: break-all;
-        }
-        .result-title {
-            font-weight: bold;
-            color: #007bff;
-            margin-bottom: 5px;
+            gap: 15px;
         }
         
-        /* استایل‌های مربوط به انیمیشن غربال */
+        .dual-inputs .input-group {
+            flex: 1;
+        }
+
+        .result-box {
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            min-height: 100px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* دکمه اصلی پایین صفحه */
+        .main-action-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .main-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        /* استایل انیمیشن غربال */
         .sieve-title {
             text-align: center;
             font-size: 22px;
             font-weight: bold;
             margin-bottom: 15px;
-            color: #007bff;
+            color: var(--primary);
             transition: color 0.5s, transform 0.5s;
         }
         .num-grid {
@@ -140,16 +229,17 @@
         }
         .num-item {
             padding: 10px 15px;
-            background: #6c757d;
+            background: #9ca3af;
             color: white;
             border-radius: 8px;
             font-weight: bold;
             font-size: 16px;
             transition: transform 1.2s ease-in-out, opacity 1s ease-in-out, background-color 0.5s;
             display: inline-block;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .fly-away {
-            transform: translateY(-150px) scale(0) rotate(180deg);
+            transform: translateY(-200px) scale(0) rotate(180deg);
             opacity: 0;
             pointer-events: none;
         }
@@ -158,72 +248,101 @@
 <body>
 
 <div class="container">
-    <h1>نوبل بات</h1>
+    <div class="header">
+        <h1><i class="fa-solid fa-robot"></i> نوبل بات</h1>
+    </div>
     
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(0)">اعداد اول و مرکب</button>
-        <button class="tab-btn" onclick="switchTab(1)">ب.م.م</button>
-        <button class="tab-btn" onclick="switchTab(2)">ک.م.م</button>
-        <button class="tab-btn" onclick="switchTab(3)">غربال</button>
+        <button class="tab-btn active" onclick="switchTab(0)">
+            <i class="fa-solid fa-hashtag"></i> اول و مرکب
+        </button>
+        <button class="tab-btn" onclick="switchTab(1)">
+            <i class="fa-solid fa-divide"></i> ب.م.م
+        </button>
+        <button class="tab-btn" onclick="switchTab(2)">
+            <i class="fa-solid fa-layer-group"></i> ک.م.م
+        </button>
+        <button class="tab-btn" onclick="switchTab(3)">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> غربال
+        </button>
     </div>
 
-    <!-- تب 1: اعداد اول و مرکب -->
+    <!-- بخش اول و مرکب -->
     <div class="tab-content active" id="tab-0">
-        <div class="section-box">
-            <label>۱. قسمت نوشتن عدد:</label>
-            <input type="text" id="numInput" placeholder="مثلاً 97 یا 100">
-            <button class="btn-calc" onclick="checkPrime()">محاسبه</button>
+        <div class="input-group">
+            <i class="fa-solid fa-pen"></i>
+            <input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)">
         </div>
-        <div class="section-box">
-            <label>۲. قسمت جواب:</label>
-            <div class="result-box" id="result-0">جواب اینجا نمایش داده می‌شود...</div>
+        <div class="result-box" id="result-0">
+            <div class="result-title"><i class="fa-solid fa-circle-info"></i> نتیجه:</div>
+            پاسخ در این قسمت نمایش داده می‌شود...
         </div>
     </div>
 
-    <!-- تب 2: ب.م.م -->
+    <!-- بخش ب.م.م -->
     <div class="tab-content" id="tab-1">
-        <div class="section-box">
-            <label>۱. قسمت نوشتن عدد (دو عدد با کاما یا فاصله):</label>
-            <input type="text" id="bmmInput" placeholder="مثلاً 24 و 36">
-            <button class="btn-calc" onclick="calcBMM()">محاسبه ب.م.م</button>
-        </div>
-        <div class="section-box">
-            <label>۲. قسمت جواب:</label>
-            <div class="result-box" id="result-1">جواب اینجا نمایش داده می‌شود...</div>
-        </div>
-    </div>
-
-    <!-- تب 3: ک.م.م -->
-    <div class="tab-content" id="tab-2">
-        <div class="section-box">
-            <label>۱. قسمت نوشتن عدد (دو عدد با کاما یا فاصله):</label>
-            <input type="text" id="kmmInput" placeholder="مثلاً 12 و 18">
-            <button class="btn-calc" onclick="calcKMM()">محاسبه ک.م.م</button>
-        </div>
-        <div class="section-box">
-            <label>۲. قسمت جواب:</label>
-            <div class="result-box" id="result-2">جواب اینجا نمایش داده می‌شود...</div>
-        </div>
-    </div>
-
-    <!-- تب 4: غربال با انیمیشن -->
-    <div class="tab-content" id="tab-3">
-        <div class="section-box">
-            <label>۱. قسمت نوشتن عدد (بازه شروع و پایان):</label>
-            <div class="row-inputs">
-                <input type="text" id="sieveStart" placeholder="از (مثلاً 1)">
-                <input type="text" id="sieveEnd" placeholder="تا (مثلاً 50)">
+        <div class="dual-inputs">
+            <div class="input-group">
+                <i class="fa-solid fa-1"></i>
+                <input type="text" id="bmmInput1" placeholder="عدد اول">
             </div>
-            <button class="btn-calc" onclick="runAnimatedSieve()">اجرای غربال</button>
+            <div class="input-group">
+                <i class="fa-solid fa-2"></i>
+                <input type="text" id="bmmInput2" placeholder="عدد دوم">
+            </div>
         </div>
-        <div class="section-box">
-            <label>۲. قسمت جواب:</label>
-            <div class="result-box" id="result-3">جواب اینجا نمایش داده می‌شود...</div>
+        <div class="result-box" id="result-1">
+            <div class="result-title"><i class="fa-solid fa-circle-info"></i> نتیجه:</div>
+            پاسخ در این قسمت نمایش داده می‌شود...
         </div>
     </div>
+
+    <!-- بخش ک.م.م -->
+    <div class="tab-content" id="tab-2">
+        <div class="dual-inputs">
+            <div class="input-group">
+                <i class="fa-solid fa-1"></i>
+                <input type="text" id="kmmInput1" placeholder="عدد اول">
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-2"></i>
+                <input type="text" id="kmmInput2" placeholder="عدد دوم">
+            </div>
+        </div>
+        <div class="result-box" id="result-2">
+            <div class="result-title"><i class="fa-solid fa-circle-info"></i> نتیجه:</div>
+            پاسخ در این قسمت نمایش داده می‌شود...
+        </div>
+    </div>
+
+    <!-- بخش غربال -->
+    <div class="tab-content" id="tab-3">
+        <div class="dual-inputs">
+            <div class="input-group">
+                <i class="fa-solid fa-play"></i>
+                <input type="text" id="sieveStart" placeholder="عدد شروع (مثلاً 1)">
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-stop"></i>
+                <input type="text" id="sieveEnd" placeholder="عدد پایان (مثلاً 50)">
+            </div>
+        </div>
+        <div class="result-box" id="result-3">
+            <div class="result-title"><i class="fa-solid fa-circle-info"></i> نتیجه:</div>
+            پاسخ در این قسمت نمایش داده می‌شود...
+        </div>
+    </div>
+
+    <!-- دکمه اصلی و یکپارچه در پایین صفحه -->
+    <button class="main-action-btn" onclick="executeCurrentTab()">
+        <i id="btnIcon" class="fa-solid fa-magnifying-glass-chart"></i> 
+        <span id="btnText">بررسی عدد</span>
+    </button>
 </div>
 
 <script>
+    let currentTabIndex = 0;
+
     // تبدیل اعداد فارسی به انگلیسی
     function cleanNumber(str) {
         if (!str) return "";
@@ -233,24 +352,46 @@
     }
 
     function switchTab(index) {
+        currentTabIndex = index;
         const buttons = document.querySelectorAll('.tab-btn');
         const contents = document.querySelectorAll('.tab-content');
+        
         buttons.forEach((btn, idx) => {
             btn.classList.toggle('active', idx === index);
             contents[idx].classList.toggle('active', idx === index);
         });
+
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+
+        if (index === 0) {
+            btnText.innerText = "بررسی عدد";
+            btnIcon.className = "fa-solid fa-magnifying-glass-chart";
+        } else if (index === 1) {
+            btnText.innerText = "محاسبه ب.م.م";
+            btnIcon.className = "fa-solid fa-calculator";
+        } else if (index === 2) {
+            btnText.innerText = "محاسبه ک.م.م";
+            btnIcon.className = "fa-solid fa-calculator";
+        } else if (index === 3) {
+            btnText.innerText = "اجرای جادوی غربال";
+            btnIcon.className = "fa-solid fa-wand-magic-sparkles";
+        }
     }
 
-    // توابع ریاضی پیشرفته برای اعداد اول و مرکب
+    function executeCurrentTab() {
+        if (currentTabIndex === 0) checkPrime();
+        else if (currentTabIndex === 1) calcBMM();
+        else if (currentTabIndex === 2) calcKMM();
+        else if (currentTabIndex === 3) runAnimatedSieve();
+    }
+
+    // الگوریتم‌های سریع ریاضی (میلر-رابین)
     function isProbablePrime(n) {
         if (n === 2n || n === 3n) return true;
         if (n < 2n || n % 2n === 0n) return false;
-        let d = n - 1n;
-        let s = 0n;
-        while (d % 2n === 0n) {
-            d /= 2n;
-            s += 1n;
-        }
+        let d = n - 1n, s = 0n;
+        while (d % 2n === 0n) { d /= 2n; s += 1n; }
         const bases = [2n, 3n, 5n, 7n, 11n, 13n, 17n, 19n, 23n];
         for (let a of bases) {
             if (n <= a) break;
@@ -259,16 +400,12 @@
             let composite = true;
             for (let r = 1n; r < s; r++) {
                 x = powerMod(x, 2n, n);
-                if (x === n - 1n) {
-                    composite = false;
-                    break;
-                }
+                if (x === n - 1n) { composite = false; break; }
             }
             if (composite) return false;
         }
         return true;
     }
-
     function powerMod(base, exp, mod) {
         let res = 1n;
         base = base % mod;
@@ -279,128 +416,83 @@
         }
         return res;
     }
-
     function getPrimeFactors(n) {
-        let factors = [];
-        let temp = n;
-        while (temp % 2n === 0n) {
-            factors.push(2n);
-            temp /= 2n;
-        }
+        let factors = [], temp = n;
+        while (temp % 2n === 0n) { factors.push(2n); temp /= 2n; }
         let d = 3n;
         while (d * d <= temp && temp > 1n) {
-            if (temp % d === 0n) {
-                factors.push(d);
-                temp /= d;
-            } else {
-                d += 2n;
-            }
+            if (temp % d === 0n) { factors.push(d); temp /= d; } 
+            else { d += 2n; }
         }
         if (temp > 1n) factors.push(temp);
         return factors.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
     }
-
     function gcdBigInt(a, b) {
-        while (b !== 0n) {
-            let t = b;
-            b = a % b;
-            a = t;
-        }
+        while (b !== 0n) { let t = b; b = a % b; a = t; }
         return a;
     }
+    function isPrimeSimple(n) {
+        if (n < 2) return false;
+        for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
+        return true;
+    }
 
-    // عملکرد بخش اعداد اول
+    // توابع اجرا
     function checkPrime() {
-        let inputStr = cleanNumber(document.getElementById('numInput').value);
-        let resBox = document.getElementById('result-0');
-        
-        if (!inputStr || isNaN(inputStr)) {
-            resBox.innerHTML = "لطفاً یک عدد معتبر وارد کنید.";
-            return;
-        }
-
-        let n = BigInt(inputStr);
-        if (n <= 1n) {
-            resBox.innerHTML = `عدد ${n} نه اول است و نه مرکب.`;
-            return;
-        }
-
+        let val = cleanNumber(document.getElementById('numInput').value);
+        let res = document.getElementById('result-0');
+        let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه:</div>`;
+        if (!val || isNaN(val)) return res.innerHTML = tTitle + "لطفاً یک عدد معتبر وارد کنید.";
+        let n = BigInt(val);
+        if (n <= 1n) return res.innerHTML = tTitle + `عدد ${n} نه اول است و نه مرکب.`;
         if (isProbablePrime(n)) {
-            resBox.innerHTML = `<div class="result-title">نتیجه:</div>عدد **${n}** یک **عدد اول** است.`;
+            res.innerHTML = tTitle + `عدد <b>${n}</b> یک <b style="color:var(--success);">عدد اول</b> است.`;
         } else {
             let factors = getPrimeFactors(n);
             let divList = [];
             for (let i = 1n; i <= n; i++) {
-                if (n % i === 0n) {
-                    divList.push(i);
-                    if(divList.length > 200) break;
-                }
+                if (n % i === 0n) { divList.push(i); if(divList.length > 100) break; }
             }
-            resBox.innerHTML = `<div class="result-title">نتیجه:</div>عدد **${n}** یک **عدد مرکب** است.<br>` +
-                              `شمارنده‌ها: ${divList.join(', ')} ${divList.length > 200 ? '(...)' : ''}<br>` +
-                              `تجزیه به عوامل اول: ${factors.join(' × ')}`;
+            res.innerHTML = tTitle + `عدد <b>${n}</b> یک <b>عدد مرکب</b> است.<br><br>` +
+                `<b>تجزیه به عوامل اول:</b> ${factors.join(' × ')}<br><br>` +
+                `<b>شمارنده‌ها:</b> ${divList.join(', ')} ${divList.length > 100 ? '(...)' : ''}`;
         }
     }
 
-    // عملکرد ب.م.م
     function calcBMM() {
-        let inputStr = cleanNumber(document.getElementById('bmmInput').value);
-        let resBox = document.getElementById('result-1');
-        let parts = inputStr.split(/[\s,]+/);
-        
-        if (parts.length < 2 || !parts[0] || !parts[1]) {
-            resBox.innerHTML = "لطفاً حداقل دو عدد با کاما یا فاصله وارد کنید.";
-            return;
-        }
-        let a = BigInt(parts[0]);
-        let b = BigInt(parts[1]);
-        let result = gcdBigInt(a, b);
-        resBox.innerHTML = `<div class="result-title">نتیجه ب.م.م:</div>بزرگ‌ترین مقسوم‌علیه مشترک برابر است با: **${result}**`;
-    }
-
-    // عملکرد ک.م.م
-    function calcKMM() {
-        let inputStr = cleanNumber(document.getElementById('kmmInput').value);
-        let resBox = document.getElementById('result-2');
-        let parts = inputStr.split(/[\s,]+/);
-        
-        if (parts.length < 2 || !parts[0] || !parts[1]) {
-            resBox.innerHTML = "لطفاً حداقل دو عدد با کاما یا فاصله وارد کنید.";
-            return;
-        }
-        let a = BigInt(parts[0]);
-        let b = BigInt(parts[1]);
+        let aStr = cleanNumber(document.getElementById('bmmInput1').value);
+        let bStr = cleanNumber(document.getElementById('bmmInput2').value);
+        let res = document.getElementById('result-1');
+        let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه ب.م.م:</div>`;
+        if (!aStr || !bStr) return res.innerHTML = tTitle + "لطفاً هر دو عدد را وارد کنید.";
+        let a = BigInt(aStr), b = BigInt(bStr);
         let g = gcdBigInt(a, b);
-        let result = (a * b) / g;
-        resBox.innerHTML = `<div class="result-title">نتیجه ک.م.م:</div>کوچک‌ترین مضرب مشترک برابر است با: **${result}**`;
+        res.innerHTML = tTitle + `بزرگ‌ترین مقسوم‌علیه مشترک (${a} , ${b}) برابر است با: <br><br><b style="font-size:20px; color:var(--primary);">${g}</b>`;
     }
 
-    // بررسی اول بودن ساده برای انیمیشن
-    function isPrimeSimple(n) {
-        if (n < 2) return false;
-        for (let i = 2; i * i <= n; i++) {
-            if (n % i === 0) return false;
-        }
-        return true;
+    function calcKMM() {
+        let aStr = cleanNumber(document.getElementById('kmmInput1').value);
+        let bStr = cleanNumber(document.getElementById('kmmInput2').value);
+        let res = document.getElementById('result-2');
+        let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه ک.م.م:</div>`;
+        if (!aStr || !bStr) return res.innerHTML = tTitle + "لطفاً هر دو عدد را وارد کنید.";
+        let a = BigInt(aStr), b = BigInt(bStr);
+        let g = gcdBigInt(a, b);
+        let k = (a * b) / g;
+        res.innerHTML = tTitle + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><b style="font-size:20px; color:var(--primary);">${k}</b>`;
     }
 
-    // عملکرد غربال با انیمیشن پرواز
     function runAnimatedSieve() {
         let start = parseInt(cleanNumber(document.getElementById('sieveStart').value));
         let end = parseInt(cleanNumber(document.getElementById('sieveEnd').value));
-        let resBox = document.getElementById('result-3');
-
+        let res = document.getElementById('result-3');
         if (isNaN(start) || isNaN(end) || start > end || start < 1) {
-            resBox.innerHTML = "لطفاً بازه معتبری وارد کنید.";
-            return;
-        }
-        if (end - start > 300) {
-            resBox.innerHTML = "برای روان اجرا شدن انیمیشن، اختلاف شروع و پایان نباید بیشتر از ۳۰۰ عدد باشد.";
+            res.innerHTML = `<div class="result-title"><i class="fa-solid fa-triangle-exclamation"></i> خطا:</div> لطفاً بازه معتبری وارد کنید.`;
             return;
         }
 
-        resBox.innerHTML = `
-            <div id="sieveTitle" class="sieve-title">اعداد طبیعی</div>
+        res.innerHTML = `
+            <div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div>
             <div id="numGrid" class="num-grid"></div>
         `;
         
@@ -408,7 +500,7 @@
         let title = document.getElementById('sieveTitle');
         let elements = [];
 
-        // نمایش اعداد طبیعی
+        // نمایش تمام اعداد
         for (let i = start; i <= end; i++) {
             let span = document.createElement('span');
             span.className = 'num-item';
@@ -417,25 +509,25 @@
             elements.push({ el: span, val: i });
         }
 
-        // شروع انیمیشن پس از 2 ثانیه
+        // مکث 2 ثانیه‌ای برای اینکه کاربر اعداد را ببیند، سپس شروع پرواز
         setTimeout(() => {
             elements.forEach(item => {
                 if (!isPrimeSimple(item.val)) {
                     item.el.classList.add('fly-away');
                 } else {
-                    item.el.style.background = '#28a745';
+                    item.el.style.background = 'var(--success)';
                 }
             });
 
-            // حذف فضای اعداد پرواز کرده و تغییر عنوان به اعداد اول
+            // مکث 1.2 ثانیه‌ای تا پرواز تمام شود
             setTimeout(() => {
                 elements.forEach(item => {
                     if (!isPrimeSimple(item.val)) {
                         item.el.style.display = 'none';
                     }
                 });
-                title.innerText = "اعداد اول";
-                title.style.color = "#28a745";
+                title.innerHTML = `<i class="fa-solid fa-star"></i> اعداد اول`;
+                title.style.color = "var(--success)";
                 title.style.transform = "scale(1.1)";
             }, 1200);
 
