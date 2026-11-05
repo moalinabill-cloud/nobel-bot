@@ -221,15 +221,52 @@
             60% { transform: scale(1.02); opacity: 1; }
             100% { transform: scale(1); opacity: 1; }
         }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
 
         .result-title {
             font-weight: bold;
             color: var(--primary);
-            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 17px;
+        }
+        
+        /* دکمه دوباره */
+        .reset-btn {
+            background: rgba(225, 29, 72, 0.1);
+            color: #e11d48;
+            border: 1px solid rgba(225, 29, 72, 0.2);
+            padding: 6px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background: #e11d48;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.2);
+        }
+        
+        .reset-btn i {
+            transition: transform 0.4s;
+        }
+        
+        .reset-btn:hover i {
+            transform: rotate(-180deg);
         }
 
         /* دکمه تپنده و نوری */
@@ -282,13 +319,12 @@
         .sieve-warning {
             background: rgba(255, 243, 205, 0.8);
             color: #856404;
-            padding: 10px 15px;
+            padding: 15px;
             border-radius: 12px;
-            font-size: 13px;
+            font-size: 14px;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
             border-right: 4px solid #ffeeba;
         }
 
@@ -440,10 +476,11 @@
     <!-- بخش غربال -->
     <div class="tab-content" id="tab-3">
         <div class="sieve-warning">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <div>
-                <strong>نکته :</strong> حداکثر اختلاف مجاز بین دو عدد ، 1000 میباشد.<br>
-                <strong>نکته :</strong> عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.
+            <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px; margin-left: 10px;"></i>
+            <div style="line-height: 1.8;">
+                <strong>نکته :</strong><br>
+                1 : حداکثر اختلاف مجاز بین دو عدد ، 1000 است .<br>
+                2 : عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد .
             </div>
         </div>
         <div class="dual-inputs">
@@ -511,6 +548,40 @@
             box.classList.remove('show-anim');
             box.style.display = 'none';
         });
+    }
+    
+    // پاک کردن فرم و بستن نتیجه (دکمه دوباره)
+    function resetTab(index) {
+        if (index === 0) {
+            document.getElementById('numInput').value = '';
+        } else if (index === 1) {
+            document.getElementById('bmmInput1').value = '';
+            document.getElementById('bmmInput2').value = '';
+        } else if (index === 2) {
+            document.getElementById('kmmInput1').value = '';
+            document.getElementById('kmmInput2').value = '';
+        } else if (index === 3) {
+            document.getElementById('sieveStart').value = '';
+            document.getElementById('sieveEnd').value = '';
+        }
+        
+        const box = document.getElementById('result-' + index);
+        box.classList.remove('show-anim');
+        setTimeout(() => {
+            box.style.display = 'none';
+            box.innerHTML = '';
+        }, 300);
+    }
+
+    // تولید کادر هدر نتیجه با دکمه دوباره
+    function getResultHeader(title, icon, tabIndex) {
+        return `
+        <div class="result-header">
+            <div class="result-title"><i class="${icon}"></i> ${title}:</div>
+            <button class="reset-btn" onclick="resetTab(${tabIndex})">
+                <i class="fa-solid fa-rotate-right"></i> دوباره
+            </button>
+        </div>`;
     }
 
     // تریگر کردن انیمیشن کادر نتیجه
@@ -590,10 +661,10 @@
     function checkPrime() {
         let val = cleanNumber(document.getElementById('numInput').value);
         let res = document.getElementById('result-0');
-        let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه بررسی:</div>`;
+        let headerHTML = getResultHeader("نتیجه بررسی", "fa-solid fa-check-double", 0);
         
         if (!val || isNaN(val)) {
-            res.innerHTML = tTitle + "لطفاً یک عدد معتبر وارد کنید.";
+            res.innerHTML = headerHTML + "لطفاً یک عدد معتبر وارد کنید.";
             triggerResultAnim('result-0');
             return;
         }
@@ -616,14 +687,14 @@
             <div class="video-card">
                 <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;">
                     <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> 
-                    اگه میخوای خودت بتونی اعداد اول و مرکب رو تشخیص بدی این ویدیو رو ببین:
+                    اگه میخوای خودت بتونی اعداد اول و مرکب رو تشخیص بدی این ویدیو رو ببین
                 </p>
                 <div class="video-wrapper">
                     <iframe src="https://www.aparat.com/video/video/embed/videohash/hydjqz3/vt/frame" allowFullScreen="true"></iframe>
                 </div>
             </div>`;
             
-        res.innerHTML = tTitle + contentHTML + videoCard;
+        res.innerHTML = headerHTML + contentHTML + videoCard;
         triggerResultAnim('result-0');
     }
 
@@ -632,10 +703,10 @@
         let aStr = cleanNumber(document.getElementById('bmmInput1').value);
         let bStr = cleanNumber(document.getElementById('bmmInput2').value);
         let res = document.getElementById('result-1');
-        let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه ب.م.م:</div>`;
+        let headerHTML = getResultHeader("نتیجه ب.م.م", "fa-solid fa-check-double", 1);
         
         if (!aStr || !bStr) {
-            res.innerHTML = tTitle + "لطفاً هر دو عدد را وارد کنید.";
+            res.innerHTML = headerHTML + "لطفاً هر دو عدد را وارد کنید.";
             triggerResultAnim('result-1');
             return;
         }
@@ -648,14 +719,14 @@
             <div class="video-card">
                 <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;">
                     <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> 
-                    اگه میخوای یاد بگیری چطور خودت ب.م.م هر عددی رو حساب کنی این ویدیو رو ببین
+                    اگه میخوای یاد بگیرید چطور خودت ب م م هر عددی رو حساب کنی این ویدیو رو ببین
                 </p>
                 <div class="video-wrapper">
                     <iframe src="https://www.aparat.com/video/video/embed/videohash/ldz5eaf/vt/frame" allowFullScreen="true"></iframe>
                 </div>
             </div>`;
             
-        res.innerHTML = tTitle + `بزرگ‌ترین مقسوم‌علیه مشترک (${a} , ${b}) برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${g}</div>` + videoCard;
+        res.innerHTML = headerHTML + `بزرگ‌ترین مقسوم‌علیه مشترک (${a} , ${b}) برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${g}</div>` + videoCard;
         triggerResultAnim('result-1');
     }
 
@@ -664,10 +735,10 @@
         let aStr = cleanNumber(document.getElementById('kmmInput1').value);
         let bStr = cleanNumber(document.getElementById('kmmInput2').value);
         let res = document.getElementById('result-2');
-        let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه ک.م.م:</div>`;
+        let headerHTML = getResultHeader("نتیجه ک.م.م", "fa-solid fa-check-double", 2);
         
         if (!aStr || !bStr) {
-            res.innerHTML = tTitle + "لطفاً هر دو عدد را وارد کنید.";
+            res.innerHTML = headerHTML + "لطفاً هر دو عدد را وارد کنید.";
             triggerResultAnim('result-2');
             return;
         }
@@ -688,7 +759,7 @@
                 </div>
             </div>`;
             
-        res.innerHTML = tTitle + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${k}</div>` + videoCard;
+        res.innerHTML = headerHTML + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${k}</div>` + videoCard;
         triggerResultAnim('result-2');
     }
 
@@ -697,19 +768,21 @@
         let start = parseInt(cleanNumber(document.getElementById('sieveStart').value));
         let end = parseInt(cleanNumber(document.getElementById('sieveEnd').value));
         let res = document.getElementById('result-3');
+        let headerHTML = getResultHeader("نتیجه", "fa-solid fa-check-double", 3);
+        
         triggerResultAnim('result-3');
         
         if (isNaN(start) || isNaN(end) || start > end || start < 1) {
-            res.innerHTML = `<div class="result-title"><i class="fa-solid fa-triangle-exclamation"></i> خطا:</div> لطفاً دقت کنید: عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.`;
+            res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i> خطا: عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.</div>`;
             return;
         }
         
         if (end - start > 1000) {
-            res.innerHTML = `<div class="result-title" style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت:</div> طبق نکته اول، حداکثر اختلاف مجاز بین دو عدد ، 1000 میباشد.`;
+            res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت: حداکثر اختلاف مجاز بین دو عدد ، 1000 است.</div>`;
             return;
         }
 
-        res.innerHTML = `
+        res.innerHTML = headerHTML + `
             <div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div>
             <div id="numGrid" class="num-grid"></div>
             <div id="sieveVideo" style="display: none; opacity: 0; transition: opacity 0.8s ease;">
@@ -758,7 +831,7 @@
                 title.style.color = "var(--success)";
                 title.style.transform = "scale(1.15)";
                 
-                // Show video smoothly after animation finishes
+                // نمایش ویدیو با یک افکت فِید (Fade In) بعد از پایان انیمیشن‌ها
                 let videoBox = document.getElementById('sieveVideo');
                 videoBox.style.display = 'block';
                 setTimeout(() => { videoBox.style.opacity = '1'; }, 50);
