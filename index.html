@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* فونت ایران یکان */
         @font-face {
             font-family: 'iranyekan';
             src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebRegular.woff2') format('woff2');
@@ -19,13 +20,10 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --secondary: #ec4899; /* رنگ مکمل صورتی برای گرادیان مدرن */
-            --card-bg: rgba(255, 255, 255, 0.85); /* حالت شیشه‌ای شفاف */
-            --text-dark: #1f2937;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --text-dark: #1e1b4b;
             --text-muted: #6b7280;
-            --input-border: rgba(229, 231, 235, 0.6);
             --success: #10b981;
         }
 
@@ -36,39 +34,42 @@
             font-family: 'iranyekan', Tahoma, sans-serif;
         }
 
+        /* پس‌زمینه متحرک (گرادیان) */
+        body {
+            background: linear-gradient(-45deg, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        body {
-            /* پس‌زمینه گرادیان متحرک */
-            background: linear-gradient(-45deg, #6366f1, #8b5cf6, #ec4899, #3b82f6);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: var(--text-dark);
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
+        /* کادر شیشه‌ای ثابت */
         .container {
             width: 100%;
             max-width: 600px;
-            background: var(--card-bg);
-            padding: 35px;
+            background: rgba(255, 255, 255, 0.65);
+            padding: 30px;
             border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            /* افکت شیشه‌ای (Glassmorphism) */
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 20px;
+            position: relative;
         }
 
         .header {
@@ -78,92 +79,83 @@
 
         .header h1 {
             color: var(--primary);
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
+        /* انیمیشن آیکون ربات */
         .header h1 i {
-            margin-left: 8px;
-            animation: floatIcon 3s ease-in-out infinite;
-            display: inline-block;
+            animation: botPulse 2s infinite ease-in-out;
+            transform-origin: center bottom;
         }
 
-        @keyframes floatIcon {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
+        @keyframes botPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-10deg); }
+            50% { transform: scale(1.15) rotate(0deg); }
+            75% { transform: scale(1.1) rotate(10deg); }
         }
 
+        /* تب‌ها */
         .tabs {
             display: flex;
             gap: 8px;
             background: rgba(255, 255, 255, 0.5);
-            padding: 10px;
-            border-radius: 18px;
+            padding: 8px;
+            border-radius: 16px;
             overflow-x: auto;
-            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .tab-btn {
             flex: 1;
-            padding: 12px 5px;
+            padding: 12px;
             border: none;
             background: transparent;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
-            border-radius: 14px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
-            /* قرار دادن آیکون بالای متن */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             gap: 8px;
         }
 
         .tab-btn i {
-            font-size: 26px; /* آیکون‌های بزرگتر */
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 20px;
+            transition: transform 0.3s;
         }
 
-        .tab-btn:hover {
-            background: rgba(255, 255, 255, 0.8);
-            color: var(--primary);
-        }
-
-        .tab-btn:hover i {
-            transform: scale(1.2) translateY(-3px);
-        }
+        .tab-btn:hover { color: var(--primary); }
+        .tab-btn:hover i { transform: scale(1.15) translateY(-2px); }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
-            transform: translateY(-2px);
+            background: #fff;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15);
         }
 
-        .tab-btn.active i {
-            transform: scale(1.1);
-        }
-
-        .tab-content {
-            display: none;
-            animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
+        /* محتوای تب با انیمیشن Slide Up Fade */
+        .tab-content { display: none; }
         .tab-content.active {
             display: block;
+            animation: slideUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
+        /* فرم‌ها و ورودی‌ها */
         .input-group {
             position: relative;
             margin-bottom: 15px;
@@ -176,84 +168,58 @@
             transform: translateY(-50%);
             color: var(--primary);
             font-size: 18px;
-            opacity: 0.8;
+            transition: 0.3s;
         }
 
         .input-group input {
             width: 100%;
-            padding: 16px 45px 16px 16px;
-            border: 2px solid var(--input-border);
+            padding: 15px 45px 15px 15px;
+            border: 2px solid transparent;
             border-radius: 14px;
             font-size: 16px;
             outline: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.6);
             color: var(--text-dark);
             font-weight: bold;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .input-group input:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.15);
-        }
-
         .input-group input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2), 0 8px 20px rgba(99, 102, 241, 0.2);
             background: #fff;
-            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
         }
 
-        .dual-inputs {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .dual-inputs .input-group {
-            flex: 1;
-        }
+        .dual-inputs { display: flex; gap: 15px; }
+        .dual-inputs .input-group { flex: 1; }
 
-        .sieve-note {
-            background: rgba(254, 226, 226, 0.85);
-            color: #ef4444;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
-            border: 1px dashed #f87171;
-            backdrop-filter: blur(5px);
-        }
-
+        /* نتایج و پاپ‌آپ فنری */
         .result-box {
-            padding: 22px;
-            background: rgba(248, 250, 252, 0.8);
-            border: 2px dashed rgba(203, 213, 225, 0.9);
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px dashed rgba(79, 70, 229, 0.4);
             border-radius: 16px;
-            min-height: 120px;
-            font-size: 16px;
+            min-height: 100px;
+            font-size: 15px;
             line-height: 1.8;
             color: var(--text-dark);
             margin-bottom: 20px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-origin: top center;
+            transition: all 0.3s;
+            display: none;
         }
 
-        .result-box:hover {
+        .result-box.show-anim {
+            display: block;
+            animation: springPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.95);
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
         }
 
-        .spring-pop {
-            animation: springPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
         @keyframes springPop {
-            0% { opacity: 0; transform: scale(0.8) translateY(15px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+            0% { transform: scale(0.85); opacity: 0; }
+            60% { transform: scale(1.02); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .result-title {
@@ -263,97 +229,150 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 18px;
+            font-size: 17px;
         }
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
-            50% { box-shadow: 0 4px 30px rgba(236, 72, 153, 0.6); }
-            100% { box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
-        }
-
+        /* دکمه تپنده و نوری */
         .main-action-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             color: white;
             border: none;
             padding: 18px;
             width: 100%;
             border-radius: 16px;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 12px;
-            animation: pulseGlow 2.5s infinite;
+            overflow: hidden;
+            animation: pulseBtn 2s infinite;
         }
 
-        .main-action-btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            animation: none;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.6);
+        @keyframes pulseBtn {
+            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
         }
 
-        .main-action-btn i {
-            font-size: 24px;
+        .main-action-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .main-action-btn:hover { transform: translateY(-3px); }
+        .main-action-btn:active { transform: translateY(1px); }
+
+        /* استایل‌های غربال */
+        .sieve-warning {
+            background: rgba(255, 243, 205, 0.8);
+            color: #856404;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-right: 4px solid #ffeeba;
         }
 
         .sieve-title {
-            text-align: center; font-size: 24px; font-weight: bold;
-            margin-bottom: 20px; color: var(--primary);
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
             transition: color 0.5s, transform 0.5s;
         }
+
+        /* چیدمان اعداد از چپ به راست */
         .num-grid {
-            display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-start;
-            direction: ltr; /* اعداد چپ به راست */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            direction: ltr; /* LTR Setup */
+            justify-content: flex-start;
         }
+
         .num-item {
-            padding: 12px 18px;
-            background: rgba(148, 163, 184, 0.95);
-            color: white;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 18px;
-            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 1s ease-in-out, background-color 0.5s, box-shadow 0.5s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 10px;
             min-width: 45px;
-            opacity: 0;
-            transform: scale(0);
-            animation: popInItem 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-align: center;
+            background: rgba(156, 163, 175, 0.8);
+            color: white;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        @keyframes popInItem {
-            to { opacity: 1; transform: scale(1); }
-        }
-        .num-item:hover {
-            transform: scale(1.15) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+
+        .num-item.prime-glow {
+            background: var(--success);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+            transform: scale(1.15);
             z-index: 10;
         }
+
+        /* انیمیشن محو شدن با چرخش 360 */
         .fly-away {
-            transform: translateY(-250px) scale(0) rotate(360deg) !important;
+            transform: translateY(-200px) rotate(360deg) scale(0);
             opacity: 0;
             pointer-events: none;
         }
-        .prime-glow {
-            background: var(--success) !important;
-            box-shadow: 0 0 15px var(--success), inset 0 0 10px rgba(255,255,255,0.4) !important;
-            transform: scale(1.15) !important;
-            z-index: 5;
+
+        /* کارت ویدیو آپارات */
+        .video-card {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            text-align: center;
+            box-shadow: inset 0 2px 10px rgba(255,255,255,0.5), 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            background: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 0;
         }
 
-        .footer-credit {
+        /* فوتر */
+        .footer {
             text-align: center;
+            margin-top: 20px;
             font-size: 12px;
-            color: var(--text-muted);
-            opacity: 0.8;
-            margin-top: -5px;
-            font-family: Arial, sans-serif;
-            letter-spacing: 0.5px;
+            color: rgba(30, 27, 75, 0.5);
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
         }
     </style>
 </head>
@@ -366,7 +385,7 @@
     
     <div class="tabs">
         <button class="tab-btn active" onclick="switchTab(0)">
-            <i class="fa-solid fa-cubes"></i> اول و مرکب
+            <i class="fa-solid fa-hashtag"></i> اول و مرکب
         </button>
         <button class="tab-btn" onclick="switchTab(1)">
             <i class="fa-solid fa-divide"></i> ب.م.م
@@ -375,23 +394,20 @@
             <i class="fa-solid fa-layer-group"></i> ک.م.م
         </button>
         <button class="tab-btn" onclick="switchTab(3)">
-            <i class="fa-solid fa-filter"></i> غربال
+            <i class="fa-solid fa-wand-magic-sparkles"></i> غربال
         </button>
     </div>
 
-    <!-- تب اول و مرکب -->
+    <!-- بخش اول و مرکب -->
     <div class="tab-content active" id="tab-0">
         <div class="input-group">
             <i class="fa-solid fa-pen"></i>
             <input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)">
         </div>
-        <div class="result-box" id="result-0">
-            <div class="result-title"><i class="fa-solid fa-circle-info"></i> نتیجه:</div>
-            پاسخ در این قسمت نمایش داده می‌شود...
-        </div>
+        <div class="result-box" id="result-0"></div>
     </div>
 
-    <!-- تب ب.م.م -->
+    <!-- بخش ب.م.م -->
     <div class="tab-content" id="tab-1">
         <div class="dual-inputs">
             <div class="input-group">
@@ -403,13 +419,10 @@
                 <input type="text" id="bmmInput2" placeholder="عدد دوم">
             </div>
         </div>
-        <div class="result-box" id="result-1">
-            <div class="result-title"><i class="fa-solid fa-circle-info"></i> نتیجه:</div>
-            پاسخ در این قسمت نمایش داده می‌شود...
-        </div>
+        <div class="result-box" id="result-1"></div>
     </div>
 
-    <!-- تب ک.م.م -->
+    <!-- بخش ک.م.م -->
     <div class="tab-content" id="tab-2">
         <div class="dual-inputs">
             <div class="input-group">
@@ -421,44 +434,40 @@
                 <input type="text" id="kmmInput2" placeholder="عدد دوم">
             </div>
         </div>
-        <div class="result-box" id="result-2">
-            <div class="result-title"><i class="fa-solid fa-circle-info"></i> نتیجه:</div>
-            پاسخ در این قسمت نمایش داده می‌شود...
-        </div>
+        <div class="result-box" id="result-2"></div>
     </div>
 
-    <!-- تب غربال -->
+    <!-- بخش غربال -->
     <div class="tab-content" id="tab-3">
-        <div class="sieve-note">
-            <i class="fa-solid fa-circle-exclamation"></i> نکته : حد اکثر اختلاف بین دو عدد تا 1000 است
+        <div class="sieve-warning">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <strong>اخطار:</strong> حداکثر اختلاف مجاز بین دو عدد، ۱۰۰۰ می‌باشد.
         </div>
         <div class="dual-inputs">
             <div class="input-group">
                 <i class="fa-solid fa-play"></i>
-                <input type="text" id="sieveStart" placeholder="عدد شروع (مثلاً 1)">
+                <input type="text" id="sieveStart" placeholder="شروع بازه">
             </div>
             <div class="input-group">
                 <i class="fa-solid fa-stop"></i>
-                <input type="text" id="sieveEnd" placeholder="عدد پایان (مثلاً 50)">
+                <input type="text" id="sieveEnd" placeholder="پایان بازه">
             </div>
         </div>
-        <div class="result-box" id="result-3">
-            <div class="result-title"><i class="fa-solid fa-circle-info"></i> نتیجه:</div>
-            پاسخ در این قسمت نمایش داده می‌شود...
-        </div>
+        <div class="result-box" id="result-3"></div>
     </div>
 
     <button class="main-action-btn" onclick="executeCurrentTab()">
         <i id="btnIcon" class="fa-solid fa-magnifying-glass-chart"></i> 
         <span id="btnText">بررسی عدد</span>
     </button>
-
-    <div class="footer-credit" dir="ltr">powered by M.Ali Nabil</div>
+    
+    <div class="footer">powered by M.Ali Nabil</div>
 </div>
 
 <script>
     let currentTabIndex = 0;
 
+    // پاکسازی اعداد فارسی به انگلیسی
     function cleanNumber(str) {
         if (!str) return "";
         return str.toString().trim()
@@ -466,6 +475,7 @@
             .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
     }
 
+    // تغییر تب‌ها
     function switchTab(index) {
         currentTabIndex = index;
         const buttons = document.querySelectorAll('.tab-btn');
@@ -484,16 +494,33 @@
             btnIcon.className = "fa-solid fa-magnifying-glass-chart";
         } else if (index === 1) {
             btnText.innerText = "محاسبه ب.م.م";
-            btnIcon.className = "fa-solid fa-divide";
+            btnIcon.className = "fa-solid fa-calculator";
         } else if (index === 2) {
             btnText.innerText = "محاسبه ک.م.م";
-            btnIcon.className = "fa-solid fa-layer-group";
+            btnIcon.className = "fa-solid fa-calculator";
         } else if (index === 3) {
             btnText.innerText = "اجرای جادوی غربال";
             btnIcon.className = "fa-solid fa-wand-magic-sparkles";
         }
+        
+        // مخفی کردن کادرهای نتایج با تغییر تب
+        document.querySelectorAll('.result-box').forEach(box => {
+            box.classList.remove('show-anim');
+            box.style.display = 'none';
+        });
     }
 
+    // تریگر کردن انیمیشن کادر نتیجه
+    function triggerResultAnim(boxId) {
+        const box = document.getElementById(boxId);
+        box.classList.remove('show-anim');
+        box.style.display = 'none';
+        void box.offsetWidth; // Force Reflow
+        box.style.display = 'block';
+        box.classList.add('show-anim');
+    }
+
+    // اجرای عملیات تب جاری
     function executeCurrentTab() {
         if (currentTabIndex === 0) checkPrime();
         else if (currentTabIndex === 1) calcBMM();
@@ -501,6 +528,7 @@
         else if (currentTabIndex === 3) runAnimatedSieve();
     }
 
+    // توابع ریاضی با BigInt برای امنیت اعداد بزرگ
     function isProbablePrime(n) {
         if (n === 2n || n === 3n) return true;
         if (n < 2n || n % 2n === 0n) return false;
@@ -520,6 +548,7 @@
         }
         return true;
     }
+    
     function powerMod(base, exp, mod) {
         let res = 1n;
         base = base % mod;
@@ -530,6 +559,7 @@
         }
         return res;
     }
+    
     function getPrimeFactors(n) {
         let factors = [], temp = n;
         while (temp % 2n === 0n) { factors.push(2n); temp /= 2n; }
@@ -541,124 +571,177 @@
         if (temp > 1n) factors.push(temp);
         return factors.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
     }
+    
     function gcdBigInt(a, b) {
         while (b !== 0n) { let t = b; b = a % b; a = t; }
         return a;
     }
+    
     function isPrimeSimple(n) {
         if (n < 2) return false;
         for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
         return true;
     }
 
-    function animateResult(resElement, htmlContent) {
-        resElement.classList.remove('spring-pop');
-        void resElement.offsetWidth; // ایجاد رفرش در صفحه برای اجرای دوباره انیمیشن
-        resElement.innerHTML = htmlContent;
-        resElement.classList.add('spring-pop');
-    }
-
+    // عملکرد تب اول و مرکب
     function checkPrime() {
         let val = cleanNumber(document.getElementById('numInput').value);
         let res = document.getElementById('result-0');
-        let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه:</div>`;
-        if (!val || isNaN(val)) return animateResult(res, tTitle + "لطفاً یک عدد معتبر وارد کنید.");
+        let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه بررسی:</div>`;
+        
+        if (!val || isNaN(val)) {
+            res.innerHTML = tTitle + "لطفاً یک عدد معتبر وارد کنید.";
+            triggerResultAnim('result-0');
+            return;
+        }
+        
         let n = BigInt(val);
-        if (n <= 1n) return animateResult(res, tTitle + `عدد ${n} نه اول است و نه مرکب.`);
-        if (isProbablePrime(n)) {
-            animateResult(res, tTitle + `عدد <b>${n}</b> یک <b style="color:var(--success);">عدد اول</b> است.`);
+        let contentHTML = "";
+        
+        if (n <= 1n) {
+            contentHTML = `عدد ${n} نه اول است و نه مرکب.`;
+        } else if (isProbablePrime(n)) {
+            contentHTML = `عدد <b style="font-size:18px; color:var(--primary);">${n}</b> یک <b style="color:var(--success); font-size:18px;">عدد اول</b> است.`;
         } else {
             let factors = getPrimeFactors(n);
-            let divList = [];
-            for (let i = 1n; i <= n; i++) {
-                if (n % i === 0n) { divList.push(i); if(divList.length > 100) break; }
-            }
-            animateResult(res, tTitle + `عدد <b>${n}</b> یک <b>عدد مرکب</b> است.<br><br>` +
-                `<b>تجزیه به عوامل اول:</b> ${factors.join(' × ')}<br><br>` +
-                `<b>شمارنده‌ها:</b> ${divList.join(', ')} ${divList.length > 100 ? '(...)' : ''}`);
+            contentHTML = `عدد <b style="font-size:18px; color:var(--primary);">${n}</b> یک <b>عدد مرکب</b> است.<br><br>` +
+                `<b>تجزیه به عوامل اول:</b> <span style="direction:ltr; display:inline-block;">${factors.join(' × ')}</span>`;
         }
+        
+        // ویدیوی آپارات اول و مرکب
+        let videoCard = `
+            <div class="video-card">
+                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;">
+                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> 
+                    اگه میخوای خودت بتونی اعداد اول و مرکب رو تشخیص بدی این ویدیو رو ببین:
+                </p>
+                <div class="video-wrapper">
+                    <iframe src="https://www.aparat.com/video/video/embed/videohash/hydjqz3/vt/frame" allowFullScreen="true"></iframe>
+                </div>
+            </div>`;
+            
+        res.innerHTML = tTitle + contentHTML + videoCard;
+        triggerResultAnim('result-0');
     }
 
+    // عملکرد تب ب.م.م
     function calcBMM() {
         let aStr = cleanNumber(document.getElementById('bmmInput1').value);
         let bStr = cleanNumber(document.getElementById('bmmInput2').value);
         let res = document.getElementById('result-1');
         let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه ب.م.م:</div>`;
-        if (!aStr || !bStr) return animateResult(res, tTitle + "لطفاً هر دو عدد را وارد کنید.");
+        
+        if (!aStr || !bStr) {
+            res.innerHTML = tTitle + "لطفاً هر دو عدد را وارد کنید.";
+            triggerResultAnim('result-1');
+            return;
+        }
+        
         let a = BigInt(aStr), b = BigInt(bStr);
         let g = gcdBigInt(a, b);
-        animateResult(res, tTitle + `بزرگ‌ترین مقسوم‌علیه مشترک (${a} , ${b}) برابر است با: <br><br><b style="font-size:20px; color:var(--primary);">${g}</b>`);
+        
+        // ویدیوی آپارات ب.م.م
+        let videoCard = `
+            <div class="video-card">
+                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;">
+                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> 
+                    اگه میخواید یاد بگیری چطور خودت حساب کنی این ویدو رو ببین:
+                </p>
+                <div class="video-wrapper">
+                    <iframe src="https://www.aparat.com/video/video/embed/videohash/ldz5eaf/vt/frame" allowFullScreen="true"></iframe>
+                </div>
+            </div>`;
+            
+        res.innerHTML = tTitle + `بزرگ‌ترین مقسوم‌علیه مشترک (${a} , ${b}) برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${g}</div>` + videoCard;
+        triggerResultAnim('result-1');
     }
 
+    // عملکرد تب ک.م.م
     function calcKMM() {
         let aStr = cleanNumber(document.getElementById('kmmInput1').value);
         let bStr = cleanNumber(document.getElementById('kmmInput2').value);
         let res = document.getElementById('result-2');
         let tTitle = `<div class="result-title"><i class="fa-solid fa-check-double"></i> نتیجه ک.م.م:</div>`;
-        if (!aStr || !bStr) return animateResult(res, tTitle + "لطفاً هر دو عدد را وارد کنید.");
+        
+        if (!aStr || !bStr) {
+            res.innerHTML = tTitle + "لطفاً هر دو عدد را وارد کنید.";
+            triggerResultAnim('result-2');
+            return;
+        }
+        
         let a = BigInt(aStr), b = BigInt(bStr);
         let g = gcdBigInt(a, b);
         let k = (a * b) / g;
-        animateResult(res, tTitle + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><b style="font-size:20px; color:var(--primary);">${k}</b>`);
+        
+        res.innerHTML = tTitle + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${k}</div>`;
+        triggerResultAnim('result-2');
     }
 
+    // الگوریتم غربال انیمیشنی
     function runAnimatedSieve() {
         let start = parseInt(cleanNumber(document.getElementById('sieveStart').value));
         let end = parseInt(cleanNumber(document.getElementById('sieveEnd').value));
         let res = document.getElementById('result-3');
+        
         if (isNaN(start) || isNaN(end) || start > end || start < 1) {
-            animateResult(res, `<div class="result-title"><i class="fa-solid fa-triangle-exclamation"></i> خطا:</div> لطفاً بازه معتبری وارد کنید.`);
+            res.innerHTML = `<div class="result-title"><i class="fa-solid fa-triangle-exclamation"></i> خطا:</div> لطفاً بازه معتبری وارد کنید. (عدد اول کوچکتر از عدد دوم باشد)`;
+            triggerResultAnim('result-3');
             return;
         }
         
+        // چک کردن محدودیت 1000 تایی
         if (end - start > 1000) {
-            animateResult(res, `<div class="result-title" style="color:#ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> خطا:</div> اختلاف بین دو عدد نباید بیشتر از ۱۰۰۰ باشد.`);
+            res.innerHTML = `<div class="result-title" style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت:</div> طبق اخطار ثبت شده، حداکثر اختلاف مجاز ۱۰۰۰ عدد است.`;
+            triggerResultAnim('result-3');
             return;
         }
 
-        animateResult(res, `
+        res.innerHTML = `
             <div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div>
             <div id="numGrid" class="num-grid"></div>
-        `);
+        `;
+        triggerResultAnim('result-3');
         
         let grid = document.getElementById('numGrid');
         let title = document.getElementById('sieveTitle');
         let elements = [];
-        let staggerDelay = 0; // زمان مکث برای انیمیشن آبشاری ورود
 
+        // ایجاد گرید اعداد به صورت LTR
         for (let i = start; i <= end; i++) {
             let span = document.createElement('span');
             span.className = 'num-item';
             span.innerText = i;
-            span.style.animationDelay = `${staggerDelay}s`;
-            staggerDelay += 0.03;
             grid.appendChild(span);
             elements.push({ el: span, val: i });
         }
 
-        let waitTime = (staggerDelay * 1000) + 800; // صبر تا پایان ورود تمامی اعداد
-
+        // مکث اولیه و سپس شروع انیمیشن
         setTimeout(() => {
-            elements.forEach(item => {
-                if (!isPrimeSimple(item.val)) {
-                    item.el.classList.add('fly-away');
-                } else {
-                    item.el.classList.add('prime-glow');
-                }
+            elements.forEach((item, index) => {
+                setTimeout(() => {
+                    if (!isPrimeSimple(item.val)) {
+                        // اعداد مرکب پرواز میکنند
+                        item.el.classList.add('fly-away');
+                    } else {
+                        // اعداد اول درخشان میشوند
+                        item.el.classList.add('prime-glow');
+                    }
+                }, index * (800 / elements.length)); // Stagger effect
             });
 
+            // پایان انیمیشن
             setTimeout(() => {
                 elements.forEach(item => {
                     if (!isPrimeSimple(item.val)) {
-                        item.el.style.display = 'none';
+                        item.el.style.display = 'none'; // حذف فیزیکی اعداد مرکب
                     }
                 });
-                title.innerHTML = `<i class="fa-solid fa-star"></i> اعداد اول`;
+                title.innerHTML = `<i class="fa-solid fa-star"></i> اعداد اول یافت شد!`;
                 title.style.color = "var(--success)";
                 title.style.transform = "scale(1.1)";
-            }, 1200);
+            }, 1000 + (800)); 
 
-        }, waitTime);
+        }, 1200);
     }
 </script>
 
