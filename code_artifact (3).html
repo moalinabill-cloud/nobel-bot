@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نوبل بات | ربات هوشمند تشخیص عدد اول و شمارنده‌ها</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Vazirmatn Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.8);
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .bot-bubble {
+            animation: fadeInSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-glow {
+            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.5);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-30 glass-panel border-b border-slate-800/80 px-4 py-3 sm:px-6">
+        <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-robot text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl text-white flex items-center gap-2">
+                        نوبل بات (Nobel Bot)
+                        <span class="text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 rounded-full font-normal">بدون محدودیت رقم</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">ربات هوشمند تشخیص اعداد اول و مرکب و محاسبه شمارنده‌ها</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 flex flex-col gap-6">
+
+        <!-- TOP MODE TABS (اعداد اول و مرکب | ب.م.م | ک.م.م) -->
+        <div class="glass-panel p-2 rounded-2xl grid grid-cols-3 gap-2 shadow-lg">
+            <button 
+                onclick="switchTab('prime')" 
+                id="tab-prime"
+                class="py-3 px-4 rounded-xl font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md cursor-pointer">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>اعداد اول و مرکب</span>
+            </button>
+            <button 
+                onclick="switchTab('gcd')" 
+                id="tab-gcd"
+                class="py-3 px-4 rounded-xl font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 text-slate-300 hover:bg-slate-800/70 hover:text-white cursor-pointer">
+                <i class="fa-solid fa-compress"></i>
+                <span>ب.م.م</span>
+            </button>
+            <button 
+                onclick="switchTab('lcm')" 
+                id="tab-lcm"
+                class="py-3 px-4 rounded-xl font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 text-slate-300 hover:bg-slate-800/70 hover:text-white cursor-pointer">
+                <i class="fa-solid fa-expand"></i>
+                <span>ک.م.م</span>
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: PRIME & COMPOSITE (اعداد اول و مرکب) -->
+        <!-- ========================================== -->
+        <section id="section-prime" class="flex flex-col gap-6 flex-1">
+            
+            <!-- PART 1: قسمت نوشتن عدد -->
+            <div class="glass-panel rounded-3xl p-5 sm:p-7 shadow-2xl relative overflow-hidden">
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <label for="numberInput" class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xs">۱</span>
+                            قسمت نوشتن عدد:
+                        </label>
+                        <span id="digitCountBadge" class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700">
+                            ۰ رقم
+                        </span>
+                    </div>
+
+                    <div class="relative">
+                        <textarea 
+                            id="numberInput" 
+                            rows="2"
+                            placeholder="عدد خود را اینجا بنویسید..."
+                            class="w-full bg-slate-900/90 border-2 border-slate-700/80 focus:border-indigo-500 rounded-2xl p-4 text-left font-mono text-lg sm:text-xl text-white placeholder-slate-500 focus:outline-none transition-all resize-y"
+                            dir="ltr"
+                        ></textarea>
+                        <button 
+                            onclick="clearPrimeInput()" 
+                            id="clearBtn"
+                            title="پاک کردن"
+                            class="hidden absolute top-3 right-3 w-8 h-8 rounded-xl bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 flex items-center justify-center transition-colors cursor-pointer">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <button 
+                        onclick="analyzeNumber()" 
+                        id="analyzeBtn"
+                        class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 active:scale-[0.99] text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all text-base cursor-pointer">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>مشاهده جواب</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PART 2: قسمت جواب -->
+            <div class="flex flex-col gap-3">
+                <div class="text-sm sm:text-base font-bold text-white flex items-center gap-2 px-1">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-xs">۲</span>
+                    قسمت جواب:
+                </div>
+                <div id="resultsContainer" class="flex-1 flex flex-col gap-4">
+                    <div class="glass-panel rounded-3xl p-6 border border-slate-800 text-center text-slate-400 text-sm sm:text-base">
+                        عدد مورد نظر خود را در کادر بالا بنویسید تا اول یا مرکب بودن و شمارنده‌های آن اینجا نمایش داده شود.
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: GCD (ب.م.م) -->
+        <!-- ========================================== -->
+        <section id="section-gcd" class="hidden flex-col gap-6 flex-1">
+            
+            <!-- PART 1: قسمت نوشتن اعداد -->
+            <div class="glass-panel rounded-3xl p-5 sm:p-7 shadow-2xl">
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <label class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xs">۱</span>
+                            قسمت نوشتن اعداد (برای ب.م.م):
+                        </label>
+                        <button 
+                            onclick="addNumberField('gcd')" 
+                            class="text-xs bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition cursor-pointer">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>افزودن عدد سوم یا بیشتر</span>
+                        </button>
+                    </div>
+
+                    <div id="gcdInputsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" dir="ltr" placeholder="عدد اول را بنویسید..." oninput="sanitizeInput(this)" onkeydown="if(event.key==='Enter') calculateGCD()" class="gcd-input w-full bg-slate-900/90 border-2 border-slate-700/80 focus:border-indigo-500 rounded-2xl p-3.5 text-left font-mono text-lg text-white placeholder-slate-500 focus:outline-none transition-all">
+                        <input type="text" dir="ltr" placeholder="عدد دوم را بنویسید..." oninput="sanitizeInput(this)" onkeydown="if(event.key==='Enter') calculateGCD()" class="gcd-input w-full bg-slate-900/90 border-2 border-slate-700/80 focus:border-indigo-500 rounded-2xl p-3.5 text-left font-mono text-lg text-white placeholder-slate-500 focus:outline-none transition-all">
+                    </div>
+
+                    <button 
+                        onclick="calculateGCD()" 
+                        class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 active:scale-[0.99] text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all text-base cursor-pointer">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>محاسبه ب.م.م</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PART 2: قسمت جواب -->
+            <div class="flex flex-col gap-3">
+                <div class="text-sm sm:text-base font-bold text-white flex items-center gap-2 px-1">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-xs">۲</span>
+                    قسمت جواب:
+                </div>
+                <div id="gcdResultContainer" class="flex-1 flex flex-col gap-4">
+                    <div class="glass-panel rounded-3xl p-6 border border-slate-800 text-center text-slate-400 text-sm sm:text-base">
+                        اعداد خود را در کادرهای بالا وارد کنید تا بزرگ‌ترین مقسوم‌علیه مشترک (ب.م.م) و شمارنده‌های مشترک آن‌ها محاسبه شود.
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 3: LCM (ک.م.م) -->
+        <!-- ========================================== -->
+        <section id="section-lcm" class="hidden flex-col gap-6 flex-1">
+            
+            <!-- PART 1: قسمت نوشتن اعداد -->
+            <div class="glass-panel rounded-3xl p-5 sm:p-7 shadow-2xl">
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <label class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xs">۱</span>
+                            قسمت نوشتن اعداد (برای ک.م.م):
+                        </label>
+                        <button 
+                            onclick="addNumberField('lcm')" 
+                            class="text-xs bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition cursor-pointer">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>افزودن عدد سوم یا بیشتر</span>
+                        </button>
+                    </div>
+
+                    <div id="lcmInputsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" dir="ltr" placeholder="عدد اول را بنویسید..." oninput="sanitizeInput(this)" onkeydown="if(event.key==='Enter') calculateLCM()" class="lcm-input w-full bg-slate-900/90 border-2 border-slate-700/80 focus:border-indigo-500 rounded-2xl p-3.5 text-left font-mono text-lg text-white placeholder-slate-500 focus:outline-none transition-all">
+                        <input type="text" dir="ltr" placeholder="عدد دوم را بنویسید..." oninput="sanitizeInput(this)" onkeydown="if(event.key==='Enter') calculateLCM()" class="lcm-input w-full bg-slate-900/90 border-2 border-slate-700/80 focus:border-indigo-500 rounded-2xl p-3.5 text-left font-mono text-lg text-white placeholder-slate-500 focus:outline-none transition-all">
+                    </div>
+
+                    <button 
+                        onclick="calculateLCM()" 
+                        class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 active:scale-[0.99] text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all text-base cursor-pointer">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>محاسبه ک.م.م</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PART 2: قسمت جواب -->
+            <div class="flex flex-col gap-3">
+                <div class="text-sm sm:text-base font-bold text-white flex items-center gap-2 px-1">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-xs">۲</span>
+                    قسمت جواب:
+                </div>
+                <div id="lcmResultContainer" class="flex-1 flex flex-col gap-4">
+                    <div class="glass-panel rounded-3xl p-6 border border-slate-800 text-center text-slate-400 text-sm sm:text-base">
+                        اعداد خود را در کادرهای بالا وارد کنید تا کوچک‌ترین مضرب مشترک (ک.م.م) آن‌ها محاسبه شود.
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden bg-slate-900 text-white border border-indigo-500/50 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMessage">کپی شد!</span>
+    </div>
+
+    <!-- JavaScript Application Logic (BigInt Unlimited Precision Math) -->
+    <script>
+        // ==========================================
+        // 1. PERSIAN / ARABIC DIGIT CONVERTER & UI
+        // ==========================================
+        const numberInput = document.getElementById('numberInput');
+        const digitCountBadge = document.getElementById('digitCountBadge');
+        const clearBtn = document.getElementById('clearBtn');
+
+        function toEnglishDigits(str) {
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            const arabicDigits  = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            let res = str;
+            for (let i = 0; i < 10; i++) {
+                res = res.replace(new RegExp(persianDigits[i], 'g'), i)
+                         .replace(new RegExp(arabicDigits[i], 'g'), i);
+            }
+            return res;
+        }
+
+        function toPersianDigits(str) {
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return String(str).replace(/\d/g, x => persianDigits[x]);
+        }
+
+        function formatBigIntReadable(nStr) {
+            return nStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        numberInput.addEventListener('input', () => {
+            // Convert Persian/Arabic digits automatically and keep only digits and optional leading minus
+            let raw = toEnglishDigits(numberInput.value);
+            let isNeg = raw.trim().startsWith('-');
+            let digitsOnly = raw.replace(/[^0-9]/g, '');
+            let cleaned = (isNeg ? '-' : '') + digitsOnly;
+            
+            if (numberInput.value !== cleaned) {
+                numberInput.value = cleaned;
+            }
+
+            const len = digitsOnly.length;
+            digitCountBadge.textContent = `${toPersianDigits(len)} رقم`;
+            clearBtn.classList.toggle('hidden', len === 0 && !isNeg);
+        });
+
+        // Allow pressing Enter (without Shift) to trigger check
+        numberInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                analyzeNumber();
+            }
+        });
+
+        function clearPrimeInput() {
+            numberInput.value = '';
+            digitCountBadge.textContent = '۰ رقم';
+            clearBtn.classList.add('hidden');
+            numberInput.focus();
+        }
+
+        function sanitizeInput(el) {
+            let raw = toEnglishDigits(el.value);
+            let digitsOnly = raw.replace(/[^0-9]/g, '');
+            if (el.value !== digitsOnly) {
+                el.value = digitsOnly;
+            }
+        }
+
+        function switchTab(mode) {
+            const tabs = ['prime', 'gcd', 'lcm'];
+            tabs.forEach(t => {
+                const sec = document.getElementById(`section-${t}`);
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === mode) {
+                    sec.classList.remove('hidden');
+                    sec.classList.add('flex');
+                    btn.className = 'py-3 px-4 rounded-xl font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md cursor-pointer';
+                } else {
+                    sec.classList.add('hidden');
+                    sec.classList.remove('flex');
+                    btn.className = 'py-3 px-4 rounded-xl font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 text-slate-300 hover:bg-slate-800/70 hover:text-white cursor-pointer';
+                }
+            });
+        }
+
+        function addNumberField(type) {
+            const container = document.getElementById(type === 'gcd' ? 'gcdInputsList' : 'lcmInputsList');
+            const inputClass = type === 'gcd' ? 'gcd-input' : 'lcm-input';
+            const actionFn = type === 'gcd' ? 'calculateGCD()' : 'calculateLCM()';
+            const count = container.querySelectorAll(`.${inputClass}`).length + 1;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'relative flex items-center';
+            wrapper.innerHTML = `
+                <input type="text" dir="ltr" placeholder="عدد ${toPersianDigits(count)} را بنویسید..." oninput="sanitizeInput(this)" onkeydown="if(event.key==='Enter') ${actionFn}" class="${inputClass} w-full bg-slate-900/90 border-2 border-slate-700/80 focus:border-indigo-500 rounded-2xl p-3.5 pl-10 text-left font-mono text-lg text-white placeholder-slate-500 focus:outline-none transition-all">
+                <button onclick="this.parentElement.remove()" title="حذف این عدد" class="absolute left-2.5 w-7 h-7 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 flex items-center justify-center transition cursor-pointer">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            `;
+            container.appendChild(wrapper);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2600);
+        }
+
+        function copyText(text, label = 'اطلاعات کپی شد!') {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast(label);
+        }
+
+        // ====================================================
+        // 2. BIGINT NUMBER THEORY ENGINE (MILLER-RABIN & POLLARD'S RHO)
+        // ====================================================
+
+        // Modular exponentiation: (base^exp) % mod
+        function modPow(base, exp, mod) {
+            let res = 1n;
+            base = base % mod;
+            while (exp > 0n) {
+                if (exp % 2n === 1n) res = (res * base) % mod;
+                exp = exp >> 1n;
+                base = (base * base) % mod;
+            }
+            return res;
+        }
+
+        // Greatest Common Divisor
+        function gcd(a, b) {
+            a = a < 0n ? -a : a;
+            b = b < 0n ? -b : b;
+            while (b > 0n) {
+                let t = b;
+                b = a % b;
+                a = t;
+            }
+            return a;
+        }
+
+        // Miller-Rabin Primality Test for arbitrarily large BigInts
+        function isPrimeBigInt(n) {
+            if (n < 2n) return false;
+            const smallPrimes = [2n, 3n, 5n, 7n, 11n, 13n, 17n, 19n, 23n, 29n, 31n, 37n, 41n, 43n, 47n];
+            for (let p of smallPrimes) {
+                if (n === p) return true;
+                if (n % p === 0n) return false;
+            }
+
+            // Write n - 1 as d * 2^s
+            let d = n - 1n;
+            let s = 0n;
+            while (d % 2n === 0n) {
+                d /= 2n;
+                s += 1n;
+            }
+
+            const bases = [2n, 3n, 5n, 7n, 11n, 13n, 17n, 19n, 23n, 29n, 31n, 37n];
+            for (let a of bases) {
+                if (n <= a) break;
+                let x = modPow(a, d, n);
+                if (x === 1n || x === n - 1n) continue;
+                let composite = true;
+                for (let r = 1n; r < s; r++) {
+                    x = (x * x) % n;
+                    if (x === n - 1n) {
+                        composite = false;
+                        break;
+                    }
+                }
+                if (composite) return false;
+            }
+            return true;
+        }
+
+        // Pollard's Rho algorithm with time-budget protection for huge composites
+        function pollardsRho(n, startTime, maxTimeMs) {
+            if (n % 2n === 0n) return 2n;
+            if (isPrimeBigInt(n)) return n;
+
+            let x = 2n;
+            let y = 2n;
+            let d = 1n;
+            let c = 1n;
+
+            let iter = 0;
+            while (d === 1n) {
+                iter++;
+                if (iter % 2000 === 0 && (performance.now() - startTime > maxTimeMs)) {
+                    return null; // Time limit exceeded for ultra-massive semi-prime
+                }
+                x = (x * x + c) % n;
+                y = (y * y + c) % n;
+                y = (y * y + c) % n;
+                let diff = x > y ? x - y : y - x;
+                d = gcd(diff, n);
+                if (d === n) {
+                    x = BigInt(Math.floor(Math.random() * 100) + 2);
+                    y = x;
+                    c += 1n;
+                    d = 1n;
+                }
+            }
+            return d;
+        }
+
+        // Complete prime factorization using Trial Division + Pollard's Rho
+        function factorizeBigInt(n, maxTimeMs = 2500) {
+            const startTime = performance.now();
+            const factors = new Map(); // primeStr -> exponent (BigInt)
+            let timedOut = false;
+
+            function addFactor(p, count = 1n) {
+                const key = p.toString();
+                factors.set(key, (factors.get(key) || 0n) + count);
+            }
+
+            // 1. Trial division by small primes up to 10,000 for speed
+            while (n % 2n === 0n) {
+                addFactor(2n);
+                n /= 2n;
+            }
+            while (n % 3n === 0n) {
+                addFactor(3n);
+                n /= 3n;
+            }
+            let d = 5n;
+            while (d <= 10000n && d * d <= n) {
+                while (n % d === 0n) {
+                    addFactor(d);
+                    n /= d;
+                }
+                while (n % (d + 2n) === 0n) {
+                    addFactor(d + 2n);
+                    n /= (d + 2n);
+                }
+                d += 6n;
+            }
+
+            // 2. Recursive Pollard's Rho for remaining large part
+            function factorRec(num) {
+                if (num === 1n || timedOut) return;
+                if (isPrimeBigInt(num)) {
+                    addFactor(num);
+                    return;
+                }
+                let divisor = pollardsRho(num, startTime, maxTimeMs);
+                if (!divisor) {
+                    timedOut = true;
+                    addFactor(num); // Record unfactored composite part
+                    return;
+                }
+                factorRec(divisor);
+                factorRec(num / divisor);
+            }
+
+            if (n > 1n) {
+                factorRec(n);
+            }
+
+            // Sort prime factors ascending
+            const sortedEntries = Array.from(factors.entries())
+                .map(([pStr, exp]) => ({ prime: BigInt(pStr), exp }))
+                .sort((a, b) => (a.prime < b.prime ? -1 : a.prime > b.prime ? 1 : 0));
+
+            return { primeFactors: sortedEntries, timedOut };
+        }
+
+        // Generate all divisors from prime factorization (up to maxLimit to prevent memory overflow)
+        function generateAllDivisors(primeFactors, maxDivisorsLimit = 5000n) {
+            let totalDivisors = 1n;
+            for (let item of primeFactors) {
+                totalDivisors *= (item.exp + 1n);
+            }
+
+            if (totalDivisors > maxDivisorsLimit) {
+                // Generate first few small divisors for preview
+                return { totalDivisors, divisors: null, tooMany: true };
+            }
+
+            let divisors = [1n];
+            for (let { prime, exp } of primeFactors) {
+                const nextDivisors = [];
+                let pPow = 1n;
+                for (let e = 0n; e <= exp; e++) {
+                    for (let d of divisors) {
+                        nextDivisors.push(d * pPow);
+                    }
+                    pPow *= prime;
+                }
+                divisors = nextDivisors;
+            }
+
+            divisors.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+            return { totalDivisors, divisors, tooMany: false };
+        }
+
+        // ====================================================
+        // 3. MAIN BOT CONTROLLER & RENDERER
+        // ====================================================
+        function analyzeNumber() {
+            const rawVal = toEnglishDigits(numberInput.value).trim();
+            if (!rawVal || rawVal === '-') {
+                showToast('لطفاً ابتدا یک عدد وارد کنید!');
+                numberInput.focus();
+                return;
+            }
+
+            let n;
+            try {
+                n = BigInt(rawVal);
+            } catch (err) {
+                showToast('فرمت عدد وارد شده معتبر نیست.');
+                return;
+            }
+
+            const btn = document.getElementById('analyzeBtn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>در حال پردازش ریاضی...</span>`;
+
+            // Allow UI to update before running BigInt math
+            setTimeout(() => {
+                const t0 = performance.now();
+                renderResultCard(n, t0);
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> <span>بررسی عدد و محاسبه شمارنده‌ها</span>`;
+            }, 30);
+        }
+
+        function renderResultCard(n, startTime) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const nStr = n.toString();
+            const readableN = formatBigIntReadable(nStr);
+            const digitsLen = nStr.replace('-', '').length;
+
+            // Case 1: Negative Numbers, 0, or 1
+            if (n <= 1n) {
+                let title = '';
+                let explanation = '';
+                if (n === 1n) {
+                    title = 'عدد ۱ «نه اول است و نه مرکب»!';
+                    explanation = 'طبق تعریف ریاضی، عدد اول باید دقیقاً ۲ شمارنده داشته باشد و عدد مرکب بیش از ۲ شمارنده. اما عدد ۱ فقط یک شمارنده دارد (خود عدد ۱)؛ بنابراین در هیچ‌کدام از این دو دسته قرار نمی‌گیرد.';
+                } else if (n === 0n) {
+                    title = 'عدد صفر (0) «نه اول است و نه مرکب»!';
+                    explanation = 'عدد صفر بی‌نهایت شمارنده دارد (بر هر عدد غیرصفری بخش‌پذیر است) و در تعریف اعداد اول و مرکب قرار نمی‌گیرد.';
+                } else {
+                    title = 'اعداد منفی اول یا مرکب محسوب نمی‌شوند!';
+                    explanation = `مفهوم اول یا مرکب بودن در حساب مقدماتی برای اعداد طبیعی بزرگ‌تر از ۱ تعریف می‌شود. (می‌توانید قدرمطلق آن یعنی ${ -n } را بررسی کنید).`;
+                }
+
+                resultsContainer.innerHTML = `
+                    <div class="glass-panel rounded-3xl p-6 border-2 border-slate-700 bot-bubble space-y-4">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <span class="px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-sm border border-slate-600">
+                                <i class="fa-solid fa-circle-info ml-1 text-sky-400"></i> وضعیت ویژه: نه اول و نه مرکب
+                            </span>
+                            <span class="text-xs text-slate-400">${toPersianDigits(digitsLen)} رقم</span>
+                        </div>
+                        <div class="p-4 bg-slate-900/90 rounded-2xl font-mono text-left text-lg text-sky-300 break-all" dir="ltr">${readableN}</div>
+                        <h3 class="text-lg font-bold text-white">${title}</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">${explanation}</p>
+                        ${n === 1n ? `<div class="text-sm text-emerald-400 font-semibold">شمارنده‌های عدد ۱: <span class="font-mono bg-slate-800 px-2.5 py-1 rounded-lg text-white">1</span></div>` : ''}
+                    </div>
+                `;
+                return;
+            }
+
+            // Case 2: Prime Number Check
+            const primeStatus = isPrimeBigInt(n);
+            const elapsedPrime = (performance.now() - startTime).toFixed(1);
+
+            if (primeStatus) {
+                resultsContainer.innerHTML = `
+                    <div class="glass-panel rounded-3xl p-6 sm:p-8 border-2 border-emerald-500/40 bot-bubble space-y-5 relative overflow-hidden">
+                        <div class="absolute -top-20 -left-20 w-44 h-44 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-2xl">
+                                    <i class="fa-solid fa-check-double"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-emerald-400 font-semibold">نتیجه بررسی ربات:</span>
+                                    <h2 class="text-xl sm:text-2xl font-extrabold text-white">این عدد «اول» (Prime) است! ✨</h2>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
+                                <span>${toPersianDigits(digitsLen)} رقم</span>
+                                <span>•</span>
+                                <span>${toPersianDigits(elapsedPrime)} میلی‌ثانیه</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
+                            <div class="text-xs text-slate-400 mb-1">عدد بررسی شده:</div>
+                            <div class="font-mono text-left text-base sm:text-lg text-emerald-300 break-all" dir="ltr">${readableN}</div>
+                        </div>
+
+                        <div class="bg-emerald-950/30 border border-emerald-500/30 rounded-2xl p-4 space-y-2">
+                            <div class="font-bold text-emerald-300 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-list-ol"></i>
+                                شمارنده‌ها (مقسوم‌علیه‌ها): فقط ۲ عدد
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                                چون این عدد <strong>اول</strong> است، بر هیچ عدد دیگری به جز <strong>۱</strong> و <strong>خودش</strong> بخش‌پذیر نیست:
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2" dir="ltr">
+                                <span class="bg-slate-900 border border-emerald-500/40 text-emerald-300 font-mono px-3.5 py-1.5 rounded-xl text-sm">1</span>
+                                <span class="bg-slate-900 border border-emerald-500/40 text-emerald-300 font-mono px-3.5 py-1.5 rounded-xl text-sm break-all">${nStr}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Case 3: Composite Number -> Factorize & Compute Divisors
+            const { primeFactors, timedOut } = factorizeBigInt(n, 2800);
+            const divisorData = !timedOut ? generateAllDivisors(primeFactors, 3000n) : null;
+            const totalElapsed = (performance.now() - startTime).toFixed(1);
+
+            // Format prime factorization string: e.g., 2^3 × 3^2 × 5
+            const factorFormulaHtml = primeFactors.map(({ prime, exp }) => {
+                const pStr = prime.toString();
+                const eStr = exp > 1n ? `<sup class="text-amber-300 font-bold ml-0.5">${exp.toString()}</sup>` : '';
+                return `<span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-lg font-mono text-indigo-300 inline-block">${pStr}${eStr}</span>`;
+            }).join('<span class="text-slate-500 mx-1 font-bold">×</span>');
+
+            let divisorsSectionHtml = '';
+
+            if (timedOut) {
+                // Ultra-large composite where complete factorization hit time budget
+                divisorsSectionHtml = `
+                    <div class="bg-amber-950/30 border border-amber-500/30 rounded-2xl p-4 space-y-2 text-sm text-amber-200">
+                        <p class="font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                            عدد مرکب بسیار بزرگ (${toPersianDigits(digitsLen)} رقمی)
+                        </p>
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                            این عدد به طور قطعی <strong>مرکب</strong> است. عوامل اول پیدا شده در بالا نمایش داده شده‌اند، اما به دلیل تعداد ارقام بسیار زیاد، محاسبه تمام شمارنده‌ها نیازمند ابرکامپیوتر است!
+                        </p>
+                    </div>
+                `;
+            } else if (divisorData.tooMany) {
+                divisorsSectionHtml = `
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-2">
+                        <div class="text-sm font-bold text-amber-300">
+                            تعداد کل شمارنده‌ها: <span class="font-mono text-white">${divisorData.totalDivisors.toString()}</span> شمارنده!
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            از آنجایی که این عدد بیش از ۳,۰۰۰ شمارنده دارد، برای جلوگیری از کند شدن مرورگر، فرمول تجزیه به عوامل اول آن در بالا به طور کامل درج شده است.
+                        </p>
+                    </div>
+                `;
+            } else {
+                const divListStr = divisorData.divisors.map(d => d.toString()).join(', ');
+                const divBadgesHtml = divisorData.divisors.map(d => {
+                    const dStr = d.toString();
+                    const isPrimeFactor = primeFactors.some(pf => pf.prime === d);
+                    const badgeStyle = isPrimeFactor 
+                        ? 'bg-indigo-950/70 border-indigo-500/40 text-indigo-200' 
+                        : 'bg-slate-900 border-slate-700/80 text-slate-200';
+                    return `<span class="border ${badgeStyle} font-mono px-3 py-1.5 rounded-xl text-xs sm:text-sm hover:border-amber-400/60 transition">${dStr}</span>`;
+                }).join('');
+
+                divisorsSectionHtml = `
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group text-amber-400"></i>
+                                <span class="font-bold text-white text-sm sm:text-base">
+                                    لیست کامل شمارنده‌ها (${toPersianDigits(divisorData.totalDivisors.toString())} عدد):
+                                </span>
+                            </div>
+                            <button 
+                                onclick="copyText('${divListStr}', 'لیست شمارنده‌ها کپی شد!')" 
+                                class="text-xs bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition cursor-pointer">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>کپی همه شمارنده‌ها</span>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2 max-h-72 overflow-y-auto p-1" dir="ltr">
+                            ${divBadgesHtml}
+                        </div>
+
+                        <div class="text-[11px] text-slate-400 flex items-center gap-2 pt-1">
+                            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 inline-block"></span>
+                            <span>شمارنده‌هایی که با رنگ بنفش مشخص شده‌اند، <strong>شمارنده‌های اول</strong> این عدد هستند.</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            resultsContainer.innerHTML = `
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 border-2 border-amber-500/40 bot-bubble space-y-5 relative overflow-hidden">
+                    <div class="absolute -top-20 -left-20 w-44 h-44 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <!-- Top Status Header -->
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl">
+                                <i class="fa-solid fa-cubes"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-amber-400 font-semibold">نتیجه بررسی ربات:</span>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-white">این عدد «مرکب» (Composite) است!</h2>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
+                            <span>${toPersianDigits(digitsLen)} رقم</span>
+                            <span>•</span>
+                            <span>${toPersianDigits(totalElapsed)} میلی‌ثانیه</span>
+                        </div>
+                    </div>
+
+                    <!-- Number Box -->
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
+                        <div class="text-xs text-slate-400 mb-1">عدد بررسی شده:</div>
+                        <div class="font-mono text-left text-base sm:text-lg text-amber-300 break-all" dir="ltr">${readableN}</div>
+                    </div>
+
+                    <!-- Prime Factorization Box -->
+                    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 space-y-2">
+                        <div class="text-xs sm:text-sm font-semibold text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-atom text-indigo-400"></i>
+                            <span>تجزیه به عوامل اول:</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-1 pt-1" dir="ltr">
+                            ${factorFormulaHtml}
+                        </div>
+                    </div>
+
+                    <!-- Full Divisors List -->
+                    ${divisorsSectionHtml}
+                </div>
+            `;
+        }
+
+        // ====================================================
+        // 4. GCD (ب.م.م) & LCM (ک.م.م) CONTROLLERS
+        // ====================================================
+        function lcmBigInt(a, b) {
+            if (a === 0n || b === 0n) return 0n;
+            return (a * b) / gcd(a, b);
+        }
+
+        function getEnteredNumbers(selector) {
+            const inputs = document.querySelectorAll(selector);
+            const nums = [];
+            inputs.forEach(inp => {
+                const val = toEnglishDigits(inp.value).trim();
+                if (val !== '') {
+                    try {
+                        const n = BigInt(val);
+                        if (n > 0n) nums.push(n);
+                    } catch (e) {}
+                }
+            });
+            return nums;
+        }
+
+        function calculateGCD() {
+            const nums = getEnteredNumbers('.gcd-input');
+            const container = document.getElementById('gcdResultContainer');
+
+            if (nums.length < 2) {
+                showToast('لطفاً حداقل ۲ عدد بزرگ‌تر از صفر وارد کنید!');
+                return;
+            }
+
+            let resultGcd = nums[0];
+            for (let i = 1; i < nums.length; i++) {
+                resultGcd = gcd(resultGcd, nums[i]);
+            }
+
+            const gcdStr = resultGcd.toString();
+            const readableGcd = formatBigIntReadable(gcdStr);
+            const numsReadable = nums.map(n => `<span class="font-mono bg-slate-800 px-2.5 py-1 rounded-lg text-indigo-300 border border-slate-700">${formatBigIntReadable(n.toString())}</span>`).join(' ، ');
+
+            // Also find all common divisors (which are the divisors of the GCD!)
+            const { primeFactors, timedOut } = factorizeBigInt(resultGcd, 2000);
+            const divisorData = !timedOut ? generateAllDivisors(primeFactors, 2000n) : null;
+
+            let commonDivisorsHtml = '';
+            if (!timedOut && divisorData && !divisorData.tooMany) {
+                const badges = divisorData.divisors.map(d => 
+                    `<span class="bg-slate-900 border border-slate-700 text-slate-200 font-mono px-3 py-1 rounded-xl text-xs sm:text-sm">${d.toString()}</span>`
+                ).join('');
+                commonDivisorsHtml = `
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-3">
+                        <div class="text-xs sm:text-sm font-bold text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-emerald-400"></i>
+                            <span>تمام شمارنده‌های مشترک این اعداد (${toPersianDigits(divisorData.totalDivisors.toString())} عدد):</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 max-h-56 overflow-y-auto" dir="ltr">
+                            ${badges}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 border-2 border-emerald-500/40 bot-bubble space-y-5">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-2xl">
+                                <i class="fa-solid fa-compress"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-emerald-400 font-semibold">بزرگ‌ترین مقسوم‌علیه مشترک (ب.م.م):</span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono mt-0.5" dir="ltr">${readableGcd}</h2>
+                            </div>
+                        </div>
+                        <button onclick="copyText('${gcdStr}', 'ب.م.م کپی شد!')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-xl border border-slate-700 flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>کپی جواب</span>
+                        </button>
+                    </div>
+
+                    <div class="text-xs sm:text-sm text-slate-300 flex flex-wrap items-center gap-2">
+                        <span>اعداد بررسی شده:</span>
+                        <div class="flex flex-wrap gap-1.5" dir="ltr">${numsReadable}</div>
+                    </div>
+
+                    ${resultGcd === 1n ? `<div class="text-xs sm:text-sm text-amber-300 bg-amber-950/30 border border-amber-500/30 rounded-xl p-3">این اعداد نسبت به هم <strong>اول (متباین)</strong> هستند، یعنی به غیر از عدد ۱ هیچ شمارنده مشترک دیگری ندارند.</div>` : ''}
+
+                    ${commonDivisorsHtml}
+                </div>
+            `;
+        }
+
+        function calculateLCM() {
+            const nums = getEnteredNumbers('.lcm-input');
+            const container = document.getElementById('lcmResultContainer');
+
+            if (nums.length < 2) {
+                showToast('لطفاً حداقل ۲ عدد بزرگ‌تر از صفر وارد کنید!');
+                return;
+            }
+
+            let resultLcm = nums[0];
+            for (let i = 1; i < nums.length; i++) {
+                resultLcm = lcmBigInt(resultLcm, nums[i]);
+            }
+
+            const lcmStr = resultLcm.toString();
+            const readableLcm = formatBigIntReadable(lcmStr);
+            const numsReadable = nums.map(n => `<span class="font-mono bg-slate-800 px-2.5 py-1 rounded-lg text-indigo-300 border border-slate-700">${formatBigIntReadable(n.toString())}</span>`).join(' ، ');
+
+            container.innerHTML = `
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 border-2 border-indigo-500/40 bot-bubble space-y-5">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 text-2xl">
+                                <i class="fa-solid fa-expand"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-indigo-400 font-semibold">کوچک‌ترین مضرب مشترک (ک.م.م):</span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono mt-0.5 break-all" dir="ltr">${readableLcm}</h2>
+                            </div>
+                        </div>
+                        <button onclick="copyText('${lcmStr}', 'ک.م.م کپی شد!')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-xl border border-slate-700 flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>کپی جواب</span>
+                        </button>
+                    </div>
+
+                    <div class="text-xs sm:text-sm text-slate-300 flex flex-wrap items-center gap-2">
+                        <span>اعداد بررسی شده:</span>
+                        <div class="flex flex-wrap gap-1.5" dir="ltr">${numsReadable}</div>
+                    </div>
+
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-2">
+                        <div class="text-xs font-bold text-slate-400">۳ مضرب مشترک اول این اعداد:</div>
+                        <div class="flex flex-wrap gap-2 pt-1 font-mono text-xs sm:text-sm" dir="ltr">
+                            <span class="bg-indigo-950/60 border border-indigo-500/40 text-indigo-200 px-3 py-1.5 rounded-xl break-all">1) ${readableLcm}</span>
+                            <span class="bg-slate-800 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-xl break-all">2) ${formatBigIntReadable((resultLcm * 2n).toString())}</span>
+                            <span class="bg-slate-800 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-xl break-all">3) ${formatBigIntReadable((resultLcm * 3n).toString())}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
