@@ -3,50 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نوبل بات - دستیار هوشمند ریاضی</title>
+    <title>Nobel Bot - نوبل بات</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* فونت ایران یکان */
-        @font-face {
-            font-family: 'iranyekan';
-            src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebRegular.woff2') format('woff2');
-            font-weight: normal;
-        }
-        @font-face {
-            font-family: 'iranyekan';
-            src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebBold.woff2') format('woff2');
-            font-weight: bold;
-        }
-
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --text-dark: #1e1b4b;
-            --text-muted: #6b7280;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --primary: #8b5cf6;
+            --secondary: #3b82f6;
             --success: #10b981;
+            --warning: #eab308;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --text-light: #f8fafc;
         }
 
-        * {
-            box-sizing: border-box;
+        body {
+            font-family: 'Vazirmatn', sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'iranyekan', Tahoma, sans-serif;
-        }
-
-        /* پس‌زمینه متحرک (گرادیان) */
-        body {
-            background: linear-gradient(-45deg, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8);
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #1e1b4b, #312e81, #1e3a8a, #0f172a);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            color: var(--text-dark);
-            padding: 20px;
+            color: var(--text-light);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -55,792 +39,944 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* کادر شیشه‌ای ثابت */
-        .container {
-            width: 100%;
-            max-width: 600px;
-            background: rgba(255, 255, 255, 0.65);
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+        .app-container {
+            width: 90%;
+            max-width: 800px;
+            background: var(--glass-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             position: relative;
+            overflow: hidden;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 5px;
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        .header h1 {
-            color: var(--primary);
-            font-size: 28px;
-            font-weight: bold;
-            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+        .header-title {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 10px;
         }
 
-        /* انیمیشن آیکون ربات */
-        .header h1 i {
-            animation: botPulse 2s infinite ease-in-out;
-            transform-origin: center bottom;
+        .floating-icon {
+            animation: floatIcon 3s ease-in-out infinite;
+            color: #a78bfa;
         }
 
-        @keyframes botPulse {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.1) rotate(-10deg); }
-            50% { transform: scale(1.15) rotate(0deg); }
-            75% { transform: scale(1.1) rotate(10deg); }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
         }
 
-        /* تب‌ها */
+        .btn-competitions {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-competitions:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Tabs */
         .tabs {
             display: flex;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 8px;
-            border-radius: 16px;
-            overflow-x: auto;
+            gap: 10px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
             flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
             padding: 12px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-            color: var(--text-muted);
             border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
         }
 
-        .tab-btn i {
-            font-size: 20px;
-            transition: transform 0.3s;
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
-
-        .tab-btn:hover { color: var(--primary); }
-        .tab-btn:hover i { transform: scale(1.15) translateY(-2px); }
 
         .tab-btn.active {
-            background: #fff;
-            color: var(--primary);
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15);
+            background: var(--primary);
+            border-color: #a78bfa;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
         }
 
-        /* محتوای تب با انیمیشن Slide Up Fade */
-        .tab-content { display: none; }
-        .tab-content.active {
+        /* Views */
+        .view-section, .tab-content {
+            display: none;
+            animation: slideUpFade 0.5s ease forwards;
+        }
+
+        .view-section.active, .tab-content.active {
             display: block;
-            animation: slideUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         @keyframes slideUpFade {
-            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* فرم‌ها و ورودی‌ها */
+        /* Forms & Inputs */
         .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .input-group i {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            font-size: 18px;
-            transition: 0.3s;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 15px 45px 15px 15px;
-            border: 2px solid transparent;
-            border-radius: 14px;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.6);
-            color: var(--text-dark);
-            font-weight: bold;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-            background: #fff;
-            box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
-        }
-
-        .dual-inputs { display: flex; gap: 15px; }
-        .dual-inputs .input-group { flex: 1; }
-
-        /* نتایج و پاپ‌آپ فنری */
-        .result-box {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px dashed rgba(79, 70, 229, 0.4);
-            border-radius: 16px;
-            min-height: 100px;
-            font-size: 15px;
-            line-height: 1.8;
-            color: var(--text-dark);
+            display: flex;
+            gap: 15px;
             margin-bottom: 20px;
+        }
+
+        input[type="number"], input[type="text"] {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            text-align: center;
             transition: all 0.3s;
-            display: none;
         }
 
-        .result-box.show-anim {
-            display: block;
-            animation: springPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        input[type="number"]:focus, input[type="text"]:focus {
+            outline: none;
             border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
-        }
-
-        @keyframes springPop {
-            0% { transform: scale(0.85); opacity: 0; }
-            60% { transform: scale(1.02); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
         }
         
+        input:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .action-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Results & Reset */
         .result-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
-        .result-title {
-            font-weight: bold;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 17px;
-        }
-        
-        /* دکمه دوباره */
-        .reset-btn {
-            background: rgba(225, 29, 72, 0.1);
-            color: #e11d48;
-            border: 1px solid rgba(225, 29, 72, 0.2);
-            padding: 6px 12px;
-            border-radius: 10px;
+        .btn-reset {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 5px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
+            font-family: inherit;
+            font-size: 0.9rem;
             display: flex;
-            gap: 6px;
             align-items: center;
+            gap: 5px;
             transition: all 0.3s;
         }
-        
-        .reset-btn:hover {
-            background: #e11d48;
+
+        .btn-reset:hover {
+            background: rgba(239, 68, 68, 0.4);
             color: white;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.2);
-        }
-        
-        .reset-btn i {
-            transition: transform 0.4s;
-        }
-        
-        .reset-btn:hover i {
-            transform: rotate(-180deg);
         }
 
-        /* دکمه تپنده و نوری */
-        .main-action-btn {
-            position: relative;
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: white;
-            border: none;
-            padding: 18px;
-            width: 100%;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            overflow: hidden;
-            animation: pulseBtn 2s infinite;
-        }
-
-        @keyframes pulseBtn {
-            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
-        }
-
-        .main-action-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
-        }
-
-        .main-action-btn:hover { transform: translateY(-3px); }
-        .main-action-btn:active { transform: translateY(1px); }
-
-        /* استایل‌های غربال */
-        .sieve-warning {
-            background: rgba(255, 243, 205, 0.8);
-            color: #856404;
-            padding: 15px;
+        .result-box {
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 12px;
-            font-size: 14px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            border-right: 4px solid #ffeeba;
-        }
-
-        .sieve-title {
+            padding: 20px;
             text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--primary);
-            transition: color 0.5s, transform 0.5s;
+            font-size: 1.5rem;
+            border: 1px solid var(--glass-border);
+            min-height: 60px;
+            display: none;
+        }
+        
+        .result-box.show {
+            display: block;
+            animation: springPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
-        /* چیدمان اعداد از چپ به راست */
-        .num-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            direction: ltr; /* LTR Setup */
-            justify-content: flex-start;
+        @keyframes springPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        .num-item {
-            padding: 10px;
-            min-width: 45px;
-            text-align: center;
-            background: rgba(156, 163, 175, 0.8);
-            color: white;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 16px;
-            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: inline-block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .num-item.prime-glow {
-            background: var(--success);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
-            transform: scale(1.15);
-            z-index: 10;
-        }
-
-        /* انیمیشن محو شدن با چرخش 360 */
-        .fly-away {
-            transform: translateY(-200px) rotate(360deg) scale(0);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* کارت ویدیو آپارات */
-        .video-card {
+        /* Videos */
+        .video-container {
             margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            text-align: center;
-            box-shadow: inset 0 2px 10px rgba(255,255,255,0.5), 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+            border: 1px solid var(--glass-border);
         }
-        .video-wrapper {
+        
+        .video-container.show {
+            display: block;
+            animation: slideUpFade 0.5s ease forwards;
+        }
+
+        .video-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+        }
+
+        .aparat-embed {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            background: #000;
+            border-radius: 8px;
         }
-        .video-wrapper iframe {
+
+        .aparat-embed iframe {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: 0;
         }
 
-        /* فوتر */
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: rgba(30, 27, 75, 0.5);
+        /* Notes & Warnings */
+        .note-box {
+            background: rgba(234, 179, 8, 0.15);
+            border-right: 4px solid var(--warning);
+            padding: 15px;
+            border-radius: 8px 0 0 8px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .note-title {
+            color: var(--warning);
             font-weight: bold;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+            margin-bottom: 5px;
+        }
+
+        /* Competitions Grid */
+        .comps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .comp-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .comp-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .comp-card:hover:not(.disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .comp-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+
+        /* Game Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(30,27,75,0.9), rgba(15,23,42,0.9));
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            padding: 25px;
+            box-shadow: 0 0 40px rgba(139,92,246,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .timer-box {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .score-box {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .game-question-area {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .question-title {
+            display: inline-block;
+            border: 1px solid var(--glass-border);
+            padding: 10px 30px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .big-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn-game {
+            flex: 1;
+            padding: 15px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            transition: transform 0.1s;
+        }
+
+        .btn-game:active {
+            transform: scale(0.95);
+        }
+
+        .btn-prime {
+            background: var(--warning);
+            color: #000;
+            box-shadow: 0 5px 0 #ca8a04;
+        }
+        
+        .btn-composite {
+            background: var(--secondary);
+            color: #fff;
+            box-shadow: 0 5px 0 #2563eb;
+        }
+
+        /* Leaderboard Table */
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .leaderboard-table th {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .leaderboard-table tr:nth-child(1) td { color: #fbbf24; font-weight: bold; }
+        .leaderboard-table tr:nth-child(2) td { color: #94a3b8; font-weight: bold; }
+        .leaderboard-table tr:nth-child(3) td { color: #b45309; font-weight: bold; }
+
+        .game-phase { display: none; }
+        .game-phase.active { display: block; animation: slideUpFade 0.4s; }
+
+        .final-result-bar {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--success);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-submit-name {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1.1rem;
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+            transition: 0.3s;
+        }
+        .btn-submit-name.show { display: block; }
+        .close-modal {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: none; border: none; color: white;
+            font-size: 1.5rem; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1><i class="fa-solid fa-robot"></i> نوبل بات</h1>
-    </div>
-    
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(0)">
-            <i class="fa-solid fa-hashtag"></i> اول و مرکب
+<div class="app-container">
+    <header>
+        <button id="btn-goto-comps" class="btn-competitions" onclick="switchView('comps')">
+            <i class="fas fa-gamepad"></i> مسابقات
         </button>
-        <button class="tab-btn" onclick="switchTab(1)">
-            <i class="fa-solid fa-divide"></i> ب.م.م
-        </button>
-        <button class="tab-btn" onclick="switchTab(2)">
-            <i class="fa-solid fa-layer-group"></i> ک.م.م
-        </button>
-        <button class="tab-btn" onclick="switchTab(3)">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> غربال
-        </button>
-    </div>
-
-    <!-- بخش اول و مرکب -->
-    <div class="tab-content active" id="tab-0">
-        <div class="input-group">
-            <i class="fa-solid fa-pen"></i>
-            <input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)">
+        <div class="header-title">
+            نوبل بات <i class="fas fa-robot floating-icon"></i>
         </div>
-        <div class="result-box" id="result-0"></div>
-    </div>
+    </header>
 
-    <!-- بخش ب.م.م -->
-    <div class="tab-content" id="tab-1">
-        <div class="dual-inputs">
+    <!-- CALCULATOR VIEW (MAIN) -->
+    <div id="view-calc" class="view-section active">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('prime')">اعداد اول و مرکب</button>
+            <button class="tab-btn" onclick="switchTab('gcd')">ب.م.م</button>
+            <button class="tab-btn" onclick="switchTab('lcm')">ک.م.م</button>
+            <button class="tab-btn" onclick="switchTab('sieve')">غربال</button>
+        </div>
+
+        <!-- Prime Tab -->
+        <div id="tab-prime" class="tab-content active">
             <div class="input-group">
-                <i class="fa-solid fa-1"></i>
-                <input type="text" id="bmmInput1" placeholder="عدد اول">
+                <input type="number" id="prime-input" placeholder="یک عدد وارد کنید...">
             </div>
-            <div class="input-group">
-                <i class="fa-solid fa-2"></i>
-                <input type="text" id="bmmInput2" placeholder="عدد دوم">
+            <button class="action-btn" onclick="checkPrime()">بررسی</button>
+            
+            <div class="result-header">
+                <h3>نتیجه:</h3>
+                <button class="btn-reset" onclick="resetTab('prime')"><i class="fas fa-redo"></i> دوباره</button>
+            </div>
+            <div id="prime-result" class="result-box"></div>
+            
+            <div id="prime-video" class="video-container">
+                <div class="video-text">اگه میخوای خودت بتونی اعداد اول و مرکب رو تشخیص بدی این ویدیو رو ببین</div>
+                <div class="aparat-embed"><iframe src="https://www.aparat.com/video/video/embed/videohash/hydjqz3/vt/frame" allowFullScreen="true"></iframe></div>
             </div>
         </div>
-        <div class="result-box" id="result-1"></div>
-    </div>
 
-    <!-- بخش ک.م.م -->
-    <div class="tab-content" id="tab-2">
-        <div class="dual-inputs">
+        <!-- GCD Tab -->
+        <div id="tab-gcd" class="tab-content">
             <div class="input-group">
-                <i class="fa-solid fa-1"></i>
-                <input type="text" id="kmmInput1" placeholder="عدد اول">
+                <input type="number" id="gcd-num1" placeholder="عدد اول">
+                <input type="number" id="gcd-num2" placeholder="عدد دوم">
             </div>
-            <div class="input-group">
-                <i class="fa-solid fa-2"></i>
-                <input type="text" id="kmmInput2" placeholder="عدد دوم">
+            <button class="action-btn" onclick="calcGCD()">محاسبه ب.م.م</button>
+            
+            <div class="result-header">
+                <h3>نتیجه:</h3>
+                <button class="btn-reset" onclick="resetTab('gcd')"><i class="fas fa-redo"></i> دوباره</button>
+            </div>
+            <div id="gcd-result" class="result-box"></div>
+            
+            <div id="gcd-video" class="video-container">
+                <div class="video-text">اگه میخوای یاد بگیرید چطور خودت ب م م هر عددی رو حساب کنی این ویدیو رو ببین</div>
+                <div class="aparat-embed"><iframe src="https://www.aparat.com/video/video/embed/videohash/xxxGCDxxx/vt/frame" allowFullScreen="true"></iframe></div> <!-- Kept generic if specific not provided -->
             </div>
         </div>
-        <div class="result-box" id="result-2"></div>
-    </div>
 
-    <!-- بخش غربال -->
-    <div class="tab-content" id="tab-3">
-        <div class="sieve-warning">
-            <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px; margin-left: 10px;"></i>
-            <div style="line-height: 1.8;">
-                <strong>نکته :</strong><br>
+        <!-- LCM Tab -->
+        <div id="tab-lcm" class="tab-content">
+            <div class="input-group">
+                <input type="number" id="lcm-num1" placeholder="عدد اول">
+                <input type="number" id="lcm-num2" placeholder="عدد دوم">
+            </div>
+            <button class="action-btn" onclick="calcLCM()">محاسبه ک.م.م</button>
+            
+            <div class="result-header">
+                <h3>نتیجه:</h3>
+                <button class="btn-reset" onclick="resetTab('lcm')"><i class="fas fa-redo"></i> دوباره</button>
+            </div>
+            <div id="lcm-result" class="result-box"></div>
+            
+            <div id="lcm-video" class="video-container">
+                <div class="video-text">اگه میخوای خودت بتونی ک.م.م اعداد مختلف رو بدست بیاری این ویدیو رو ببین</div>
+                <div class="aparat-embed"><iframe src="https://www.aparat.com/video/video/embed/videohash/xhcsubj/vt/frame" allowFullScreen="true"></iframe></div>
+            </div>
+        </div>
+
+        <!-- Sieve Tab -->
+        <div id="tab-sieve" class="tab-content">
+            <div class="note-box">
+                <div class="note-title">نکته :</div>
                 1 : حداکثر اختلاف مجاز بین دو عدد ، 1000 است .<br>
                 2 : عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد .
             </div>
-        </div>
-        <div class="dual-inputs">
             <div class="input-group">
-                <i class="fa-solid fa-play"></i>
-                <input type="text" id="sieveStart" placeholder="عدد شروع (کوچک)">
+                <input type="number" id="sieve-end" placeholder="تا عدد (بزرگتر)">
+                <input type="number" id="sieve-start" placeholder="از عدد (کوچکتر)">
             </div>
-            <div class="input-group">
-                <i class="fa-solid fa-stop"></i>
-                <input type="text" id="sieveEnd" placeholder="عدد پایان (بزرگ)">
+            <button class="action-btn" onclick="runSieve()">اجرای غربال</button>
+            
+            <div class="result-header">
+                <h3>نتیجه:</h3>
+                <button class="btn-reset" onclick="resetTab('sieve')"><i class="fas fa-redo"></i> دوباره</button>
+            </div>
+            <div id="sieve-result" class="result-box" style="font-size:1.1rem; line-height:1.6;"></div>
+            
+            <div id="sieve-video" class="video-container">
+                <div class="video-text">اگه میخوای خودت بتونی غربال انجام بدی این ویدیو رو ببین</div>
+                <div class="aparat-embed"><iframe src="https://www.aparat.com/video/video/embed/videohash/mjir865/vt/frame" allowFullScreen="true"></iframe></div>
             </div>
         </div>
-        <div class="result-box" id="result-3"></div>
     </div>
 
-    <button class="main-action-btn" onclick="executeCurrentTab()">
-        <i id="btnIcon" class="fa-solid fa-magnifying-glass-chart"></i> 
-        <span id="btnText">بررسی عدد</span>
-    </button>
-    
-    <div class="footer">powered by M.Ali Nabil</div>
+    <!-- COMPETITIONS VIEW -->
+    <div id="view-comps" class="view-section">
+        <button class="btn-reset" style="margin-bottom: 20px; font-size:1rem; padding:10px 20px; background:rgba(255,255,255,0.1); color:white; border-color:white;" onclick="switchView('calc')">
+            <i class="fas fa-arrow-right"></i> بازگشت به نوبل بات
+        </button>
+        <h2 style="text-align: center; color: var(--primary);">بخش مسابقات</h2>
+        
+        <div class="comps-grid">
+            <div class="comp-card" onclick="openGameModal()">
+                <i class="fas fa-trophy"></i>
+                <h3>مسابقات اعداد اول و مرکب</h3>
+            </div>
+            <div class="comp-card disabled">
+                <i class="fas fa-lock"></i>
+                <h3>مسابقات ب.م.م</h3>
+                <small>بزودی...</small>
+            </div>
+            <div class="comp-card disabled">
+                <i class="fas fa-lock"></i>
+                <h3>مسابقات ک.م.م</h3>
+                <small>بزودی...</small>
+            </div>
+            <div class="comp-card disabled">
+                <i class="fas fa-lock"></i>
+                <h3>مسابقات غربال</h3>
+                <small>بزودی...</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- GAME MODAL -->
+<div id="game-modal" class="modal-overlay">
+    <div class="modal-content" style="position:relative;">
+        <button class="close-modal" onclick="closeGameModal()"><i class="fas fa-times"></i></button>
+        
+        <!-- Phase 1: Intro & Leaderboard -->
+        <div id="phase-intro" class="game-phase active">
+            <h2 style="text-align:center; color:var(--primary); margin-bottom: 20px;">مسابقات اعداد اول و مرکب</h2>
+            
+            <div class="note-box">
+                <div class="note-title">راهنما :</div>
+                1 : هر عددی که اومد مشخص کن اوله یا مرکب .<br>
+                2 : با هر جواب درست یک امتیاز میگیری .
+            </div>
+
+            <h3 style="text-align:center; margin-top:20px;">لیست برترین‌ها (Top 10)</h3>
+            <table class="leaderboard-table" id="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>رتبه</th>
+                        <th>نام</th>
+                        <th>رکورد</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- populated by JS -->
+                </tbody>
+            </table>
+            <button class="action-btn" style="margin-top:20px;" onclick="startGame()">شروع مسابقه</button>
+        </div>
+
+        <!-- Phase 2: Active Game -->
+        <div id="phase-game" class="game-phase">
+            <div class="game-header">
+                <div class="timer-box" id="game-timer">1:00</div>
+                <div class="score-box" id="game-score">امتیاز: 0</div>
+            </div>
+            <div class="game-question-area">
+                <div class="question-title">اول یا مرکب؟</div>
+                <div class="big-number" id="game-number">?</div>
+            </div>
+            <div class="game-buttons">
+                <button class="btn-game btn-composite" onclick="handleAnswer(false)">مرکب</button>
+                <button class="btn-game btn-prime" onclick="handleAnswer(true)">اول</button>
+            </div>
+        </div>
+
+        <!-- Phase 3: Post Game Form -->
+        <div id="phase-form" class="game-phase">
+            <h2 style="text-align:center; color:var(--warning); margin-bottom:20px;">پایان زمان!</h2>
+            <h3 style="text-align:center; margin-bottom:20px;">امتیاز شما: <span id="final-score-display" style="color:var(--primary); font-size:2rem;"></span></h3>
+            
+            <input type="text" id="player-name-input" placeholder="نام خود را وارد کنید..." style="width: calc(100% - 30px); margin-bottom: 10px;" onkeyup="checkNameInput(event)">
+            <button id="btn-submit-name" class="btn-submit-name" onclick="submitName()">تایید</button>
+        </div>
+
+        <!-- Phase 4: Result & Updated Leaderboard -->
+        <div id="phase-result" class="game-phase">
+            <div class="final-result-bar" id="player-final-rank-bar">
+                <!-- Text like: رتبه: 5 | نام: علی | رکورد: 12 -->
+            </div>
+            <h3 style="text-align:center; margin-top:20px;">جدول رده‌بندی نهایی</h3>
+            <table class="leaderboard-table">
+                <thead><tr><th>رتبه</th><th>نام</th><th>رکورد</th></tr></thead>
+                <tbody id="final-leaderboard-body"></tbody>
+            </table>
+            <button class="btn-reset" style="width:100%; justify-content:center; margin-top:20px; padding:15px;" onclick="resetGameModalToPhase1()">بازگشت به شروع</button>
+        </div>
+
+    </div>
 </div>
 
 <script>
-    let currentTabIndex = 0;
-
-    // پاکسازی اعداد فارسی به انگلیسی
-    function cleanNumber(str) {
-        if (!str) return "";
-        return str.toString().trim()
-            .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
-            .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+    // --- MAIN NAVIGATION ---
+    function switchView(view) {
+        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('view-' + view).classList.add('active');
+        document.getElementById('btn-goto-comps').style.display = view === 'comps' ? 'none' : 'flex';
     }
 
-    // تغییر تب‌ها
-    function switchTab(index) {
-        currentTabIndex = index;
-        const buttons = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        
-        buttons.forEach((btn, idx) => {
-            btn.classList.toggle('active', idx === index);
-            contents[idx].classList.toggle('active', idx === index);
-        });
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('tab-' + tabId).classList.add('active');
+    }
 
-        const btnText = document.getElementById('btnText');
-        const btnIcon = document.getElementById('btnIcon');
-
-        if (index === 0) {
-            btnText.innerText = "بررسی عدد";
-            btnIcon.className = "fa-solid fa-magnifying-glass-chart";
-        } else if (index === 1) {
-            btnText.innerText = "محاسبه ب.م.م";
-            btnIcon.className = "fa-solid fa-calculator";
-        } else if (index === 2) {
-            btnText.innerText = "محاسبه ک.م.م";
-            btnIcon.className = "fa-solid fa-calculator";
-        } else if (index === 3) {
-            btnText.innerText = "اجرای جادوی غربال";
-            btnIcon.className = "fa-solid fa-wand-magic-sparkles";
+    function resetTab(tabId) {
+        if(tabId === 'prime') {
+            document.getElementById('prime-input').value = '';
+            document.getElementById('prime-result').classList.remove('show');
+            document.getElementById('prime-video').classList.remove('show');
+        } else if(tabId === 'gcd') {
+            document.getElementById('gcd-num1').value = '';
+            document.getElementById('gcd-num2').value = '';
+            document.getElementById('gcd-result').classList.remove('show');
+            document.getElementById('gcd-video').classList.remove('show');
+        } else if(tabId === 'lcm') {
+            document.getElementById('lcm-num1').value = '';
+            document.getElementById('lcm-num2').value = '';
+            document.getElementById('lcm-result').classList.remove('show');
+            document.getElementById('lcm-video').classList.remove('show');
+        } else if(tabId === 'sieve') {
+            document.getElementById('sieve-start').value = '';
+            document.getElementById('sieve-end').value = '';
+            document.getElementById('sieve-result').classList.remove('show');
+            document.getElementById('sieve-video').classList.remove('show');
         }
-        
-        // مخفی کردن کادرهای نتایج با تغییر تب
-        document.querySelectorAll('.result-box').forEach(box => {
-            box.classList.remove('show-anim');
-            box.style.display = 'none';
-        });
-    }
-    
-    // پاک کردن فرم و بستن نتیجه (دکمه دوباره)
-    function resetTab(index) {
-        if (index === 0) {
-            document.getElementById('numInput').value = '';
-        } else if (index === 1) {
-            document.getElementById('bmmInput1').value = '';
-            document.getElementById('bmmInput2').value = '';
-        } else if (index === 2) {
-            document.getElementById('kmmInput1').value = '';
-            document.getElementById('kmmInput2').value = '';
-        } else if (index === 3) {
-            document.getElementById('sieveStart').value = '';
-            document.getElementById('sieveEnd').value = '';
-        }
-        
-        const box = document.getElementById('result-' + index);
-        box.classList.remove('show-anim');
-        setTimeout(() => {
-            box.style.display = 'none';
-            box.innerHTML = '';
-        }, 300);
     }
 
-    // تولید کادر هدر نتیجه با دکمه دوباره
-    function getResultHeader(title, icon, tabIndex) {
-        return `
-        <div class="result-header">
-            <div class="result-title"><i class="${icon}"></i> ${title}:</div>
-            <button class="reset-btn" onclick="resetTab(${tabIndex})">
-                <i class="fa-solid fa-rotate-right"></i> دوباره
-            </button>
-        </div>`;
-    }
-
-    // تریگر کردن انیمیشن کادر نتیجه
-    function triggerResultAnim(boxId) {
-        const box = document.getElementById(boxId);
-        box.classList.remove('show-anim');
-        box.style.display = 'none';
-        void box.offsetWidth; // Force Reflow
-        box.style.display = 'block';
-        box.classList.add('show-anim');
-    }
-
-    // اجرای عملیات تب جاری
-    function executeCurrentTab() {
-        if (currentTabIndex === 0) checkPrime();
-        else if (currentTabIndex === 1) calcBMM();
-        else if (currentTabIndex === 2) calcKMM();
-        else if (currentTabIndex === 3) runAnimatedSieve();
-    }
-
-    // توابع ریاضی با BigInt برای امنیت اعداد بزرگ
-    function isProbablePrime(n) {
-        if (n === 2n || n === 3n) return true;
-        if (n < 2n || n % 2n === 0n) return false;
-        let d = n - 1n, s = 0n;
-        while (d % 2n === 0n) { d /= 2n; s += 1n; }
-        const bases = [2n, 3n, 5n, 7n, 11n, 13n, 17n, 19n, 23n];
-        for (let a of bases) {
-            if (n <= a) break;
-            let x = powerMod(a, d, n);
-            if (x === 1n || x === n - 1n) continue;
-            let composite = true;
-            for (let r = 1n; r < s; r++) {
-                x = powerMod(x, 2n, n);
-                if (x === n - 1n) { composite = false; break; }
-            }
-            if (composite) return false;
+    // --- MATH LOGIC ---
+    function isPrime(num) {
+        if (num <= 1) return false;
+        if (num <= 3) return true;
+        if (num % 2 === 0 || num % 3 === 0) return false;
+        for (let i = 5; i * i <= num; i += 6) {
+            if (num % i === 0 || num % (i + 2) === 0) return false;
         }
         return true;
     }
-    
-    function powerMod(base, exp, mod) {
-        let res = 1n;
-        base = base % mod;
-        while (exp > 0n) {
-            if (exp % 2n === 1n) res = (res * base) % mod;
-            base = (base * base) % mod;
-            exp /= 2n;
-        }
-        return res;
-    }
-    
-    function getPrimeFactors(n) {
-        let factors = [], temp = n;
-        while (temp % 2n === 0n) { factors.push(2n); temp /= 2n; }
-        let d = 3n;
-        while (d * d <= temp && temp > 1n) {
-            if (temp % d === 0n) { factors.push(d); temp /= d; } 
-            else { d += 2n; }
-        }
-        if (temp > 1n) factors.push(temp);
-        return factors.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
-    }
-    
-    function gcdBigInt(a, b) {
-        while (b !== 0n) { let t = b; b = a % b; a = t; }
-        return a;
-    }
-    
-    function isPrimeSimple(n) {
-        if (n < 2) return false;
-        for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
-        return true;
-    }
 
-    // عملکرد تب اول و مرکب
     function checkPrime() {
-        let val = cleanNumber(document.getElementById('numInput').value);
-        let res = document.getElementById('result-0');
-        let headerHTML = getResultHeader("نتیجه بررسی", "fa-solid fa-check-double", 0);
-        
-        if (!val || isNaN(val)) {
-            res.innerHTML = headerHTML + "لطفاً یک عدد معتبر وارد کنید.";
-            triggerResultAnim('result-0');
-            return;
-        }
-        
-        let n = BigInt(val);
-        let contentHTML = "";
-        
-        if (n <= 1n) {
-            contentHTML = `عدد ${n} نه اول است و نه مرکب.`;
-        } else if (isProbablePrime(n)) {
-            contentHTML = `عدد <b style="font-size:18px; color:var(--primary);">${n}</b> یک <b style="color:var(--success); font-size:18px;">عدد اول</b> است.`;
+        let num = parseInt(document.getElementById('prime-input').value);
+        let resBox = document.getElementById('prime-result');
+        if (isNaN(num)) {
+            resBox.innerHTML = '<span style="color:var(--danger)">لطفا یک عدد معتبر وارد کنید</span>';
+        } else if (num < 2) {
+            resBox.innerHTML = '<span style="color:var(--warning)">نه اول است نه مرکب</span>';
+        } else if (isPrime(num)) {
+            resBox.innerHTML = `<span style="color:var(--success)">عدد ${num} <b>اول</b> است</span>`;
         } else {
-            let factors = getPrimeFactors(n);
-            contentHTML = `عدد <b style="font-size:18px; color:var(--primary);">${n}</b> یک <b>عدد مرکب</b> است.<br><br>` +
-                `<b>تجزیه به عوامل اول:</b> <span style="direction:ltr; display:inline-block;">${factors.join(' × ')}</span>`;
+            resBox.innerHTML = `<span style="color:var(--secondary)">عدد ${num} <b>مرکب</b> است</span>`;
         }
-        
-        // ویدیوی آپارات اول و مرکب
-        let videoCard = `
-            <div class="video-card">
-                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;">
-                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> 
-                    اگه میخوای خودت بتونی اعداد اول و مرکب رو تشخیص بدی این ویدیو رو ببین
-                </p>
-                <div class="video-wrapper">
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/hydjqz3/vt/frame" allowFullScreen="true"></iframe>
-                </div>
-            </div>`;
-            
-        res.innerHTML = headerHTML + contentHTML + videoCard;
-        triggerResultAnim('result-0');
+        resBox.classList.add('show');
+        setTimeout(() => { document.getElementById('prime-video').classList.add('show'); }, 600);
     }
 
-    // عملکرد تب ب.م.م
-    function calcBMM() {
-        let aStr = cleanNumber(document.getElementById('bmmInput1').value);
-        let bStr = cleanNumber(document.getElementById('bmmInput2').value);
-        let res = document.getElementById('result-1');
-        let headerHTML = getResultHeader("نتیجه ب.م.م", "fa-solid fa-check-double", 1);
-        
-        if (!aStr || !bStr) {
-            res.innerHTML = headerHTML + "لطفاً هر دو عدد را وارد کنید.";
-            triggerResultAnim('result-1');
-            return;
+    function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+    function calcGCD() {
+        let a = parseInt(document.getElementById('gcd-num1').value);
+        let b = parseInt(document.getElementById('gcd-num2').value);
+        let resBox = document.getElementById('gcd-result');
+        if (isNaN(a) || isNaN(b)) {
+            resBox.innerHTML = '<span style="color:var(--danger)">اعداد را کامل وارد کنید</span>';
+        } else {
+            resBox.innerHTML = `<span style="color:var(--success)">ب.م.م: <b>${gcd(Math.abs(a), Math.abs(b))}</b></span>`;
+            setTimeout(() => { document.getElementById('gcd-video').classList.add('show'); }, 600);
         }
-        
-        let a = BigInt(aStr), b = BigInt(bStr);
-        let g = gcdBigInt(a, b);
-        
-        // ویدیوی آپارات ب.م.م
-        let videoCard = `
-            <div class="video-card">
-                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;">
-                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> 
-                    اگه میخوای یاد بگیرید چطور خودت ب م م هر عددی رو حساب کنی این ویدیو رو ببین
-                </p>
-                <div class="video-wrapper">
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/ldz5eaf/vt/frame" allowFullScreen="true"></iframe>
-                </div>
-            </div>`;
-            
-        res.innerHTML = headerHTML + `بزرگ‌ترین مقسوم‌علیه مشترک (${a} , ${b}) برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${g}</div>` + videoCard;
-        triggerResultAnim('result-1');
+        resBox.classList.add('show');
     }
 
-    // عملکرد تب ک.م.م
-    function calcKMM() {
-        let aStr = cleanNumber(document.getElementById('kmmInput1').value);
-        let bStr = cleanNumber(document.getElementById('kmmInput2').value);
-        let res = document.getElementById('result-2');
-        let headerHTML = getResultHeader("نتیجه ک.م.م", "fa-solid fa-check-double", 2);
-        
-        if (!aStr || !bStr) {
-            res.innerHTML = headerHTML + "لطفاً هر دو عدد را وارد کنید.";
-            triggerResultAnim('result-2');
-            return;
+    function calcLCM() {
+        let a = parseInt(document.getElementById('lcm-num1').value);
+        let b = parseInt(document.getElementById('lcm-num2').value);
+        let resBox = document.getElementById('lcm-result');
+        if (isNaN(a) || isNaN(b) || a===0 || b===0) {
+            resBox.innerHTML = '<span style="color:var(--danger)">اعداد را کامل و غیر صفر وارد کنید</span>';
+        } else {
+            let res = Math.abs(a * b) / gcd(Math.abs(a), Math.abs(b));
+            resBox.innerHTML = `<span style="color:var(--success)">ک.م.م: <b>${res}</b></span>`;
+            setTimeout(() => { document.getElementById('lcm-video').classList.add('show'); }, 600);
         }
-        
-        let a = BigInt(aStr), b = BigInt(bStr);
-        let g = gcdBigInt(a, b);
-        let k = (a * b) / g;
-        
-        // ویدیوی آپارات ک.م.م
-        let videoCard = `
-            <div class="video-card">
-                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;">
-                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> 
-                    اگه میخوای خودت بتونی ک.م.م اعداد مختلف رو بدست بیاری این ویدیو رو ببین
-                </p>
-                <div class="video-wrapper">
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/xhcsubj/vt/frame" allowFullScreen="true"></iframe>
-                </div>
-            </div>`;
-            
-        res.innerHTML = headerHTML + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${k}</div>` + videoCard;
-        triggerResultAnim('result-2');
+        resBox.classList.add('show');
     }
 
-    // الگوریتم غربال انیمیشنی
-    function runAnimatedSieve() {
-        let start = parseInt(cleanNumber(document.getElementById('sieveStart').value));
-        let end = parseInt(cleanNumber(document.getElementById('sieveEnd').value));
-        let res = document.getElementById('result-3');
-        let headerHTML = getResultHeader("نتیجه", "fa-solid fa-check-double", 3);
+    function runSieve() {
+        let start = parseInt(document.getElementById('sieve-start').value);
+        let end = parseInt(document.getElementById('sieve-end').value);
+        let resBox = document.getElementById('sieve-result');
         
-        triggerResultAnim('result-3');
-        
-        if (isNaN(start) || isNaN(end) || start > end || start < 1) {
-            res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i> خطا: عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.</div>`;
+        if (isNaN(start) || isNaN(end)) {
+            resBox.innerHTML = '<span style="color:var(--danger)">اعداد را وارد کنید</span>';
+            resBox.classList.add('show');
             return;
         }
-        
+        if (start > end) {
+            resBox.innerHTML = '<span style="color:var(--danger)">عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد .</span>';
+            resBox.classList.add('show');
+            return;
+        }
         if (end - start > 1000) {
-            res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت: حداکثر اختلاف مجاز بین دو عدد ، 1000 است.</div>`;
+            resBox.innerHTML = '<span style="color:var(--danger)">حداکثر اختلاف مجاز بین دو عدد ، 1000 است .</span>';
+            resBox.classList.add('show');
             return;
         }
 
-        res.innerHTML = headerHTML + `
-            <div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div>
-            <div id="numGrid" class="num-grid"></div>
-            <div id="sieveVideo" style="display: none; opacity: 0; transition: opacity 0.8s ease;">
-                <div class="video-card">
-                    <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;">
-                        <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 18px; vertical-align: -2px; margin-left: 5px;"></i> 
-                        اگه میخوای خودت بتونی غربال انجام بدی این ویدیو رو ببین
-                    </p>
-                    <div class="video-wrapper">
-                        <iframe src="https://www.aparat.com/video/video/embed/videohash/mjir865/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-                    </div>
-                </div>
-            </div>
-        `;
+        let arr = [];
+        for(let i=start; i<=end; i++) { if(i>=2) arr.push({val: i, prime: isPrime(i)}); }
         
-        let grid = document.getElementById('numGrid');
-        let title = document.getElementById('sieveTitle');
-        let elements = [];
+        let html = '';
+        arr.forEach(item => {
+            if(item.prime) html += `<span style="color:var(--success); font-weight:bold; margin:0 5px;">${item.val}</span>`;
+            else html += `<span style="color:var(--danger); text-decoration:line-through; margin:0 5px; opacity:0.5;">${item.val}</span>`;
+        });
+        
+        resBox.innerHTML = html || '<span style="color:var(--warning)">عددی در این بازه نیست</span>';
+        resBox.classList.add('show');
+        setTimeout(() => { document.getElementById('sieve-video').classList.add('show'); }, 1000);
+    }
 
-        for (let i = start; i <= end; i++) {
-            let span = document.createElement('span');
-            span.className = 'num-item';
-            span.innerText = i;
-            grid.appendChild(span);
-            elements.push({ el: span, val: i });
+
+    // --- GAME LOGIC ---
+    let leaderboard = [
+        {name: "آریا", score: 25}, {name: "سینا", score: 22}, {name: "محمد", score: 19},
+        {name: "امیر", score: 17}, {name: "علی", score: 15}, {name: "رضا", score: 12},
+        {name: "پارسا", score: 10}, {name: "کیان", score: 8}, {name: "نیما", score: 5},
+        {name: "حسین", score: 3}
+    ];
+    let currentScore = 0;
+    let gameInterval;
+    let timeLeft = 60;
+    let currentTargetNumber = 0;
+
+    function renderLeaderboard(elementId) {
+        leaderboard.sort((a,b) => b.score - a.score);
+        let tbody = document.getElementById(elementId);
+        tbody.innerHTML = '';
+        for(let i=0; i<Math.min(10, leaderboard.length); i++) {
+            tbody.innerHTML += `<tr><td>${i+1}</td><td>${leaderboard[i].name}</td><td>${leaderboard[i].score}</td></tr>`;
         }
+    }
 
-        setTimeout(() => {
-            elements.forEach((item, index) => {
-                setTimeout(() => {
-                    if (!isPrimeSimple(item.val)) {
-                        item.el.classList.add('fly-away');
-                    } else {
-                        item.el.classList.add('prime-glow');
-                    }
-                }, index * (800 / elements.length)); 
-            });
+    function openGameModal() {
+        document.getElementById('game-modal').classList.add('show');
+        resetGameModalToPhase1();
+    }
 
-            setTimeout(() => {
-                elements.forEach(item => {
-                    if (!isPrimeSimple(item.val)) {
-                        item.el.style.display = 'none';
-                    }
-                });
-                title.innerHTML = `<i class="fa-solid fa-star"></i> اعداد اول`;
-                title.style.color = "var(--success)";
-                title.style.transform = "scale(1.15)";
-                
-                // نمایش ویدیو با یک افکت فِید (Fade In) بعد از پایان انیمیشن‌ها
-                let videoBox = document.getElementById('sieveVideo');
-                videoBox.style.display = 'block';
-                setTimeout(() => { videoBox.style.opacity = '1'; }, 50);
+    function closeGameModal() {
+        document.getElementById('game-modal').classList.remove('show');
+        clearInterval(gameInterval);
+    }
 
-            }, 1000 + (800)); 
+    function switchGamePhase(phaseId) {
+        document.querySelectorAll('.game-phase').forEach(el => el.classList.remove('active'));
+        document.getElementById('phase-' + phaseId).classList.add('active');
+    }
 
-        }, 1200);
+    function resetGameModalToPhase1() {
+        renderLeaderboard('leaderboard-body');
+        switchGamePhase('intro');
+    }
+
+    function generateHardNumber() {
+        // Generates number > 200, < 1000 ending in 1,3,7,9 to make it tricky
+        let prefix = Math.floor(Math.random() * 79) + 20; // 20 to 98
+        let suffix = [1,3,7,9][Math.floor(Math.random() * 4)];
+        return prefix * 10 + suffix;
+    }
+
+    function startGame() {
+        currentScore = 0;
+        timeLeft = 60;
+        document.getElementById('game-score').innerText = `امتیاز: 0`;
+        document.getElementById('game-timer').innerText = `1:00`;
+        switchGamePhase('game');
+        
+        nextQuestion();
+
+        gameInterval = setInterval(() => {
+            timeLeft--;
+            let m = Math.floor(timeLeft / 60);
+            let s = timeLeft % 60;
+            document.getElementById('game-timer').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+            
+            if(timeLeft <= 0) {
+                endGame();
+            }
+        }, 1000);
+    }
+
+    function nextQuestion() {
+        currentTargetNumber = generateHardNumber();
+        document.getElementById('game-number').innerText = currentTargetNumber;
+    }
+
+    function handleAnswer(userChosePrime) {
+        let actualIsPrime = isPrime(currentTargetNumber);
+        if(userChosePrime === actualIsPrime) {
+            currentScore++;
+            document.getElementById('game-score').innerText = `امتیاز: ${currentScore}`;
+        }
+        nextQuestion();
+    }
+
+    function endGame() {
+        clearInterval(gameInterval);
+        document.getElementById('final-score-display').innerText = currentScore;
+        let input = document.getElementById('player-name-input');
+        input.value = '';
+        input.disabled = false;
+        document.getElementById('btn-submit-name').classList.remove('show');
+        switchGamePhase('form');
+        input.focus();
+    }
+
+    function checkNameInput(e) {
+        let val = document.getElementById('player-name-input').value.trim();
+        let btn = document.getElementById('btn-submit-name');
+        if(val.length > 0) {
+            btn.classList.add('show');
+            if(e.key === 'Enter') submitName();
+        } else {
+            btn.classList.remove('show');
+        }
+    }
+
+    function submitName() {
+        let input = document.getElementById('player-name-input');
+        let name = input.value.trim();
+        if(!name) return;
+        
+        input.disabled = true; // Lock the input
+        
+        // Add to leaderboard
+        leaderboard.push({name: name, score: currentScore});
+        leaderboard.sort((a,b) => b.score - a.score);
+        
+        // Find rank
+        let rank = leaderboard.findIndex(p => p.name === name && p.score === currentScore) + 1;
+        
+        document.getElementById('player-final-rank-bar').innerHTML = `<b>رتبه:</b> ${rank} &nbsp;|&nbsp; <b>نام:</b> ${name} &nbsp;|&nbsp; <b>رکورد:</b> ${currentScore}`;
+        
+        renderLeaderboard('final-leaderboard-body');
+        switchGamePhase('result');
     }
 </script>
-
 </body>
 </html>
