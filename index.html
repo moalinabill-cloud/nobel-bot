@@ -40,10 +40,9 @@
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: var(--text-dark);
-            padding: 20px;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
@@ -58,7 +57,7 @@
         /* کادر شیشه‌ای ثابت */
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             background: rgba(255, 255, 255, 0.65);
             padding: 30px;
             border-radius: 24px;
@@ -70,29 +69,31 @@
             flex-direction: column;
             gap: 20px;
             position: relative;
+            z-index: 10;
         }
 
+        /* هدر با دکمه تمرین */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             width: 100%;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .header h1 {
             color: var(--primary);
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
             text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
-            margin: 0 auto;
+            margin: 0;
         }
 
-        /* انیمیشن آیکون ربات */
         .header h1 i {
             animation: botPulse 2s infinite ease-in-out;
             transform-origin: center bottom;
@@ -103,6 +104,27 @@
             25% { transform: scale(1.1) rotate(-10deg); }
             50% { transform: scale(1.15) rotate(0deg); }
             75% { transform: scale(1.1) rotate(10deg); }
+        }
+
+        .practice-btn {
+            background: #0dcaf0;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(13, 202, 240, 0.3);
+            font-family: 'iranyekan', Tahoma, sans-serif;
+        }
+        .practice-btn:hover {
+            background: #0bacbe;
+            transform: translateY(-2px);
         }
 
         /* تب‌ها */
@@ -133,21 +155,12 @@
             gap: 8px;
         }
 
-        .tab-btn i {
-            font-size: 20px;
-            transition: transform 0.3s;
-        }
-
+        .tab-btn i { font-size: 20px; transition: transform 0.3s; }
         .tab-btn:hover { color: var(--primary); }
         .tab-btn:hover i { transform: scale(1.15) translateY(-2px); }
+        .tab-btn.active { background: #fff; color: var(--primary); box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15); }
 
-        .tab-btn.active {
-            background: #fff;
-            color: var(--primary);
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15);
-        }
-
-        /* محتوای تب با انیمیشن Slide Up Fade */
+        /* محتوای تب با انیمیشن */
         .tab-content { display: none; }
         .tab-content.active {
             display: block;
@@ -160,64 +173,31 @@
         }
 
         /* فرم‌ها و ورودی‌ها */
-        .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
+        .input-group { position: relative; margin-bottom: 15px; }
         .input-group i {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            font-size: 18px;
-            transition: 0.3s;
+            position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
+            color: var(--primary); font-size: 18px; transition: 0.3s;
         }
-
         .input-group input {
-            width: 100%;
-            padding: 15px 45px 15px 15px;
-            border: 2px solid transparent;
-            border-radius: 14px;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.6);
-            color: var(--text-dark);
-            font-weight: bold;
+            width: 100%; padding: 15px 45px 15px 15px; border: 2px solid transparent;
+            border-radius: 14px; font-size: 16px; outline: none; transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.6); color: var(--text-dark); font-weight: bold;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-            background: #fff;
-            box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
-        }
-
+        .input-group input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 15px rgba(79, 70, 229, 0.2); }
         .dual-inputs { display: flex; gap: 15px; }
         .dual-inputs .input-group { flex: 1; }
 
         /* نتایج و پاپ‌آپ فنری */
         .result-box {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px dashed rgba(79, 70, 229, 0.4);
-            border-radius: 16px;
-            min-height: 100px;
-            font-size: 15px;
-            line-height: 1.8;
-            color: var(--text-dark);
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            display: none;
+            padding: 20px; background: rgba(255, 255, 255, 0.8);
+            border: 2px dashed rgba(79, 70, 229, 0.4); border-radius: 16px;
+            min-height: 100px; font-size: 15px; line-height: 1.8; color: var(--text-dark);
+            margin-bottom: 20px; transition: all 0.3s; display: none;
         }
-
         .result-box.show-anim {
-            display: block;
-            animation: springPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
+            display: block; animation: springPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            border-color: var(--primary); box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
         }
 
         @keyframes springPop {
@@ -226,217 +206,70 @@
             100% { transform: scale(1); opacity: 1; }
         }
         
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .result-title {
-            font-weight: bold;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 17px;
-        }
+        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .result-title { font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 8px; font-size: 17px; }
         
-        /* دکمه دوباره */
         .reset-btn {
-            background: rgba(225, 29, 72, 0.1);
-            color: #e11d48;
-            border: 1px solid rgba(225, 29, 72, 0.2);
-            padding: 6px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            transition: all 0.3s;
+            background: rgba(225, 29, 72, 0.1); color: #e11d48; border: 1px solid rgba(225, 29, 72, 0.2);
+            padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: bold;
+            display: flex; gap: 6px; align-items: center; transition: all 0.3s;
         }
-        
-        .reset-btn:hover {
-            background: #e11d48;
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.2);
-        }
-        
-        .reset-btn i {
-            transition: transform 0.4s;
-        }
-        
-        .reset-btn:hover i {
-            transform: rotate(-180deg);
-        }
+        .reset-btn:hover { background: #e11d48; color: white; transform: scale(1.05); box-shadow: 0 4px 10px rgba(225, 29, 72, 0.2); }
+        .reset-btn i { transition: transform 0.4s; }
+        .reset-btn:hover i { transform: rotate(-180deg); }
 
-        /* دکمه تپنده و نوری */
+        /* دکمه اصلی برنامه */
         .main-action-btn {
-            position: relative;
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: white;
-            border: none;
-            padding: 18px;
-            width: 100%;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            overflow: hidden;
-            animation: pulseBtn 2s infinite;
+            position: relative; background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white; border: none; padding: 18px; width: 100%; border-radius: 16px;
+            font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s;
+            display: flex; justify-content: center; align-items: center; gap: 12px;
+            overflow: hidden; animation: pulseBtn 2s infinite;
         }
-
         @keyframes pulseBtn {
             0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); }
             70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
             100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
         }
-
         .main-action-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
+            transform: skewX(-25deg); animation: shine 3s infinite;
         }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
-        }
-
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
         .main-action-btn:hover { transform: translateY(-3px); }
         .main-action-btn:active { transform: translateY(1px); }
 
         /* استایل‌های غربال */
         .sieve-warning {
-            background: rgba(255, 243, 205, 0.8);
-            color: #856404;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 14px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            border-right: 4px solid #ffeeba;
+            background: rgba(255, 243, 205, 0.8); color: #856404; padding: 15px;
+            border-radius: 12px; font-size: 14px; margin-bottom: 15px; display: flex;
+            align-items: center; border-right: 4px solid #ffeeba;
         }
-
-        .sieve-title {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--primary);
-            transition: color 0.5s, transform 0.5s;
-        }
-
-        /* چیدمان اعداد از چپ به راست */
-        .num-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            direction: ltr; /* LTR Setup */
-            justify-content: flex-start;
-        }
-
+        .sieve-title { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 15px; color: var(--primary); transition: color 0.5s, transform 0.5s; }
+        .num-grid { display: flex; flex-wrap: wrap; gap: 8px; direction: ltr; justify-content: flex-start; }
         .num-item {
-            padding: 10px;
-            min-width: 45px;
-            text-align: center;
-            background: rgba(156, 163, 175, 0.8);
-            color: white;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 16px;
-            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: inline-block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 10px; min-width: 45px; text-align: center; background: rgba(156, 163, 175, 0.8);
+            color: white; border-radius: 10px; font-weight: bold; font-size: 16px;
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
+        .num-item.prime-glow { background: var(--success); box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); transform: scale(1.15); z-index: 10; }
+        .fly-away { transform: translateY(-200px) rotate(360deg) scale(0); opacity: 0; pointer-events: none; }
 
-        .num-item.prime-glow {
-            background: var(--success);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
-            transform: scale(1.15);
-            z-index: 10;
-        }
-
-        /* انیمیشن محو شدن با چرخش 360 */
-        .fly-away {
-            transform: translateY(-200px) rotate(360deg) scale(0);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* کارت ویدیو آپارات */
+        /* ویدیو آپارات */
         .video-card {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            text-align: center;
+            margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.9); text-align: center;
             box-shadow: inset 0 2px 10px rgba(255,255,255,0.5), 0 5px 15px rgba(0,0,0,0.05);
         }
         .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            background: #000;
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); background: #000;
         }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
-        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .footer { text-align: center; margin-top: 20px; font-size: 12px; color: rgba(30, 27, 75, 0.5); font-weight: bold; letter-spacing: 1px; }
 
-        /* فوتر */
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: rgba(30, 27, 75, 0.5);
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-        }
-
-        /* --- کدهای اضافه شده برای بخش تمرین --- */
-        .practice-btn {
-            background: #0dcaf0;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(13, 202, 240, 0.3);
-            font-family: 'iranyekan', Tahoma, sans-serif;
-        }
-        .practice-btn:hover {
-            background: #0bacbe;
-            transform: translateY(-2px);
-        }
-
+        /* مدال (پاپ‌آپ) تمرین‌ها */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -447,317 +280,3 @@
             justify-content: center;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-        }
-
-        .practice-modal-content {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 24px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 40px rgba(31, 38, 135, 0.2);
-            border: 1px solid rgba(255, 255, 255, 1);
-        }
-
-        .practice-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .practice-card {
-            background: rgba(255, 255, 255, 0.6);
-            border: 2px solid rgba(79, 70, 229, 0.1);
-            padding: 20px 15px;
-            border-radius: 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .practice-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 8px 15px rgba(79, 70, 229, 0.15);
-            background: #fff;
-        }
-
-        .close-modal-btn {
-            background: #e11d48;
-            color: white;
-            border: none;
-            padding: 14px;
-            width: 100%;
-            border-radius: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 25px;
-            font-size: 15px;
-            font-family: 'iranyekan', Tahoma, sans-serif;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .close-modal-btn:hover { background: #be123c; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="header">
-        <!-- یک دیو خالی برای حفظ تعادل در راست -->
-        <div style="flex: 1;"></div> 
-        <h1 style="flex: 2; display: flex; justify-content: center; margin: 0;"><i class="fa-solid fa-robot"></i> نوبل بات</h1>
-        <!-- دکمه تمرین در چپ -->
-        <div style="flex: 1; display: flex; justify-content: flex-end;">
-            <button class="practice-btn" onclick="openPracticeModal()">
-                <i class="fa-solid fa-dumbbell"></i> تمرین
-            </button>
-        </div>
-    </div>
-    
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(0)">
-            <i class="fa-solid fa-hashtag"></i> اول و مرکب
-        </button>
-        <button class="tab-btn" onclick="switchTab(1)">
-            <i class="fa-solid fa-divide"></i> ب.م.م
-        </button>
-        <button class="tab-btn" onclick="switchTab(2)">
-            <i class="fa-solid fa-layer-group"></i> ک.م.م
-        </button>
-        <button class="tab-btn" onclick="switchTab(3)">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> غربال
-        </button>
-    </div>
-
-    <!-- بخش اول و مرکب -->
-    <div class="tab-content active" id="tab-0">
-        <div class="input-group">
-            <i class="fa-solid fa-pen"></i>
-            <input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)">
-        </div>
-        <div class="result-box" id="result-0"></div>
-    </div>
-
-    <!-- بخش ب.م.م -->
-    <div class="tab-content" id="tab-1">
-        <div class="dual-inputs">
-            <div class="input-group">
-                <i class="fa-solid fa-1"></i>
-                <input type="text" id="bmmInput1" placeholder="عدد اول">
-            </div>
-            <div class="input-group">
-                <i class="fa-solid fa-2"></i>
-                <input type="text" id="bmmInput2" placeholder="عدد دوم">
-            </div>
-        </div>
-        <div class="result-box" id="result-1"></div>
-    </div>
-
-    <!-- بخش ک.م.م -->
-    <div class="tab-content" id="tab-2">
-        <div class="dual-inputs">
-            <div class="input-group">
-                <i class="fa-solid fa-1"></i>
-                <input type="text" id="kmmInput1" placeholder="عدد اول">
-            </div>
-            <div class="input-group">
-                <i class="fa-solid fa-2"></i>
-                <input type="text" id="kmmInput2" placeholder="عدد دوم">
-            </div>
-        </div>
-        <div class="result-box" id="result-2"></div>
-    </div>
-
-    <!-- بخش غربال -->
-    <div class="tab-content" id="tab-3">
-        <div class="sieve-warning">
-            <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px; margin-left: 10px;"></i>
-            <div style="line-height: 1.8;">
-                <strong>نکته :</strong><br>
-                1 : حداکثر اختلاف مجاز بین دو عدد ، 1000 است .<br>
-                2 : عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد .
-            </div>
-        </div>
-        <div class="dual-inputs">
-            <div class="input-group">
-                <i class="fa-solid fa-play"></i>
-                <input type="text" id="sieveStart" placeholder="عدد شروع (کوچک)">
-            </div>
-            <div class="input-group">
-                <i class="fa-solid fa-stop"></i>
-                <input type="text" id="sieveEnd" placeholder="عدد پایان (بزرگ)">
-            </div>
-        </div>
-        <div class="result-box" id="result-3"></div>
-    </div>
-
-    <button class="main-action-btn" onclick="executeCurrentTab()">
-        <i id="btnIcon" class="fa-solid fa-magnifying-glass-chart"></i> 
-        <span id="btnText">بررسی عدد</span>
-    </button>
-    
-    <div class="footer">powered by M.Ali Nabil</div>
-</div>
-
-<!-- پاپ‌آپ تمرین‌ها -->
-<div id="practiceModalOverlay" class="modal-overlay">
-    <div class="practice-modal-content">
-        <h3 style="text-align: center; color: var(--primary); font-size: 22px; display: flex; justify-content: center; align-items: center; gap: 10px;">
-            <i class="fa-solid fa-dumbbell"></i> بخش تمرین‌ها
-        </h3>
-        <div class="practice-cards">
-            <div class="practice-card">
-                <i class="fa-solid fa-hashtag" style="font-size: 2.5em; color: #ffc107; margin-bottom: 15px;"></i>
-                <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های اعداد اول و مرکب</h4>
-            </div>
-            <div class="practice-card">
-                <i class="fa-solid fa-divide" style="font-size: 2.5em; color: #0dcaf0; margin-bottom: 15px;"></i>
-                <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های ب.م.م</h4>
-            </div>
-            <div class="practice-card">
-                <i class="fa-solid fa-layer-group" style="font-size: 2.5em; color: #20c997; margin-bottom: 15px;"></i>
-                <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های ک.م.م</h4>
-            </div>
-            <div class="practice-card">
-                <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 2.5em; color: #dc3545; margin-bottom: 15px;"></i>
-                <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های غربال</h4>
-            </div>
-        </div>
-        <button class="close-modal-btn" onclick="closePracticeModal()">
-            <i class="fa-solid fa-arrow-right"></i> برگشت به برنامه
-        </button>
-    </div>
-</div>
-
-<script>
-    let currentTabIndex = 0;
-
-    // پاکسازی اعداد فارسی به انگلیسی
-    function cleanNumber(str) {
-        if (!str) return "";
-        return str.toString().trim()
-            .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
-            .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
-    }
-
-    // تغییر تب‌ها
-    function switchTab(index) {
-        currentTabIndex = index;
-        const buttons = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        
-        buttons.forEach((btn, idx) => {
-            btn.classList.toggle('active', idx === index);
-            contents[idx].classList.toggle('active', idx === index);
-        });
-
-        const btnText = document.getElementById('btnText');
-        const btnIcon = document.getElementById('btnIcon');
-
-        if (index === 0) {
-            btnText.innerText = "بررسی عدد";
-            btnIcon.className = "fa-solid fa-magnifying-glass-chart";
-        } else if (index === 1) {
-            btnText.innerText = "محاسبه ب.م.م";
-            btnIcon.className = "fa-solid fa-calculator";
-        } else if (index === 2) {
-            btnText.innerText = "محاسبه ک.م.م";
-            btnIcon.className = "fa-solid fa-calculator";
-        } else if (index === 3) {
-            btnText.innerText = "اجرای جادوی غربال";
-            btnIcon.className = "fa-solid fa-wand-magic-sparkles";
-        }
-        
-        // مخفی کردن کادرهای نتایج با تغییر تب
-        document.querySelectorAll('.result-box').forEach(box => {
-            box.classList.remove('show-anim');
-            box.style.display = 'none';
-        });
-    }
-    
-    // پاک کردن فرم و بستن نتیجه (دکمه دوباره)
-    function resetTab(index) {
-        if (index === 0) {
-            document.getElementById('numInput').value = '';
-        } else if (index === 1) {
-            document.getElementById('bmmInput1').value = '';
-            document.getElementById('bmmInput2').value = '';
-        } else if (index === 2) {
-            document.getElementById('kmmInput1').value = '';
-            document.getElementById('kmmInput2').value = '';
-        } else if (index === 3) {
-            document.getElementById('sieveStart').value = '';
-            document.getElementById('sieveEnd').value = '';
-        }
-        
-        const box = document.getElementById('result-' + index);
-        box.classList.remove('show-anim');
-        setTimeout(() => {
-            box.style.display = 'none';
-            box.innerHTML = '';
-        }, 300);
-    }
-
-    // تولید کادر هدر نتیجه با دکمه دوباره
-    function getResultHeader(title, icon, tabIndex) {
-        return `
-        <div class="result-header">
-            <div class="result-title"><i class="${icon}"></i> ${title}:</div>
-            <button class="reset-btn" onclick="resetTab(${tabIndex})">
-                <i class="fa-solid fa-rotate-right"></i> دوباره
-            </button>
-        </div>`;
-    }
-
-    // تریگر کردن انیمیشن کادر نتیجه
-    function triggerResultAnim(boxId) {
-        const box = document.getElementById(boxId);
-        box.classList.remove('show-anim');
-        box.style.display = 'none';
-        void box.offsetWidth; // Force Reflow
-        box.style.display = 'block';
-        box.classList.add('show-anim');
-    }
-
-    // اجرای عملیات تب جاری
-    function executeCurrentTab() {
-        if (currentTabIndex === 0) checkPrime();
-        else if (currentTabIndex === 1) calcBMM();
-        else if (currentTabIndex === 2) calcKMM();
-        else if (currentTabIndex === 3) runAnimatedSieve();
-    }
-
-    // توابع ریاضی با BigInt برای امنیت اعداد بزرگ
-    function isProbablePrime(n) {
-        if (n === 2n || n === 3n) return true;
-        if (n < 2n || n % 2n === 0n) return false;
-        let d = n - 1n, s = 0n;
-        while (d % 2n === 0n) { d /= 2n; s += 1n; }
-        const bases = [2n, 3n, 5n, 7n, 11n, 13n, 17n, 19n, 23n];
-        for (let a of bases) {
-            if (n <= a) break;
-            let x = powerMod(a, d, n);
-            if (x === 1n || x === n - 1n) continue;
-            let composite = true;
-            for (let r = 1n; r < s; r++) {
-                x = powerMod(x, 2n, n);
-                if (x === n - 1n) { composite = false; break; }
-            }
-            if (composite) return false;
-        }
-        return true;
-    }
-    
-    function powerMod(base, exp, mod) {
-        let res = 1n;
-        base = base % mod;
-        while (exp > 0n) {
-            if (exp % 2n === 1n) res = (res * base) % mod
