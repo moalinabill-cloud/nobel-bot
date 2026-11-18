@@ -40,10 +40,9 @@
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: var(--text-dark);
-            padding: 20px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
@@ -55,31 +54,14 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* کادر شیشه‌ای ثابت */
-        .container {
-            width: 100%;
-            max-width: 650px;
-            background: rgba(255, 255, 255, 0.65);
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: relative;
-        }
-
-        /* هدر قرینه */
-        .header {
+        /* ================= هدر اصلی (بیرون از کادر) ================= */
+        .main-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 5px;
             width: 100%;
-            flex-wrap: wrap;
+            max-width: 700px;
+            margin-bottom: 30px; /* فاصله از صفحه اصلی */
             gap: 10px;
         }
 
@@ -87,14 +69,8 @@
             flex: 1;
             display: flex;
         }
-
-        .header-side.right {
-            justify-content: flex-start; /* راست در RTL */
-        }
-
-        .header-side.left {
-            justify-content: flex-end; /* چپ در RTL */
-        }
+        .header-side.right { justify-content: flex-start; }
+        .header-side.left { justify-content: flex-end; }
 
         .header-center {
             flex: 2;
@@ -103,14 +79,14 @@
         }
 
         .header-center h1 {
-            color: var(--primary);
-            font-size: 26px;
+            color: #fff; /* سفید برای خوانایی روی پس‌زمینه رنگی */
+            font-size: 30px;
             font-weight: bold;
-            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             margin: 0;
             white-space: nowrap;
         }
@@ -127,37 +103,56 @@
             75% { transform: scale(1.1) rotate(10deg); }
         }
 
-        /* استایل دکمه‌های هدر (تمرین و مسابقات) */
+        /* دکمه‌های بزرگتر و هم‌اندازه هدر */
         .action-btn {
             color: white;
             border: none;
-            padding: 10px 18px;
-            border-radius: 14px;
+            padding: 14px 15px; /* بزرگتر */
+            border-radius: 16px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center; /* متن در وسط */
+            gap: 10px;
             transition: all 0.3s;
-            font-size: 15px;
+            font-size: 16px; /* بزرگتر */
             font-family: 'iranyekan', Tahoma, sans-serif;
+            width: 145px; /* هم‌اندازه کردن دقیق دو دکمه */
         }
 
         .comp-btn {
             background: var(--success);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
         }
-        .comp-btn:hover { background: #059669; transform: translateY(-2px); }
+        .comp-btn:hover { background: #059669; transform: translateY(-3px); }
 
         .practice-btn {
             background: #0dcaf0;
-            box-shadow: 0 4px 12px rgba(13, 202, 240, 0.3);
+            box-shadow: 0 6px 15px rgba(13, 202, 240, 0.4);
         }
-        .practice-btn:hover { background: #0bacbe; transform: translateY(-2px); }
+        .practice-btn:hover { background: #0bacbe; transform: translateY(-3px); }
 
-        @media (max-width: 480px) {
-            .header-center h1 { font-size: 20px; }
-            .action-btn { padding: 8px 12px; font-size: 13px; }
+        @media (max-width: 550px) {
+            .main-header { flex-direction: column; gap: 20px; }
+            .action-btn { width: 200px; }
+        }
+
+        /* ================= کادر شیشه‌ای ثابت صفحه اصلی ================= */
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(255, 255, 255, 0.65);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
         }
 
         /* تب‌ها */
@@ -169,63 +164,40 @@
             border-radius: 16px;
             overflow-x: auto;
         }
-
         .tab-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
+            flex: 1; padding: 12px; border: none; background: transparent; cursor: pointer;
+            font-weight: bold; font-size: 13px; color: var(--text-muted); border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
         }
-
         .tab-btn i { font-size: 20px; transition: transform 0.3s; }
         .tab-btn:hover { color: var(--primary); }
         .tab-btn:hover i { transform: scale(1.15) translateY(-2px); }
         .tab-btn.active { background: #fff; color: var(--primary); box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15); }
 
-        /* محتوای تب با انیمیشن */
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: slideUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-
-        @keyframes slideUpFade {
-            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
         /* فرم‌ها و ورودی‌ها */
         .input-group { position: relative; margin-bottom: 15px; }
         .input-group i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 18px; transition: 0.3s; }
         .input-group input {
-            width: 100%; padding: 15px 45px 15px 15px; border: 2px solid transparent;
-            border-radius: 14px; font-size: 16px; outline: none; transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.6); color: var(--text-dark); font-weight: bold;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            width: 100%; padding: 15px 45px 15px 15px; border: 2px solid transparent; border-radius: 14px;
+            font-size: 16px; outline: none; transition: all 0.3s; background: rgba(255, 255, 255, 0.6);
+            color: var(--text-dark); font-weight: bold; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
         .input-group input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 15px rgba(79, 70, 229, 0.2); }
         .dual-inputs { display: flex; gap: 15px; }
         .dual-inputs .input-group { flex: 1; }
 
-        /* نتایج */
+        /* نتایج و پاپ‌آپ فنری */
         .result-box {
-            padding: 20px; background: rgba(255, 255, 255, 0.8);
-            border: 2px dashed rgba(79, 70, 229, 0.4); border-radius: 16px;
-            min-height: 100px; font-size: 15px; line-height: 1.8; color: var(--text-dark);
+            padding: 20px; background: rgba(255, 255, 255, 0.8); border: 2px dashed rgba(79, 70, 229, 0.4);
+            border-radius: 16px; min-height: 100px; font-size: 15px; line-height: 1.8; color: var(--text-dark);
             margin-bottom: 20px; transition: all 0.3s; display: none;
         }
-        .result-box.show-anim {
-            display: block; animation: springPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            border-color: var(--primary); box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
-        }
+        .result-box.show-anim { display: block; animation: springPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; border-color: var(--primary); box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15); }
         @keyframes springPop { 0% { transform: scale(0.85); opacity: 0; } 60% { transform: scale(1.02); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         
         .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
@@ -243,9 +215,9 @@
         /* دکمه اصلی برنامه */
         .main-action-btn {
             position: relative; background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: white; border: none; padding: 18px; width: 100%; border-radius: 16px;
-            font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s;
-            display: flex; justify-content: center; align-items: center; gap: 12px; overflow: hidden; animation: pulseBtn 2s infinite;
+            color: white; border: none; padding: 18px; width: 100%; border-radius: 16px; font-size: 18px;
+            font-weight: bold; cursor: pointer; transition: all 0.3s; display: flex; justify-content: center;
+            align-items: center; gap: 12px; overflow: hidden; animation: pulseBtn 2s infinite;
         }
         @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); } 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); } }
         .main-action-btn::after {
@@ -258,37 +230,32 @@
         .main-action-btn:active { transform: translateY(1px); }
 
         /* استایل‌های غربال */
-        .sieve-warning {
-            background: rgba(255, 243, 205, 0.8); color: #856404; padding: 15px; border-radius: 12px;
-            font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; border-right: 4px solid #ffeeba;
-        }
+        .sieve-warning { background: rgba(255, 243, 205, 0.8); color: #856404; padding: 15px; border-radius: 12px; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; border-right: 4px solid #ffeeba; }
         .sieve-title { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 15px; color: var(--primary); transition: color 0.5s, transform 0.5s; }
         .num-grid { display: flex; flex-wrap: wrap; gap: 8px; direction: ltr; justify-content: flex-start; }
-        .num-item {
-            padding: 10px; min-width: 45px; text-align: center; background: rgba(156, 163, 175, 0.8);
-            color: white; border-radius: 10px; font-weight: bold; font-size: 16px;
-            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+        .num-item { padding: 10px; min-width: 45px; text-align: center; background: rgba(156, 163, 175, 0.8); color: white; border-radius: 10px; font-weight: bold; font-size: 16px; transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .num-item.prime-glow { background: var(--success); box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); transform: scale(1.15); z-index: 10; }
         .fly-away { transform: translateY(-200px) rotate(360deg) scale(0); opacity: 0; pointer-events: none; }
-
-        /* کارت ویدیو آپارات */
-        .video-card {
-            margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.7);
-            border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.9); text-align: center;
-            box-shadow: inset 0 2px 10px rgba(255,255,255,0.5), 0 5px 15px rgba(0,0,0,0.05);
-        }
-        .video-wrapper {
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-            border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); background: #000;
-        }
+        
+        .video-card { margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.9); text-align: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.5), 0 5px 15px rgba(0,0,0,0.05); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); background: #000; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .footer { text-align: center; margin-top: 20px; font-size: 12px; color: rgba(30, 27, 75, 0.5); font-weight: bold; letter-spacing: 1px; text-shadow: 0 1px 2px rgba(255,255,255,0.5); }
+
+        /* ================= فوتر اصلی (بیرون از کادر) ================= */
+        .main-footer {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
 
         /* ================= استایل‌های مشترک پاپ‌آپ‌ها ================= */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.75); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
         }
         .custom-modal-content {
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -310,24 +277,14 @@
         }
         .btn-red:hover { background: #be123c; }
 
-        .btn-green {
-            background: var(--success); color: white; border: none; padding: 14px; width: 100%;
-            border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 15px; transition: 0.3s;
-        }
+        .btn-green { background: var(--success); color: white; border: none; padding: 14px; width: 100%; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 15px; transition: 0.3s; }
         .btn-green:hover { background: #059669; }
         .btn-green:disabled { background: #9ca3af; cursor: not-allowed; }
 
-        .game-header {
-            display: flex; justify-content: space-between; font-size: 1.1em; font-weight: bold;
-            margin-bottom: 20px; background: rgba(79, 70, 229, 0.1); padding: 12px; border-radius: 12px; color: var(--primary);
-        }
-        .question-box {
-            border: 2px dashed rgba(79, 70, 229, 0.3); padding: 15px; border-radius: 15px;
-            font-size: 1.4em; margin-bottom: 20px; text-align: center; background: #fff;
-        }
+        /* استایل‌های اختصاصی بازی‌های مسابقه (روشن) */
+        .game-header { display: flex; justify-content: space-between; font-size: 1.1em; font-weight: bold; margin-bottom: 20px; background: rgba(79, 70, 229, 0.1); padding: 12px; border-radius: 12px; color: var(--primary); }
+        .question-box { border: 2px dashed rgba(79, 70, 229, 0.3); padding: 15px; border-radius: 15px; font-size: 1.4em; margin-bottom: 20px; text-align: center; background: #fff; }
         .game-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        
-        /* دکمه‌های گزینه‌ها در تمرین و مسابقات */
         .game-btn, .prac-opt-btn {
             padding: 15px; font-size: 1.2em; border-radius: 12px; cursor: pointer; font-weight: bold;
             border: 2px solid rgba(79, 70, 229, 0.2); background: #fff; color: var(--text-dark); transition: all 0.2s;
@@ -348,36 +305,35 @@
         .table-header { background: rgba(79, 70, 229, 0.05); font-weight: bold; color: var(--primary); }
         .table-row:last-child { border-bottom: none; }
 
-        /* Sieve Game */
         .sieve-comp-grid { display: flex; flex-wrap: wrap; gap: 4px; direction: ltr; max-height: 350px; overflow-y: auto; justify-content: center; margin-top: 15px; border-radius: 12px; background: rgba(79, 70, 229, 0.05); padding: 12px; }
         .sieve-game-cell { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(79, 70, 229, 0.2); background: #fff; color: var(--text-dark); cursor: pointer; font-size: 14px; border-radius: 6px; user-select: none; transition: background-color 0.2s; font-weight: bold; }
         .sieve-game-cell:hover { background: rgba(79, 70, 229, 0.1); }
+        .sieve-game-cell.correct-tap { background-color: var(--success) !important; border-color: #059669 !important; color: #fff !important; }
+        .sieve-game-cell.wrong-tap { background-color: #e11d48 !important; border-color: #be123c !important; color: #fff !important; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    
-    <!-- هدر قرینه‌سازی شده دقیقاً طبق نقشه -->
-    <div class="header">
-        <div class="header-side right">
-            <button class="action-btn comp-btn" onclick="openCompMenuModal()">
-                مسابقات <i class="fa-solid fa-gamepad"></i>
-            </button>
-        </div>
-        
-        <div class="header-center">
-            <h1><i class="fa-solid fa-robot"></i> نوبل بات</h1>
-        </div>
-        
-        <div class="header-side left">
-            <!-- متن دکمه از "تمرین‌ها" به "تمرین" تغییر یافت -->
-            <button class="action-btn practice-btn" onclick="openPracticeModal()">
-                <i class="fa-solid fa-dumbbell"></i> تمرین
-            </button>
-        </div>
+<!-- هدر اصلی و مستقل شامل عنوان و دکمه‌ها -->
+<header class="main-header">
+    <div class="header-side right">
+        <button class="action-btn comp-btn" onclick="openCompMenuModal()">
+            مسابقات <i class="fa-solid fa-gamepad"></i>
+        </button>
     </div>
     
+    <div class="header-center">
+        <h1><i class="fa-solid fa-robot"></i> نوبل بات</h1>
+    </div>
+    
+    <div class="header-side left">
+        <button class="action-btn practice-btn" onclick="openPracticeModal()">
+            <i class="fa-solid fa-dumbbell"></i> تمرین
+        </button>
+    </div>
+</header>
+
+<div class="container">
     <div class="tabs">
         <button class="tab-btn active" onclick="switchTab(0)"><i class="fa-solid fa-hashtag"></i> اول و مرکب</button>
         <button class="tab-btn" onclick="switchTab(1)"><i class="fa-solid fa-divide"></i> ب.م.م</button>
@@ -385,10 +341,13 @@
         <button class="tab-btn" onclick="switchTab(3)"><i class="fa-solid fa-wand-magic-sparkles"></i> غربال</button>
     </div>
 
+    <!-- بخش اول و مرکب -->
     <div class="tab-content active" id="tab-0">
         <div class="input-group"><i class="fa-solid fa-pen"></i><input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)"></div>
         <div class="result-box" id="result-0"></div>
     </div>
+
+    <!-- بخش ب.م.م -->
     <div class="tab-content" id="tab-1">
         <div class="dual-inputs">
             <div class="input-group"><i class="fa-solid fa-1"></i><input type="text" id="bmmInput1" placeholder="عدد اول"></div>
@@ -396,6 +355,8 @@
         </div>
         <div class="result-box" id="result-1"></div>
     </div>
+
+    <!-- بخش ک.م.م -->
     <div class="tab-content" id="tab-2">
         <div class="dual-inputs">
             <div class="input-group"><i class="fa-solid fa-1"></i><input type="text" id="kmmInput1" placeholder="عدد اول"></div>
@@ -403,6 +364,8 @@
         </div>
         <div class="result-box" id="result-2"></div>
     </div>
+
+    <!-- بخش غربال -->
     <div class="tab-content" id="tab-3">
         <div class="sieve-warning">
             <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px; margin-left: 10px;"></i>
@@ -418,8 +381,10 @@
     <button class="main-action-btn" onclick="executeCurrentTab()">
         <i id="btnIcon" class="fa-solid fa-magnifying-glass-chart"></i> <span id="btnText">بررسی عدد</span>
     </button>
-    <div class="footer">Powered by M.Ali. Nabil</div>
 </div>
+
+<!-- فوتر مستقل -->
+<footer class="main-footer">Powered by M.Ali. Nabil</footer>
 
 <!-- ================= پاپ‌آپ منوی تمرین ================= -->
 <div id="practiceModalOverlay" class="modal-overlay">
@@ -428,7 +393,6 @@
             <i class="fa-solid fa-dumbbell"></i> بخش تمرین‌ها
         </h3>
         <div class="modal-cards-grid">
-            <!-- اضافه شدن قابلیت آزمون 10 سوالی برای اعداد اول -->
             <div class="modal-card" onclick="startPrimePractice()">
                 <i class="fa-solid fa-hashtag" style="font-size: 2.5em; color: #ffc107; margin-bottom: 15px;"></i>
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های اعداد اول و مرکب</h4>
@@ -446,40 +410,27 @@
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های غربال</h4>
             </div>
         </div>
-        <button class="btn-red" onclick="closeModal('practiceModalOverlay')">
-            <i class="fa-solid fa-arrow-right"></i> برگشت به برنامه
-        </button>
+        <button class="btn-red" onclick="closeModal('practiceModalOverlay')"><i class="fa-solid fa-arrow-right"></i> برگشت به برنامه</button>
     </div>
 </div>
 
-<!-- ================= پاپ‌آپ آزمون تمرین اعداد اول (۱۰ سوالی) ================= -->
+<!-- ================= پاپ‌آپ آزمون تمرین اعداد اول ================= -->
 <div id="primePracticeTestModal" class="modal-overlay">
     <div class="custom-modal-content">
-        
         <div id="primePracContainer">
             <div class="game-header">
                 <div>تعداد درست: <span id="primePracCorrectCounter">0</span></div>
                 <div>شماره سوال: <span id="primePracQNumCounter">1</span> از 10</div>
             </div>
-            
-            <div class="question-box" id="primePracQText" style="min-height: 80px; display:flex; align-items:center; justify-content:center;">
-                --
-            </div>
-            
-            <div class="game-options" id="primePracOptionsContainer">
-                <!-- گزینه‌ها در جاوااسکریپت لود می‌شوند -->
-            </div>
-            
-            <!-- بخش نمایش بازخورد سبز یا قرمز -->
+            <div class="question-box" id="primePracQText" style="min-height: 80px; display:flex; align-items:center; justify-content:center;">--</div>
+            <div class="game-options" id="primePracOptionsContainer"></div>
             <div id="primePracFeedback" style="margin-top: 25px; font-weight: bold; text-align: center; min-height: 50px; font-size: 15px; line-height: 1.6;"></div>
         </div>
-
         <div id="primePracEndScreen" style="display:none; text-align:center;">
             <h3 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> پایان تمرین!</h3>
             <p style="font-size: 18px; margin-bottom: 20px;">تعداد پاسخ‌های درست شما: <span id="primePracFinalScore">0</span> از 10</p>
             <button class="btn-green" onclick="closePrimePractice()">بستن و بازگشت</button>
         </div>
-        
     </div>
 </div>
 
@@ -619,9 +570,7 @@
     </div>
 </div>
 
-
 <script>
-    // ================= بخش ماشین حساب =================
     let currentTabIndex = 0;
 
     function cleanNumber(str) {
@@ -649,9 +598,7 @@
         else if (index === 2) { btnText.innerText = "محاسبه ک.م.م"; btnIcon.className = "fa-solid fa-calculator"; } 
         else if (index === 3) { btnText.innerText = "اجرای جادوی غربال"; btnIcon.className = "fa-solid fa-wand-magic-sparkles"; }
         
-        document.querySelectorAll('.result-box').forEach(box => {
-            box.classList.remove('show-anim'); box.style.display = 'none';
-        });
+        document.querySelectorAll('.result-box').forEach(box => { box.classList.remove('show-anim'); box.style.display = 'none'; });
     }
     
     function resetTab(index) {
@@ -685,6 +632,7 @@
         else if (currentTabIndex === 3) runAnimatedSieve();
     }
 
+    // توابع ریاضی
     function isProbablePrime(n) {
         if (n === 2n || n === 3n) return true;
         if (n < 2n || n % 2n === 0n) return false;
@@ -726,7 +674,7 @@
         return true;
     }
 
-    // عملکرد تب اول و مرکب
+    // عملکرد تب‌ها
     function checkPrime() {
         let val = cleanNumber(document.getElementById('numInput').value);
         let res = document.getElementById('result-0');
@@ -742,8 +690,6 @@
         let videoCard = `<div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> اگه میخوای خودت بتونی اعداد اول و مرکب رو تشخیص بدی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/hydjqz3/vt/frame" allowFullScreen="true"></iframe></div></div>`;
         res.innerHTML = headerHTML + contentHTML + videoCard; triggerResultAnim('result-0');
     }
-
-    // عملکرد تب ب.م.م
     function calcBMM() {
         let aStr = cleanNumber(document.getElementById('bmmInput1').value), bStr = cleanNumber(document.getElementById('bmmInput2').value);
         let res = document.getElementById('result-1');
@@ -754,8 +700,6 @@
         res.innerHTML = headerHTML + `بزرگ‌ترین مقسوم‌علیه مشترک (${a} , ${b}) برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${g}</div>` + videoCard;
         triggerResultAnim('result-1');
     }
-
-    // عملکرد تب ک.م.م
     function calcKMM() {
         let aStr = cleanNumber(document.getElementById('kmmInput1').value), bStr = cleanNumber(document.getElementById('kmmInput2').value);
         let res = document.getElementById('result-2');
@@ -766,17 +710,13 @@
         res.innerHTML = headerHTML + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${k}</div>` + videoCard;
         triggerResultAnim('result-2');
     }
-
-    // عملکرد تب غربال
     function runAnimatedSieve() {
         let start = parseInt(cleanNumber(document.getElementById('sieveStart').value)), end = parseInt(cleanNumber(document.getElementById('sieveEnd').value));
         let res = document.getElementById('result-3'), headerHTML = getResultHeader("نتیجه", "fa-solid fa-check-double", 3);
         triggerResultAnim('result-3');
         if (isNaN(start) || isNaN(end) || start > end || start < 1) { res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i> خطا: عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.</div>`; return; }
         if (end - start > 1000) { res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت: حداکثر اختلاف مجاز بین دو عدد ، 1000 است.</div>`; return; }
-
         res.innerHTML = headerHTML + `<div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div><div id="numGrid" class="num-grid"></div><div id="sieveVideo" style="display: none; opacity: 0; transition: opacity 0.8s ease;"><div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 18px; vertical-align: -2px; margin-left: 5px;"></i> اگه میخوای خودت بتونی غربال انجام بدی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/mjir865/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div></div></div>`;
-        
         let grid = document.getElementById('numGrid'), title = document.getElementById('sieveTitle'), elements = [];
         for (let i = start; i <= end; i++) {
             let span = document.createElement('span'); span.className = 'num-item'; span.innerText = i;
@@ -792,23 +732,21 @@
             setTimeout(() => {
                 elements.forEach(item => { if (!isPrimeSimple(item.val)) item.el.style.display = 'none'; });
                 title.innerHTML = `<i class="fa-solid fa-star"></i> اعداد اول`; title.style.color = "var(--success)"; title.style.transform = "scale(1.15)";
-                let videoBox = document.getElementById('sieveVideo'); videoBox.style.display = 'block';
-                setTimeout(() => { videoBox.style.opacity = '1'; }, 50);
+                let videoBox = document.getElementById('sieveVideo'); videoBox.style.display = 'block'; setTimeout(() => { videoBox.style.opacity = '1'; }, 50);
             }, 1000 + (800)); 
         }, 1200);
     }
 
-    // ================= توابع مدیریت مدال‌ها و مسابقات =================
-    
+    // ================= توابع مدیریت پاپ‌آپ‌ها =================
     function openPracticeModal() { document.getElementById('practiceModalOverlay').style.display = 'flex'; }
     function openCompMenuModal() { document.getElementById('compMenuModal').style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function backToCompMenu(currentModalId) { closeModal(currentModalId); openCompMenuModal(); }
     
-    // بقیه تب‌های تمرین فقط ماشین‌حساب رو باز میکنن
+    // وقتی روی بقیه گزینه‌های تمرین می‌زنیم، تب باز می‌شود
     function selectPractice(index) { closeModal('practiceModalOverlay'); switchTab(index); }
 
-    // ================= منطق اختصاصی آزمون ۱۰ سوالی تمرین اعداد اول =================
+    // ================= تمرین ۱۰ سوالی اعداد اول =================
     let primePracQuestions = [];
     let primePracCurrentIndex = 0;
     let primePracCorrectAnswers = 0;
@@ -820,11 +758,9 @@
         document.getElementById('primePracEndScreen').style.display = 'none';
         document.getElementById('primePracFeedback').innerText = '';
         
-        primePracCurrentIndex = 0;
-        primePracCorrectAnswers = 0;
+        primePracCurrentIndex = 0; primePracCorrectAnswers = 0;
         document.getElementById('primePracCorrectCounter').innerText = "0";
         
-        // تولید 10 سوال متوسط و چالشی
         primePracQuestions = [];
         const mediumPrimes = [31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113];
         const trickyComposites = [39, 51, 57, 69, 87, 91, 93, 111, 119, 133, 143, 161];
@@ -836,28 +772,22 @@
             let correctOpt = 0;
             
             if(isAskingPrime) {
-                // 1 درست (اول)، 3 غلط (مرکب)
                 let p = mediumPrimes[Math.floor(Math.random() * mediumPrimes.length)];
                 let c = [...trickyComposites].sort(() => 0.5 - Math.random()).slice(0, 3);
-                options = [p, ...c].sort(() => 0.5 - Math.random());
-                correctOpt = p;
+                options = [p, ...c].sort(() => 0.5 - Math.random()); correctOpt = p;
             } else {
-                // 1 درست (مرکب)، 3 غلط (اول)
                 let c = trickyComposites[Math.floor(Math.random() * trickyComposites.length)];
                 let p = [...mediumPrimes].sort(() => 0.5 - Math.random()).slice(0, 3);
-                options = [c, ...p].sort(() => 0.5 - Math.random());
-                correctOpt = c;
+                options = [c, ...p].sort(() => 0.5 - Math.random()); correctOpt = c;
             }
             primePracQuestions.push({ text: qText, options: options, answer: correctOpt });
         }
-        
         loadPrimePracticeQuestion();
     }
 
     function loadPrimePracticeQuestion() {
         document.getElementById('primePracQNumCounter').innerText = primePracCurrentIndex + 1;
         document.getElementById('primePracFeedback').innerText = '';
-        
         let q = primePracQuestions[primePracCurrentIndex];
         document.getElementById('primePracQText').innerText = q.text;
         
@@ -874,7 +804,7 @@
         let feedbackEl = document.getElementById('primePracFeedback');
         
         let allBtns = document.getElementById('primePracOptionsContainer').querySelectorAll('.prac-opt-btn');
-        allBtns.forEach(b => b.style.pointerEvents = 'none'); // قفل کردن دکمه‌ها
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
         
         if (isCorrect) {
             btnElement.classList.add('correct-ans');
@@ -884,20 +814,16 @@
             feedbackEl.style.color = "var(--success)";
         } else {
             btnElement.classList.add('wrong-ans');
-            // سبز کردن گزینه درست
             let correctIdx = q.options.indexOf(q.answer);
             allBtns[correctIdx].classList.add('correct-ans');
-            
             feedbackEl.innerText = "اشتباه نوشتی ، البته اشکال نداره اشتباه بخشی از موفق شدنه . تو تلاش میکنی و موفق میشوی";
             feedbackEl.style.color = "#e11d48";
         }
         
-        // مکث 3 ثانیه برای خواندن پیام و رفتن به سوال بعدی
         setTimeout(() => {
             primePracCurrentIndex++;
-            if(primePracCurrentIndex < 10) {
-                loadPrimePracticeQuestion();
-            } else {
+            if(primePracCurrentIndex < 10) loadPrimePracticeQuestion();
+            else {
                 document.getElementById('primePracContainer').style.display = 'none';
                 document.getElementById('primePracEndScreen').style.display = 'block';
                 document.getElementById('primePracFinalScore').innerText = primePracCorrectAnswers;
@@ -906,11 +832,10 @@
     }
     
     function closePrimePractice() {
-        closeModal('primePracticeTestModal');
-        openPracticeModal();
+        closeModal('primePracticeTestModal'); openPracticeModal();
     }
 
-    // ================= فایربیس لوکال و مسابقات اصلی =================
+    // ================= فایربیس لوکال و مسابقات =================
     function getCloudData(collection) { return JSON.parse(localStorage.getItem('nobelBot_DB_' + collection) || '[]'); }
     function saveToFirebase(collection, name, score) {
         return new Promise(resolve => {
@@ -955,7 +880,7 @@
         fetchLeaderboard(colMap[modalId], modalId.replace('Modal', 'Top10'));
     }
 
-    // 1. مسابقه اعداد اول و مرکب
+    // 1. مسابقه اعداد اول
     let primeScore = 0, currentPrimeNum = 0;
     function startPrimeComp() {
         document.getElementById('primeCompPhase1').style.display = 'none'; document.getElementById('primeCompPhase2').style.display = 'block';
