@@ -58,7 +58,7 @@
         /* کادر شیشه‌ای ثابت */
         .container {
             width: 100%;
-            max-width: 650px; /* افزایش جزئی برای جا دادن راحت‌تر هدر در یک خط */
+            max-width: 650px;
             background: rgba(255, 255, 255, 0.65);
             padding: 30px;
             border-radius: 24px;
@@ -72,13 +72,15 @@
             position: relative;
         }
 
-        /* هدر قرینه‌سازی شده دقیقاً طبق نقشه */
+        /* هدر قرینه */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 5px;
             width: 100%;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .header-side {
@@ -102,7 +104,7 @@
 
         .header-center h1 {
             color: var(--primary);
-            font-size: 26px; /* تنظیم برای جاگیری در یک خط */
+            font-size: 26px;
             font-weight: bold;
             text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
             display: flex;
@@ -110,7 +112,7 @@
             justify-content: center;
             gap: 10px;
             margin: 0;
-            white-space: nowrap; /* جلوگیری از دو خطی شدن */
+            white-space: nowrap;
         }
 
         .header-center h1 i {
@@ -125,11 +127,11 @@
             75% { transform: scale(1.1) rotate(10deg); }
         }
 
-        /* استایل دکمه‌های هدر (تمرین و مسابقات) - بزرگ‌تر و واضح‌تر */
+        /* استایل دکمه‌های هدر (تمرین و مسابقات) */
         .action-btn {
             color: white;
             border: none;
-            padding: 10px 18px; /* دکمه‌ها بزرگتر شدند */
+            padding: 10px 18px;
             border-radius: 14px;
             font-weight: bold;
             cursor: pointer;
@@ -137,7 +139,7 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s;
-            font-size: 15px; /* دکمه‌ها بزرگتر شدند */
+            font-size: 15px;
             font-family: 'iranyekan', Tahoma, sans-serif;
         }
 
@@ -153,7 +155,6 @@
         }
         .practice-btn:hover { background: #0bacbe; transform: translateY(-2px); }
 
-        /* برای گوشی‌های خیلی کوچک */
         @media (max-width: 480px) {
             .header-center h1 { font-size: 20px; }
             .action-btn { padding: 8px 12px; font-size: 13px; }
@@ -187,26 +188,14 @@
             gap: 8px;
         }
 
-        .tab-btn i {
-            font-size: 20px;
-            transition: transform 0.3s;
-        }
-
+        .tab-btn i { font-size: 20px; transition: transform 0.3s; }
         .tab-btn:hover { color: var(--primary); }
         .tab-btn:hover i { transform: scale(1.15) translateY(-2px); }
+        .tab-btn.active { background: #fff; color: var(--primary); box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15); }
 
-        .tab-btn.active {
-            background: #fff;
-            color: var(--primary);
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15);
-        }
-
-        /* محتوای تب با انیمیشن Slide Up Fade */
+        /* محتوای تب با انیمیشن */
         .tab-content { display: none; }
-        .tab-content.active {
-            display: block;
-            animation: slideUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
+        .tab-content.active { display: block; animation: slideUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
         @keyframes slideUpFade {
             0% { opacity: 0; transform: translateY(20px) scale(0.98); }
@@ -214,258 +203,87 @@
         }
 
         /* فرم‌ها و ورودی‌ها */
-        .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .input-group i {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            font-size: 18px;
-            transition: 0.3s;
-        }
-
+        .input-group { position: relative; margin-bottom: 15px; }
+        .input-group i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 18px; transition: 0.3s; }
         .input-group input {
-            width: 100%;
-            padding: 15px 45px 15px 15px;
-            border: 2px solid transparent;
-            border-radius: 14px;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.6);
-            color: var(--text-dark);
-            font-weight: bold;
+            width: 100%; padding: 15px 45px 15px 15px; border: 2px solid transparent;
+            border-radius: 14px; font-size: 16px; outline: none; transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.6); color: var(--text-dark); font-weight: bold;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-            background: #fff;
-            box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
-        }
-
+        .input-group input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 15px rgba(79, 70, 229, 0.2); }
         .dual-inputs { display: flex; gap: 15px; }
         .dual-inputs .input-group { flex: 1; }
 
-        /* نتایج و پاپ‌آپ فنری */
+        /* نتایج */
         .result-box {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px dashed rgba(79, 70, 229, 0.4);
-            border-radius: 16px;
-            min-height: 100px;
-            font-size: 15px;
-            line-height: 1.8;
-            color: var(--text-dark);
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            display: none;
+            padding: 20px; background: rgba(255, 255, 255, 0.8);
+            border: 2px dashed rgba(79, 70, 229, 0.4); border-radius: 16px;
+            min-height: 100px; font-size: 15px; line-height: 1.8; color: var(--text-dark);
+            margin-bottom: 20px; transition: all 0.3s; display: none;
         }
-
         .result-box.show-anim {
-            display: block;
-            animation: springPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
+            display: block; animation: springPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            border-color: var(--primary); box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
         }
-
-        @keyframes springPop {
-            0% { transform: scale(0.85); opacity: 0; }
-            60% { transform: scale(1.02); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        @keyframes springPop { 0% { transform: scale(0.85); opacity: 0; } 60% { transform: scale(1.02); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .result-title {
-            font-weight: bold;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 17px;
-        }
+        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .result-title { font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 8px; font-size: 17px; }
         
-        /* دکمه دوباره */
         .reset-btn {
-            background: rgba(225, 29, 72, 0.1);
-            color: #e11d48;
-            border: 1px solid rgba(225, 29, 72, 0.2);
-            padding: 6px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            transition: all 0.3s;
+            background: rgba(225, 29, 72, 0.1); color: #e11d48; border: 1px solid rgba(225, 29, 72, 0.2);
+            padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: bold;
+            display: flex; gap: 6px; align-items: center; transition: all 0.3s;
         }
-        
-        .reset-btn:hover {
-            background: #e11d48;
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.2);
-        }
-        
-        .reset-btn i {
-            transition: transform 0.4s;
-        }
-        
-        .reset-btn:hover i {
-            transform: rotate(-180deg);
-        }
+        .reset-btn:hover { background: #e11d48; color: white; transform: scale(1.05); box-shadow: 0 4px 10px rgba(225, 29, 72, 0.2); }
+        .reset-btn i { transition: transform 0.4s; }
+        .reset-btn:hover i { transform: rotate(-180deg); }
 
-        /* دکمه تپنده و نوری */
+        /* دکمه اصلی برنامه */
         .main-action-btn {
-            position: relative;
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: white;
-            border: none;
-            padding: 18px;
-            width: 100%;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            overflow: hidden;
-            animation: pulseBtn 2s infinite;
+            position: relative; background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white; border: none; padding: 18px; width: 100%; border-radius: 16px;
+            font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s;
+            display: flex; justify-content: center; align-items: center; gap: 12px; overflow: hidden; animation: pulseBtn 2s infinite;
         }
-
-        @keyframes pulseBtn {
-            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
-        }
-
+        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); } 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); } }
         .main-action-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
+            transform: skewX(-25deg); animation: shine 3s infinite;
         }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
-        }
-
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
         .main-action-btn:hover { transform: translateY(-3px); }
         .main-action-btn:active { transform: translateY(1px); }
 
         /* استایل‌های غربال */
         .sieve-warning {
-            background: rgba(255, 243, 205, 0.8);
-            color: #856404;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 14px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            border-right: 4px solid #ffeeba;
+            background: rgba(255, 243, 205, 0.8); color: #856404; padding: 15px; border-radius: 12px;
+            font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; border-right: 4px solid #ffeeba;
         }
-
-        .sieve-title {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--primary);
-            transition: color 0.5s, transform 0.5s;
-        }
-
-        .num-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            direction: ltr;
-            justify-content: flex-start;
-        }
-
+        .sieve-title { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 15px; color: var(--primary); transition: color 0.5s, transform 0.5s; }
+        .num-grid { display: flex; flex-wrap: wrap; gap: 8px; direction: ltr; justify-content: flex-start; }
         .num-item {
-            padding: 10px;
-            min-width: 45px;
-            text-align: center;
-            background: rgba(156, 163, 175, 0.8);
-            color: white;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 16px;
-            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: inline-block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 10px; min-width: 45px; text-align: center; background: rgba(156, 163, 175, 0.8);
+            color: white; border-radius: 10px; font-weight: bold; font-size: 16px;
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
-        .num-item.prime-glow {
-            background: var(--success);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
-            transform: scale(1.15);
-            z-index: 10;
-        }
-
-        .fly-away {
-            transform: translateY(-200px) rotate(360deg) scale(0);
-            opacity: 0;
-            pointer-events: none;
-        }
+        .num-item.prime-glow { background: var(--success); box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); transform: scale(1.15); z-index: 10; }
+        .fly-away { transform: translateY(-200px) rotate(360deg) scale(0); opacity: 0; pointer-events: none; }
 
         /* کارت ویدیو آپارات */
         .video-card {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            text-align: center;
+            margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.9); text-align: center;
             box-shadow: inset 0 2px 10px rgba(255,255,255,0.5), 0 5px 15px rgba(0,0,0,0.05);
         }
         .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            background: #000;
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); background: #000;
         }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
-        }
-
-        /* فوتر */
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: rgba(30, 27, 75, 0.5);
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .footer { text-align: center; margin-top: 20px; font-size: 12px; color: rgba(30, 27, 75, 0.5); font-weight: bold; letter-spacing: 1px; text-shadow: 0 1px 2px rgba(255,255,255,0.5); }
 
         /* ================= استایل‌های مشترک پاپ‌آپ‌ها ================= */
         .modal-overlay {
@@ -478,17 +296,12 @@
             box-shadow: 0 10px 40px rgba(31, 38, 135, 0.2); border: 1px solid rgba(255, 255, 255, 1); color: var(--text-dark);
         }
         
-        /* کارت‌های پاپ‌آپ */
-        .modal-cards-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 25px;
-        }
+        .modal-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 25px; }
         .modal-card {
             background: rgba(255, 255, 255, 0.8); border: 2px solid rgba(79, 70, 229, 0.1);
             padding: 20px 15px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.3s;
         }
-        .modal-card:hover {
-            transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 8px 15px rgba(79, 70, 229, 0.15); background: #fff;
-        }
+        .modal-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 8px 15px rgba(79, 70, 229, 0.15); background: #fff; }
         
         .btn-red {
             background: #e11d48; color: white; border: none; padding: 14px; width: 100%; border-radius: 14px;
@@ -504,7 +317,6 @@
         .btn-green:hover { background: #059669; }
         .btn-green:disabled { background: #9ca3af; cursor: not-allowed; }
 
-        /* استایل‌های اختصاصی بازی‌های مسابقه (روشن) */
         .game-header {
             display: flex; justify-content: space-between; font-size: 1.1em; font-weight: bold;
             margin-bottom: 20px; background: rgba(79, 70, 229, 0.1); padding: 12px; border-radius: 12px; color: var(--primary);
@@ -514,54 +326,39 @@
             font-size: 1.4em; margin-bottom: 20px; text-align: center; background: #fff;
         }
         .game-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .game-btn {
+        
+        /* دکمه‌های گزینه‌ها در تمرین و مسابقات */
+        .game-btn, .prac-opt-btn {
             padding: 15px; font-size: 1.2em; border-radius: 12px; cursor: pointer; font-weight: bold;
             border: 2px solid rgba(79, 70, 229, 0.2); background: #fff; color: var(--text-dark); transition: all 0.2s;
         }
-        .game-btn:hover { background: rgba(79, 70, 229, 0.05); }
+        .game-btn:hover, .prac-opt-btn:hover { background: rgba(79, 70, 229, 0.05); }
         .game-btn.yellow { background: #fff3cd; border-color: #ffc107; }
         .game-btn.blue { background: #cff4fc; border-color: #0dcaf0; }
         
-        .game-btn.correct-ans { background-color: var(--success) !important; border-color: #059669 !important; color: #fff !important; }
-        .game-btn.wrong-ans { background-color: #e11d48 !important; border-color: #be123c !important; color: #fff !important; }
+        .correct-ans { background-color: var(--success) !important; border-color: #059669 !important; color: #fff !important; }
+        .wrong-ans { background-color: #e11d48 !important; border-color: #be123c !important; color: #fff !important; }
 
-        .modal-input {
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(79, 70, 229, 0.3);
-            font-size: 16px; margin-bottom: 15px; text-align: center; font-weight: bold; outline: none; background: #fff;
-        }
+        .modal-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(79, 70, 229, 0.3); font-size: 16px; margin-bottom: 15px; text-align: center; font-weight: bold; outline: none; background: #fff; }
         .modal-input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(79, 70, 229, 0.1); }
-
-        .comp-guide {
-            background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; color: #856404;
-            border-radius: 12px; margin-bottom: 20px; text-align: right; line-height: 1.8;
-        }
+        .comp-guide { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; color: #856404; border-radius: 12px; margin-bottom: 20px; text-align: right; line-height: 1.8; }
         
         .leaderboard-table { width: 100%; background: #fff; border: 1px solid rgba(79, 70, 229, 0.1); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
-        .table-header, .table-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(79, 70, 229, 0.1); }
+        .table-header, .table-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(79, 70, 229, 0.1); color: var(--text-dark);}
         .table-header { background: rgba(79, 70, 229, 0.05); font-weight: bold; color: var(--primary); }
         .table-row:last-child { border-bottom: none; }
 
         /* Sieve Game */
-        .sieve-comp-grid {
-            display: flex; flex-wrap: wrap; gap: 4px; direction: ltr; max-height: 350px;
-            overflow-y: auto; justify-content: center; margin-top: 15px; border-radius: 12px;
-            background: rgba(79, 70, 229, 0.05); padding: 12px;
-        }
-        .sieve-game-cell {
-            width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;
-            border: 1px solid rgba(79, 70, 229, 0.2); background: #fff; color: var(--text-dark); cursor: pointer; font-size: 14px;
-            border-radius: 6px; user-select: none; transition: background-color 0.2s; font-weight: bold;
-        }
+        .sieve-comp-grid { display: flex; flex-wrap: wrap; gap: 4px; direction: ltr; max-height: 350px; overflow-y: auto; justify-content: center; margin-top: 15px; border-radius: 12px; background: rgba(79, 70, 229, 0.05); padding: 12px; }
+        .sieve-game-cell { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(79, 70, 229, 0.2); background: #fff; color: var(--text-dark); cursor: pointer; font-size: 14px; border-radius: 6px; user-select: none; transition: background-color 0.2s; font-weight: bold; }
         .sieve-game-cell:hover { background: rgba(79, 70, 229, 0.1); }
-        .sieve-game-cell.correct-tap { background-color: var(--success) !important; border-color: #059669 !important; color: #fff !important; }
-        .sieve-game-cell.wrong-tap { background-color: #e11d48 !important; border-color: #be123c !important; color: #fff !important; }
     </style>
 </head>
 <body>
 
 <div class="container">
     
-    <!-- هدر متقارن طبق نقشه -->
+    <!-- هدر قرینه‌سازی شده دقیقاً طبق نقشه -->
     <div class="header">
         <div class="header-side right">
             <button class="action-btn comp-btn" onclick="openCompMenuModal()">
@@ -574,106 +371,65 @@
         </div>
         
         <div class="header-side left">
+            <!-- متن دکمه از "تمرین‌ها" به "تمرین" تغییر یافت -->
             <button class="action-btn practice-btn" onclick="openPracticeModal()">
-                <i class="fa-solid fa-dumbbell"></i> تمرین ها
+                <i class="fa-solid fa-dumbbell"></i> تمرین
             </button>
         </div>
     </div>
     
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(0)">
-            <i class="fa-solid fa-hashtag"></i> اول و مرکب
-        </button>
-        <button class="tab-btn" onclick="switchTab(1)">
-            <i class="fa-solid fa-divide"></i> ب.م.م
-        </button>
-        <button class="tab-btn" onclick="switchTab(2)">
-            <i class="fa-solid fa-layer-group"></i> ک.م.م
-        </button>
-        <button class="tab-btn" onclick="switchTab(3)">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> غربال
-        </button>
+        <button class="tab-btn active" onclick="switchTab(0)"><i class="fa-solid fa-hashtag"></i> اول و مرکب</button>
+        <button class="tab-btn" onclick="switchTab(1)"><i class="fa-solid fa-divide"></i> ب.م.م</button>
+        <button class="tab-btn" onclick="switchTab(2)"><i class="fa-solid fa-layer-group"></i> ک.م.م</button>
+        <button class="tab-btn" onclick="switchTab(3)"><i class="fa-solid fa-wand-magic-sparkles"></i> غربال</button>
     </div>
 
-    <!-- بخش اول و مرکب -->
     <div class="tab-content active" id="tab-0">
-        <div class="input-group">
-            <i class="fa-solid fa-pen"></i>
-            <input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)">
-        </div>
+        <div class="input-group"><i class="fa-solid fa-pen"></i><input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)"></div>
         <div class="result-box" id="result-0"></div>
     </div>
-
-    <!-- بخش ب.م.م -->
     <div class="tab-content" id="tab-1">
         <div class="dual-inputs">
-            <div class="input-group">
-                <i class="fa-solid fa-1"></i>
-                <input type="text" id="bmmInput1" placeholder="عدد اول">
-            </div>
-            <div class="input-group">
-                <i class="fa-solid fa-2"></i>
-                <input type="text" id="bmmInput2" placeholder="عدد دوم">
-            </div>
+            <div class="input-group"><i class="fa-solid fa-1"></i><input type="text" id="bmmInput1" placeholder="عدد اول"></div>
+            <div class="input-group"><i class="fa-solid fa-2"></i><input type="text" id="bmmInput2" placeholder="عدد دوم"></div>
         </div>
         <div class="result-box" id="result-1"></div>
     </div>
-
-    <!-- بخش ک.م.م -->
     <div class="tab-content" id="tab-2">
         <div class="dual-inputs">
-            <div class="input-group">
-                <i class="fa-solid fa-1"></i>
-                <input type="text" id="kmmInput1" placeholder="عدد اول">
-            </div>
-            <div class="input-group">
-                <i class="fa-solid fa-2"></i>
-                <input type="text" id="kmmInput2" placeholder="عدد دوم">
-            </div>
+            <div class="input-group"><i class="fa-solid fa-1"></i><input type="text" id="kmmInput1" placeholder="عدد اول"></div>
+            <div class="input-group"><i class="fa-solid fa-2"></i><input type="text" id="kmmInput2" placeholder="عدد دوم"></div>
         </div>
         <div class="result-box" id="result-2"></div>
     </div>
-
-    <!-- بخش غربال -->
     <div class="tab-content" id="tab-3">
         <div class="sieve-warning">
             <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px; margin-left: 10px;"></i>
-            <div style="line-height: 1.8;">
-                <strong>نکته :</strong><br>
-                1 : حداکثر اختلاف مجاز بین دو عدد ، 1000 است .<br>
-                2 : عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد .
-            </div>
+            <div style="line-height: 1.8;"><strong>نکته :</strong><br>1 : حداکثر اختلاف مجاز بین دو عدد ، 1000 است .<br>2 : عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد .</div>
         </div>
         <div class="dual-inputs">
-            <div class="input-group">
-                <i class="fa-solid fa-play"></i>
-                <input type="text" id="sieveStart" placeholder="عدد شروع (کوچک)">
-            </div>
-            <div class="input-group">
-                <i class="fa-solid fa-stop"></i>
-                <input type="text" id="sieveEnd" placeholder="عدد پایان (بزرگ)">
-            </div>
+            <div class="input-group"><i class="fa-solid fa-play"></i><input type="text" id="sieveStart" placeholder="عدد شروع (کوچک)"></div>
+            <div class="input-group"><i class="fa-solid fa-stop"></i><input type="text" id="sieveEnd" placeholder="عدد پایان (بزرگ)"></div>
         </div>
         <div class="result-box" id="result-3"></div>
     </div>
 
     <button class="main-action-btn" onclick="executeCurrentTab()">
-        <i id="btnIcon" class="fa-solid fa-magnifying-glass-chart"></i> 
-        <span id="btnText">بررسی عدد</span>
+        <i id="btnIcon" class="fa-solid fa-magnifying-glass-chart"></i> <span id="btnText">بررسی عدد</span>
     </button>
-    
     <div class="footer">Powered by M.Ali. Nabil</div>
 </div>
 
-<!-- ================= پاپ‌آپ تمرین‌ها ================= -->
+<!-- ================= پاپ‌آپ منوی تمرین ================= -->
 <div id="practiceModalOverlay" class="modal-overlay">
     <div class="custom-modal-content">
         <h3 style="text-align: center; color: var(--primary); font-size: 22px; display: flex; justify-content: center; align-items: center; gap: 10px;">
             <i class="fa-solid fa-dumbbell"></i> بخش تمرین‌ها
         </h3>
-        
         <div class="modal-cards-grid">
-            <div class="modal-card" onclick="selectPractice(0)">
+            <!-- اضافه شدن قابلیت آزمون 10 سوالی برای اعداد اول -->
+            <div class="modal-card" onclick="startPrimePractice()">
                 <i class="fa-solid fa-hashtag" style="font-size: 2.5em; color: #ffc107; margin-bottom: 15px;"></i>
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های اعداد اول و مرکب</h4>
             </div>
@@ -690,10 +446,40 @@
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های غربال</h4>
             </div>
         </div>
-        
         <button class="btn-red" onclick="closeModal('practiceModalOverlay')">
             <i class="fa-solid fa-arrow-right"></i> برگشت به برنامه
         </button>
+    </div>
+</div>
+
+<!-- ================= پاپ‌آپ آزمون تمرین اعداد اول (۱۰ سوالی) ================= -->
+<div id="primePracticeTestModal" class="modal-overlay">
+    <div class="custom-modal-content">
+        
+        <div id="primePracContainer">
+            <div class="game-header">
+                <div>تعداد درست: <span id="primePracCorrectCounter">0</span></div>
+                <div>شماره سوال: <span id="primePracQNumCounter">1</span> از 10</div>
+            </div>
+            
+            <div class="question-box" id="primePracQText" style="min-height: 80px; display:flex; align-items:center; justify-content:center;">
+                --
+            </div>
+            
+            <div class="game-options" id="primePracOptionsContainer">
+                <!-- گزینه‌ها در جاوااسکریپت لود می‌شوند -->
+            </div>
+            
+            <!-- بخش نمایش بازخورد سبز یا قرمز -->
+            <div id="primePracFeedback" style="margin-top: 25px; font-weight: bold; text-align: center; min-height: 50px; font-size: 15px; line-height: 1.6;"></div>
+        </div>
+
+        <div id="primePracEndScreen" style="display:none; text-align:center;">
+            <h3 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> پایان تمرین!</h3>
+            <p style="font-size: 18px; margin-bottom: 20px;">تعداد پاسخ‌های درست شما: <span id="primePracFinalScore">0</span> از 10</p>
+            <button class="btn-green" onclick="closePrimePractice()">بستن و بازگشت</button>
+        </div>
+        
     </div>
 </div>
 
@@ -704,33 +490,17 @@
             <i class="fa-solid fa-gamepad"></i> بخش مسابقات نوبل بات
         </h3>
         <p style="text-align: center; font-weight: bold; margin-top: 10px; color: var(--text-muted);">با دوستان خود رقابت کنید و رکورد بزنید!</p>
-        
         <div class="modal-cards-grid">
-            <div class="modal-card" onclick="openCompModal('primeCompModal')">
-                <i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #ffc107; margin-bottom: 15px;"></i>
-                <h4 style="color: var(--text-dark); font-size: 15px;">مسابقات اعداد اول و مرکب</h4>
-            </div>
-            <div class="modal-card" onclick="openCompModal('gcdCompModal')">
-                <i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #0dcaf0; margin-bottom: 15px;"></i>
-                <h4 style="color: var(--text-dark); font-size: 15px;">مسابقات ب.م.م</h4>
-            </div>
-            <div class="modal-card" onclick="openCompModal('lcmCompModal')">
-                <i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #20c997; margin-bottom: 15px;"></i>
-                <h4 style="color: var(--text-dark); font-size: 15px;">مسابقات ک.م.م</h4>
-            </div>
-            <div class="modal-card" onclick="openCompModal('sieveCompModal')">
-                <i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #dc3545; margin-bottom: 15px;"></i>
-                <h4 style="color: var(--text-dark); font-size: 15px;">مسابقات غربال</h4>
-            </div>
+            <div class="modal-card" onclick="openCompModal('primeCompModal')"><i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #ffc107; margin-bottom: 15px;"></i><h4 style="color: var(--text-dark); font-size: 15px;">مسابقات اعداد اول و مرکب</h4></div>
+            <div class="modal-card" onclick="openCompModal('gcdCompModal')"><i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #0dcaf0; margin-bottom: 15px;"></i><h4 style="color: var(--text-dark); font-size: 15px;">مسابقات ب.م.م</h4></div>
+            <div class="modal-card" onclick="openCompModal('lcmCompModal')"><i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #20c997; margin-bottom: 15px;"></i><h4 style="color: var(--text-dark); font-size: 15px;">مسابقات ک.م.م</h4></div>
+            <div class="modal-card" onclick="openCompModal('sieveCompModal')"><i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #dc3545; margin-bottom: 15px;"></i><h4 style="color: var(--text-dark); font-size: 15px;">مسابقات غربال</h4></div>
         </div>
-        
-        <button class="btn-red" onclick="closeModal('compMenuModal')">
-            <i class="fa-solid fa-arrow-right"></i> برگشت به برنامه
-        </button>
+        <button class="btn-red" onclick="closeModal('compMenuModal')"><i class="fa-solid fa-arrow-right"></i> برگشت به برنامه</button>
     </div>
 </div>
 
-<!-- ================= 1. بازی اعداد اول و مرکب ================= -->
+<!-- ================= 1. مسابقه اعداد اول ================= -->
 <div id="primeCompModal" class="modal-overlay">
     <div class="custom-modal-content">
         <div id="primeCompPhase1">
@@ -765,7 +535,7 @@
     </div>
 </div>
 
-<!-- ================= 2. بازی ب.م.م ================= -->
+<!-- ================= 2. مسابقه ب.م.م ================= -->
 <div id="gcdCompModal" class="modal-overlay">
     <div class="custom-modal-content">
         <div id="gcdCompPhase1">
@@ -793,7 +563,7 @@
     </div>
 </div>
 
-<!-- ================= 3. بازی ک.م.م ================= -->
+<!-- ================= 3. مسابقه ک.م.م ================= -->
 <div id="lcmCompModal" class="modal-overlay">
     <div class="custom-modal-content">
         <div id="lcmCompPhase1">
@@ -821,7 +591,7 @@
     </div>
 </div>
 
-<!-- ================= 4. بازی غربال ================= -->
+<!-- ================= 4. مسابقه غربال ================= -->
 <div id="sieveCompModal" class="modal-overlay">
     <div class="custom-modal-content">
         <div id="sieveCompPhase1">
@@ -849,10 +619,11 @@
     </div>
 </div>
 
+
 <script>
+    // ================= بخش ماشین حساب =================
     let currentTabIndex = 0;
 
-    // پاکسازی اعداد فارسی به انگلیسی
     function cleanNumber(str) {
         if (!str) return "";
         return str.toString().trim()
@@ -860,7 +631,6 @@
             .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
     }
 
-    // تغییر تب‌ها
     function switchTab(index) {
         currentTabIndex = index;
         const buttons = document.querySelectorAll('.tab-btn');
@@ -879,13 +649,11 @@
         else if (index === 2) { btnText.innerText = "محاسبه ک.م.م"; btnIcon.className = "fa-solid fa-calculator"; } 
         else if (index === 3) { btnText.innerText = "اجرای جادوی غربال"; btnIcon.className = "fa-solid fa-wand-magic-sparkles"; }
         
-        // مخفی کردن کادرهای نتایج با تغییر تب
         document.querySelectorAll('.result-box').forEach(box => {
             box.classList.remove('show-anim'); box.style.display = 'none';
         });
     }
     
-    // پاک کردن فرم و بستن نتیجه
     function resetTab(index) {
         if (index === 0) { document.getElementById('numInput').value = ''; } 
         else if (index === 1) { document.getElementById('bmmInput1').value = ''; document.getElementById('bmmInput2').value = ''; } 
@@ -917,7 +685,6 @@
         else if (currentTabIndex === 3) runAnimatedSieve();
     }
 
-    // توابع ریاضی
     function isProbablePrime(n) {
         if (n === 2n || n === 3n) return true;
         if (n < 2n || n % 2n === 0n) return false;
@@ -1007,6 +774,7 @@
         triggerResultAnim('result-3');
         if (isNaN(start) || isNaN(end) || start > end || start < 1) { res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i> خطا: عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.</div>`; return; }
         if (end - start > 1000) { res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت: حداکثر اختلاف مجاز بین دو عدد ، 1000 است.</div>`; return; }
+
         res.innerHTML = headerHTML + `<div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div><div id="numGrid" class="num-grid"></div><div id="sieveVideo" style="display: none; opacity: 0; transition: opacity 0.8s ease;"><div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 18px; vertical-align: -2px; margin-left: 5px;"></i> اگه میخوای خودت بتونی غربال انجام بدی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/mjir865/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div></div></div>`;
         
         let grid = document.getElementById('numGrid'), title = document.getElementById('sieveTitle'), elements = [];
@@ -1037,9 +805,112 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function backToCompMenu(currentModalId) { closeModal(currentModalId); openCompMenuModal(); }
     
+    // بقیه تب‌های تمرین فقط ماشین‌حساب رو باز میکنن
     function selectPractice(index) { closeModal('practiceModalOverlay'); switchTab(index); }
 
-    // فایربیس لوکال
+    // ================= منطق اختصاصی آزمون ۱۰ سوالی تمرین اعداد اول =================
+    let primePracQuestions = [];
+    let primePracCurrentIndex = 0;
+    let primePracCorrectAnswers = 0;
+
+    function startPrimePractice() {
+        closeModal('practiceModalOverlay');
+        document.getElementById('primePracticeTestModal').style.display = 'flex';
+        document.getElementById('primePracContainer').style.display = 'block';
+        document.getElementById('primePracEndScreen').style.display = 'none';
+        document.getElementById('primePracFeedback').innerText = '';
+        
+        primePracCurrentIndex = 0;
+        primePracCorrectAnswers = 0;
+        document.getElementById('primePracCorrectCounter').innerText = "0";
+        
+        // تولید 10 سوال متوسط و چالشی
+        primePracQuestions = [];
+        const mediumPrimes = [31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113];
+        const trickyComposites = [39, 51, 57, 69, 87, 91, 93, 111, 119, 133, 143, 161];
+        
+        for(let i=0; i<10; i++) {
+            let isAskingPrime = Math.random() > 0.5;
+            let qText = isAskingPrime ? "کدام یک از اعداد زیر اول است؟" : "کدام یک از اعداد زیر مرکب است؟";
+            let options = [];
+            let correctOpt = 0;
+            
+            if(isAskingPrime) {
+                // 1 درست (اول)، 3 غلط (مرکب)
+                let p = mediumPrimes[Math.floor(Math.random() * mediumPrimes.length)];
+                let c = [...trickyComposites].sort(() => 0.5 - Math.random()).slice(0, 3);
+                options = [p, ...c].sort(() => 0.5 - Math.random());
+                correctOpt = p;
+            } else {
+                // 1 درست (مرکب)، 3 غلط (اول)
+                let c = trickyComposites[Math.floor(Math.random() * trickyComposites.length)];
+                let p = [...mediumPrimes].sort(() => 0.5 - Math.random()).slice(0, 3);
+                options = [c, ...p].sort(() => 0.5 - Math.random());
+                correctOpt = c;
+            }
+            primePracQuestions.push({ text: qText, options: options, answer: correctOpt });
+        }
+        
+        loadPrimePracticeQuestion();
+    }
+
+    function loadPrimePracticeQuestion() {
+        document.getElementById('primePracQNumCounter').innerText = primePracCurrentIndex + 1;
+        document.getElementById('primePracFeedback').innerText = '';
+        
+        let q = primePracQuestions[primePracCurrentIndex];
+        document.getElementById('primePracQText').innerText = q.text;
+        
+        let html = '';
+        q.options.forEach((opt, index) => {
+            html += `<button class="prac-opt-btn" onclick="answerPrimePractice(${index}, this)">${opt}</button>`;
+        });
+        document.getElementById('primePracOptionsContainer').innerHTML = html;
+    }
+
+    function answerPrimePractice(selectedIndex, btnElement) {
+        let q = primePracQuestions[primePracCurrentIndex];
+        let isCorrect = (q.options[selectedIndex] === q.answer);
+        let feedbackEl = document.getElementById('primePracFeedback');
+        
+        let allBtns = document.getElementById('primePracOptionsContainer').querySelectorAll('.prac-opt-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none'); // قفل کردن دکمه‌ها
+        
+        if (isCorrect) {
+            btnElement.classList.add('correct-ans');
+            primePracCorrectAnswers++;
+            document.getElementById('primePracCorrectCounter').innerText = primePracCorrectAnswers;
+            feedbackEl.innerText = "آفرین!";
+            feedbackEl.style.color = "var(--success)";
+        } else {
+            btnElement.classList.add('wrong-ans');
+            // سبز کردن گزینه درست
+            let correctIdx = q.options.indexOf(q.answer);
+            allBtns[correctIdx].classList.add('correct-ans');
+            
+            feedbackEl.innerText = "اشتباه نوشتی ، البته اشکال نداره اشتباه بخشی از موفق شدنه . تو تلاش میکنی و موفق میشوی";
+            feedbackEl.style.color = "#e11d48";
+        }
+        
+        // مکث 3 ثانیه برای خواندن پیام و رفتن به سوال بعدی
+        setTimeout(() => {
+            primePracCurrentIndex++;
+            if(primePracCurrentIndex < 10) {
+                loadPrimePracticeQuestion();
+            } else {
+                document.getElementById('primePracContainer').style.display = 'none';
+                document.getElementById('primePracEndScreen').style.display = 'block';
+                document.getElementById('primePracFinalScore').innerText = primePracCorrectAnswers;
+            }
+        }, 3000);
+    }
+    
+    function closePrimePractice() {
+        closeModal('primePracticeTestModal');
+        openPracticeModal();
+    }
+
+    // ================= فایربیس لوکال و مسابقات اصلی =================
     function getCloudData(collection) { return JSON.parse(localStorage.getItem('nobelBot_DB_' + collection) || '[]'); }
     function saveToFirebase(collection, name, score) {
         return new Promise(resolve => {
@@ -1084,7 +955,7 @@
         fetchLeaderboard(colMap[modalId], modalId.replace('Modal', 'Top10'));
     }
 
-    // 1. مسابقه اول و مرکب
+    // 1. مسابقه اعداد اول و مرکب
     let primeScore = 0, currentPrimeNum = 0;
     function startPrimeComp() {
         document.getElementById('primeCompPhase1').style.display = 'none'; document.getElementById('primeCompPhase2').style.display = 'block';
