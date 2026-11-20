@@ -559,6 +559,7 @@
 </div>
 
 <script>
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxNmygjDBwBpHBLT_E7qdKI_dG1Gr7Uy7vmWHODTIXAim0GKvBiI705IjeKOivOipH_/exec";
     let currentTabIndex = 0;
 
     function cleanNumber(str) {
@@ -818,12 +819,12 @@
         closeModal('primePracticeTestModal'); openPracticeModal();
     }
 
-    // ================= ارتباط با سرور دائمی (و پشتیبان localStorage) =================
+    // ================= اتصال به گوگل شیت (برای نمایش نمرات به همه کاربران) =================
     async function fetchLeaderboard(col, containerId, limit = 10) {
         document.getElementById(containerId).innerHTML = '<div style="padding:15px;text-align:center;">در حال بارگذاری...</div>';
         let data = [];
         try {
-            const res = await fetch(`/api/scores/${col}`);
+            const res = await fetch(`${GOOGLE_SHEET_URL}?col=${encodeURIComponent(col)}`);
             if (!res.ok) throw new Error();
             data = await res.json();
         } catch {
@@ -842,15 +843,14 @@
         let result;
 
         try {
-            const res = await fetch(`/api/scores/${col}`, {
+            const res = await fetch(GOOGLE_SHEET_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, phone: cleanPhone, score })
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ col, name, phone: cleanPhone, score })
             });
             if (!res.ok) throw new Error();
             result = await res.json();
         } catch {
-            // حالت پشتیبان در صورت اجرای بدون سرور
             let data = JSON.parse(localStorage.getItem('nobelBot_DB_' + col) || '[]');
             const idx = data.findIndex(item => item.phone === cleanPhone);
             if (idx !== -1) data[idx] = { name, phone: cleanPhone, score, date: Date.now() };
@@ -928,7 +928,9 @@
         let phone = cleanNumber(document.getElementById('primeCompPhone').value);
         if(!name || !/^09\d{9}$/.test(phone)) return;
         document.getElementById('primeCompName').disabled = true; document.getElementById('primeCompPhone').disabled = true; document.getElementById('primeCompSubmitBtn').disabled = true;
+        document.getElementById('primeCompSubmitBtn').innerText = "در حال ثبت در جدول...";
         await submitScoreToServer('primeScores', name, phone, primeScore, 'primeCompFinalRankText', 'primeCompUserResult', 'primeCompFullLeaderboard');
+        document.getElementById('primeCompSubmitBtn').innerText = "تایید ثبت نام";
         document.getElementById('primeCompPhase3').style.display = 'none'; document.getElementById('primeCompPhase4').style.display = 'block';
     }
 
@@ -963,7 +965,9 @@
         let phone = cleanNumber(document.getElementById('gcdCompPhone').value);
         if(!name || !/^09\d{9}$/.test(phone)) return;
         document.getElementById('gcdCompName').disabled = true; document.getElementById('gcdCompPhone').disabled = true; document.getElementById('gcdCompSubmitBtn').disabled = true;
+        document.getElementById('gcdCompSubmitBtn').innerText = "در حال ثبت در جدول...";
         await submitScoreToServer('gcdScores', name, phone, gcdScore, 'gcdCompFinalRankText', 'gcdCompUserResult', 'gcdCompFullLeaderboard');
+        document.getElementById('gcdCompSubmitBtn').innerText = "تایید";
         document.getElementById('gcdCompPhase3').style.display = 'none'; document.getElementById('gcdCompPhase4').style.display = 'block';
     }
 
@@ -999,7 +1003,9 @@
         let phone = cleanNumber(document.getElementById('lcmCompPhone').value);
         if(!name || !/^09\d{9}$/.test(phone)) return;
         document.getElementById('lcmCompName').disabled = true; document.getElementById('lcmCompPhone').disabled = true; document.getElementById('lcmCompSubmitBtn').disabled = true;
+        document.getElementById('lcmCompSubmitBtn').innerText = "در حال ثبت در جدول...";
         await submitScoreToServer('lcmScores', name, phone, lcmScore, 'lcmCompFinalRankText', 'lcmCompUserResult', 'lcmCompFullLeaderboard');
+        document.getElementById('lcmCompSubmitBtn').innerText = "تایید";
         document.getElementById('lcmCompPhase3').style.display = 'none'; document.getElementById('lcmCompPhase4').style.display = 'block';
     }
 
@@ -1031,7 +1037,9 @@
         let phone = cleanNumber(document.getElementById('sieveCompPhone').value);
         if(!name || !/^09\d{9}$/.test(phone)) return;
         document.getElementById('sieveCompName').disabled = true; document.getElementById('sieveCompPhone').disabled = true; document.getElementById('sieveCompSubmitBtn').disabled = true;
+        document.getElementById('sieveCompSubmitBtn').innerText = "در حال ثبت در جدول...";
         await submitScoreToServer('sieveScores', name, phone, sieveCompScore, 'sieveCompFinalRankText', 'sieveCompUserResult', 'sieveCompFullLeaderboard');
+        document.getElementById('sieveCompSubmitBtn').innerText = "تایید";
         document.getElementById('sieveCompPhase3').style.display = 'none'; document.getElementById('sieveCompPhase4').style.display = 'block';
     }
 </script>
