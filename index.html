@@ -287,7 +287,21 @@
         .modal-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(79, 70, 229, 0.3); font-size: 16px; margin-bottom: 12px; text-align: center; font-weight: bold; outline: none; background: #fff; }
         .modal-input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(79, 70, 229, 0.1); }
         .phone-hint { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6; }
-        .comp-guide { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; color: #856404; border-radius: 12px; margin-bottom: 20px; text-align: right; line-height: 1.8; }
+        .comp-guide { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; color: #856404; border-radius: 12px; margin-bottom: 15px; text-align: right; line-height: 1.8; }
+
+        .my-rank-banner {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(79, 70, 229, 0.12);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            color: var(--primary);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
         
         .leaderboard-table { width: 100%; background: #fff; border: 1px solid rgba(79, 70, 229, 0.1); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
         .table-header, .table-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(79, 70, 229, 0.1); color: var(--text-dark);}
@@ -437,6 +451,7 @@
         <div id="primeCompPhase1">
             <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary);"><i class="fa-solid fa-hashtag"></i> مسابقات اعداد اول و مرکب</h3>
             <div class="comp-guide"><strong>راهنما :</strong><br>۱ : هر عددی که اومد مشخص کن اوله یا مرکب .<br>۲ : با هر جواب درست یک امتیاز میگیری .</div>
+            <div id="primeCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="primeCompTop10"></div></div>
             <div style="display:flex; gap:10px; margin-top:20px;">
                 <button class="btn-green" style="flex:1;" onclick="startPrimeComp()">شروع مسابقه</button>
@@ -473,6 +488,8 @@
     <div class="custom-modal-content">
         <div id="gcdCompPhase1">
             <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary);"><i class="fa-solid fa-divide"></i> مسابقات ب.م.م</h3>
+            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : ب.م.م دو عدد را انتخاب کنید.<br>۲ : با هر جواب درست یک امتیاز میگیری.</div>
+            <div id="gcdCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="gcdCompTop10"></div></div>
             <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-green" style="flex:1;" onclick="startGcdComp()">شروع مسابقه</button><button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('gcdCompModal')">بازگشت</button></div>
         </div>
@@ -503,6 +520,8 @@
     <div class="custom-modal-content">
         <div id="lcmCompPhase1">
             <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary);"><i class="fa-solid fa-layer-group"></i> مسابقات ک.م.م</h3>
+            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : ک.م.م دو عدد را انتخاب کنید.<br>۲ : با هر جواب درست یک امتیاز میگیری.</div>
+            <div id="lcmCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="lcmCompTop10"></div></div>
             <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-green" style="flex:1;" onclick="startLcmComp()">شروع مسابقه</button><button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('lcmCompModal')">بازگشت</button></div>
         </div>
@@ -533,6 +552,8 @@
     <div class="custom-modal-content">
         <div id="sieveCompPhase1">
             <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary);"><i class="fa-solid fa-wand-magic-sparkles"></i> مسابقات غربال</h3>
+            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : روی اعداد اول ضربه بزنید.<br>۲ : با هر عدد اول درست یک امتیاز میگیری.</div>
+            <div id="sieveCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="sieveCompTop10"></div></div>
             <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-green" style="flex:1;" onclick="startSieveComp()">شروع مسابقه</button><button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('sieveCompModal')">بازگشت</button></div>
         </div>
@@ -559,7 +580,8 @@
 </div>
 
 <script>
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxNmygjDBwBpHBLT_E7qdKI_dG1Gr7Uy7vmWHODTIXAim0GKvBiI705IjeKOivOipH_/exec";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyjnSp1tEXX1EGtptPBLgZ8xEXXd_BE9NEuUcAq6CuhfFtriyjLmxvtiCRF89F_92fM/exec";
+    const leaderboardCache = {};
     let currentTabIndex = 0;
 
     function cleanNumber(str) {
@@ -567,6 +589,37 @@
         return str.toString().trim()
             .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
             .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+    }
+
+    function normalizePhone(phone) {
+        let digits = cleanNumber(phone).replace(/\D/g, '');
+        if (digits.length === 10 && digits.startsWith('9')) digits = '0' + digits;
+        return digits;
+    }
+
+    // پیش‌بارگذاری کل جدول‌ها در پس‌زمینه به محض باز شدن سایت
+    window.addEventListener('DOMContentLoaded', () => {
+        ['primeScores', 'gcdScores', 'lcmScores', 'sieveScores'].forEach(col => {
+            syncLeaderboardFromSheet(col);
+        });
+    });
+
+    async function syncLeaderboardFromSheet(col) {
+        try {
+            const res = await fetch(`${GOOGLE_SHEET_URL}?col=${encodeURIComponent(col)}`);
+            if (!res.ok) return;
+            const freshData = await res.json();
+            if (Array.isArray(freshData)) {
+                const uniqueMap = {};
+                freshData.forEach(item => {
+                    const key = item.phone ? normalizePhone(item.phone) : ('name_' + item.name);
+                    uniqueMap[key] = { name: item.name, phone: item.phone || '', score: Number(item.score) || 0 };
+                });
+                const cleaned = Object.values(uniqueMap).sort((a, b) => b.score - a.score);
+                leaderboardCache[col] = cleaned;
+                localStorage.setItem('nobelBot_DB_' + col, JSON.stringify(cleaned));
+            }
+        } catch {}
     }
 
     function switchTab(index) {
@@ -819,65 +872,85 @@
         closeModal('primePracticeTestModal'); openPracticeModal();
     }
 
-    // ================= اتصال به گوگل شیت (برای نمایش نمرات به همه کاربران) =================
-    async function fetchLeaderboard(col, containerId, limit = 10) {
-        document.getElementById(containerId).innerHTML = '<div style="padding:15px;text-align:center;">در حال بارگذاری...</div>';
-        let data = [];
-        try {
-            const res = await fetch(`${GOOGLE_SHEET_URL}?col=${encodeURIComponent(col)}`);
-            if (!res.ok) throw new Error();
-            data = await res.json();
-        } catch {
-            data = JSON.parse(localStorage.getItem('nobelBot_DB_' + col) || '[]').sort((a, b) => b.score - a.score);
+    // ================= سیستم سریع جدول رتبه‌بندی و جلوگیری از تکرار شماره =================
+    function renderTop10UI(data, containerId, myBannerId, limit = 10) {
+        const myPhone = localStorage.getItem('nobelBot_myPhone');
+        const bannerEl = document.getElementById(myBannerId);
+
+        if (bannerEl) {
+            if (myPhone) {
+                const myIdx = data.findIndex(item => normalizePhone(item.phone) === myPhone);
+                if (myIdx !== -1) {
+                    const me = data[myIdx];
+                    bannerEl.style.display = 'flex';
+                    bannerEl.innerHTML = `<span>رتبه شما: ${myIdx + 1}</span><span>نام: ${me.name}</span><span>رکورد: ${me.score}</span>`;
+                } else {
+                    bannerEl.style.display = 'none';
+                }
+            } else {
+                bannerEl.style.display = 'none';
+            }
         }
 
         let html = data.length === 0 ? '<div style="padding:15px;text-align:center;">هنوز رکوردی ثبت نشده است.</div>' : '';
-        for(let i = 0; i < Math.min(data.length, limit); i++) {
-            html += `<div class="table-row"><span>${i+1}</span><span>${data[i].name}</span><span>${data[i].score}</span></div>`;
+        for (let i = 0; i < Math.min(data.length, limit); i++) {
+            const isMe = myPhone && normalizePhone(data[i].phone) === myPhone;
+            const rowStyle = isMe ? 'style="background:rgba(16,185,129,0.18); font-weight:bold;"' : '';
+            html += `<div class="table-row" ${rowStyle}><span>${i+1}</span><span>${data[i].name}</span><span>${data[i].score}</span></div>`;
         }
         document.getElementById(containerId).innerHTML = html;
     }
 
-    async function submitScoreToServer(col, name, phone, score, rankId, resultId, tableId) {
-        const cleanPhone = cleanNumber(phone);
-        let result;
-
-        try {
-            const res = await fetch(GOOGLE_SHEET_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify({ col, name, phone: cleanPhone, score })
-            });
-            if (!res.ok) throw new Error();
-            result = await res.json();
-        } catch {
-            let data = JSON.parse(localStorage.getItem('nobelBot_DB_' + col) || '[]');
-            const idx = data.findIndex(item => item.phone === cleanPhone);
-            if (idx !== -1) data[idx] = { name, phone: cleanPhone, score, date: Date.now() };
-            else data.push({ name, phone: cleanPhone, score, date: Date.now() });
-            data.sort((a, b) => b.score - a.score);
-            localStorage.setItem('nobelBot_DB_' + col, JSON.stringify(data));
-            const rank = data.findIndex(item => item.phone === cleanPhone) + 1;
-            result = {
-                rank,
-                total: data.length,
-                leaderboard: data.map(d => ({ name: d.name, score: d.score, isMe: d.phone === cleanPhone }))
-            };
+    async function fetchLeaderboard(col, containerId, myBannerId, limit = 10) {
+        const cached = leaderboardCache[col] || JSON.parse(localStorage.getItem('nobelBot_DB_' + col) || 'null');
+        if (cached) {
+            renderTop10UI(cached, containerId, myBannerId, limit);
+        } else {
+            document.getElementById(containerId).innerHTML = '<div style="padding:15px;text-align:center;">در حال بارگذاری...</div>';
         }
 
-        document.getElementById(rankId).innerText = `رتبه شما: ${result.rank} از ${result.total}`;
-        document.getElementById(resultId).innerText = `رتبه: ${result.rank} | نام: ${name} | رکورد: ${score}`;
+        await syncLeaderboardFromSheet(col);
+        const latest = leaderboardCache[col] || JSON.parse(localStorage.getItem('nobelBot_DB_' + col) || '[]');
+        renderTop10UI(latest, containerId, myBannerId, limit);
+    }
+
+    function submitScoreInstant(col, name, phone, score, rankId, resultId, tableId) {
+        const cleanPhone = normalizePhone(phone);
+        localStorage.setItem('nobelBot_myPhone', cleanPhone);
+        localStorage.setItem('nobelBot_myName', name);
+
+        let data = leaderboardCache[col] || JSON.parse(localStorage.getItem('nobelBot_DB_' + col) || '[]');
+        data = data.filter(item => normalizePhone(item.phone) !== cleanPhone);
+        data.push({ name, phone: cleanPhone, score });
+        data.sort((a, b) => b.score - a.score);
+
+        leaderboardCache[col] = data;
+        localStorage.setItem('nobelBot_DB_' + col, JSON.stringify(data));
+
+        const rank = data.findIndex(item => normalizePhone(item.phone) === cleanPhone) + 1;
+        document.getElementById(rankId).innerText = `رتبه شما: ${rank} از ${data.length}`;
+        document.getElementById(resultId).innerText = `رتبه: ${rank} | نام: ${name} | رکورد: ${score}`;
+
         let html = '';
-        result.leaderboard.forEach((d, i) => {
-            let isMe = d.isMe ? 'style="background:rgba(16,185,129,0.2); font-weight:bold;"' : '';
+        data.forEach((d, i) => {
+            let isMe = normalizePhone(d.phone) === cleanPhone ? 'style="background:rgba(16,185,129,0.2); font-weight:bold;"' : '';
             html += `<div class="table-row" ${isMe}><span>${i+1}</span><span>${d.name}</span><span>${d.score}</span></div>`;
         });
         document.getElementById(tableId).innerHTML = html;
+
+        fetch(GOOGLE_SHEET_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ col, name, phone: cleanPhone, score })
+        }).then(() => {
+            setTimeout(() => syncLeaderboardFromSheet(col), 1500);
+        }).catch(() => {});
     }
 
     function checkUserInputs(nameId, phoneId, btnId) {
         let name = document.getElementById(nameId).value.trim();
-        let phone = cleanNumber(document.getElementById(phoneId).value);
+        let phone = normalizePhone(document.getElementById(phoneId).value);
         let isValidPhone = /^09\d{9}$/.test(phone);
         document.getElementById(btnId).disabled = !(name.length > 0 && isValidPhone);
     }
@@ -896,7 +969,17 @@
         document.getElementById(modalId.replace('Modal', 'Phase1')).style.display = 'block';
         [2,3,4].forEach(n => document.getElementById(modalId.replace('Modal', `Phase${n}`)).style.display = 'none');
         let colMap = { 'primeCompModal':'primeScores', 'gcdCompModal':'gcdScores', 'lcmCompModal':'lcmScores', 'sieveCompModal':'sieveScores' };
-        fetchLeaderboard(colMap[modalId], modalId.replace('Modal', 'Top10'));
+        fetchLeaderboard(colMap[modalId], modalId.replace('Modal', 'Top10'), modalId.replace('Modal', 'MyRank'));
+    }
+
+    function preparePhase3Inputs(prefix) {
+        const savedName = localStorage.getItem('nobelBot_myName') || '';
+        const savedPhone = localStorage.getItem('nobelBot_myPhone') || '';
+        document.getElementById(prefix + 'Name').disabled = false;
+        document.getElementById(prefix + 'Phone').disabled = false;
+        document.getElementById(prefix + 'Name').value = savedName;
+        document.getElementById(prefix + 'Phone').value = savedPhone;
+        checkUserInputs(prefix + 'Name', prefix + 'Phone', prefix + 'SubmitBtn');
     }
 
     // 1. مسابقه اعداد اول
@@ -919,18 +1002,13 @@
     }
     function endPrimeComp() {
         document.getElementById('primeCompPhase2').style.display = 'none'; document.getElementById('primeCompPhase3').style.display = 'block';
-        document.getElementById('primeCompName').disabled = false; document.getElementById('primeCompPhone').disabled = false;
-        document.getElementById('primeCompName').value = ''; document.getElementById('primeCompPhone').value = '';
-        document.getElementById('primeCompSubmitBtn').disabled = true;
+        preparePhase3Inputs('primeComp');
     }
-    async function submitPrimeComp() {
+    function submitPrimeComp() {
         let name = document.getElementById('primeCompName').value.trim();
-        let phone = cleanNumber(document.getElementById('primeCompPhone').value);
+        let phone = normalizePhone(document.getElementById('primeCompPhone').value);
         if(!name || !/^09\d{9}$/.test(phone)) return;
-        document.getElementById('primeCompName').disabled = true; document.getElementById('primeCompPhone').disabled = true; document.getElementById('primeCompSubmitBtn').disabled = true;
-        document.getElementById('primeCompSubmitBtn').innerText = "در حال ثبت در جدول...";
-        await submitScoreToServer('primeScores', name, phone, primeScore, 'primeCompFinalRankText', 'primeCompUserResult', 'primeCompFullLeaderboard');
-        document.getElementById('primeCompSubmitBtn').innerText = "تایید ثبت نام";
+        submitScoreInstant('primeScores', name, phone, primeScore, 'primeCompFinalRankText', 'primeCompUserResult', 'primeCompFullLeaderboard');
         document.getElementById('primeCompPhase3').style.display = 'none'; document.getElementById('primeCompPhase4').style.display = 'block';
     }
 
@@ -956,18 +1034,13 @@
     }
     function endGcdComp() {
         document.getElementById('gcdCompPhase2').style.display = 'none'; document.getElementById('gcdCompPhase3').style.display = 'block';
-        document.getElementById('gcdCompName').disabled = false; document.getElementById('gcdCompPhone').disabled = false;
-        document.getElementById('gcdCompName').value = ''; document.getElementById('gcdCompPhone').value = '';
-        document.getElementById('gcdCompSubmitBtn').disabled = true;
+        preparePhase3Inputs('gcdComp');
     }
-    async function submitGcdComp() {
+    function submitGcdComp() {
         let name = document.getElementById('gcdCompName').value.trim();
-        let phone = cleanNumber(document.getElementById('gcdCompPhone').value);
+        let phone = normalizePhone(document.getElementById('gcdCompPhone').value);
         if(!name || !/^09\d{9}$/.test(phone)) return;
-        document.getElementById('gcdCompName').disabled = true; document.getElementById('gcdCompPhone').disabled = true; document.getElementById('gcdCompSubmitBtn').disabled = true;
-        document.getElementById('gcdCompSubmitBtn').innerText = "در حال ثبت در جدول...";
-        await submitScoreToServer('gcdScores', name, phone, gcdScore, 'gcdCompFinalRankText', 'gcdCompUserResult', 'gcdCompFullLeaderboard');
-        document.getElementById('gcdCompSubmitBtn').innerText = "تایید";
+        submitScoreInstant('gcdScores', name, phone, gcdScore, 'gcdCompFinalRankText', 'gcdCompUserResult', 'gcdCompFullLeaderboard');
         document.getElementById('gcdCompPhase3').style.display = 'none'; document.getElementById('gcdCompPhase4').style.display = 'block';
     }
 
@@ -994,18 +1067,13 @@
     }
     function endLcmComp() {
         document.getElementById('lcmCompPhase2').style.display = 'none'; document.getElementById('lcmCompPhase3').style.display = 'block';
-        document.getElementById('lcmCompName').disabled = false; document.getElementById('lcmCompPhone').disabled = false;
-        document.getElementById('lcmCompName').value = ''; document.getElementById('lcmCompPhone').value = '';
-        document.getElementById('lcmCompSubmitBtn').disabled = true;
+        preparePhase3Inputs('lcmComp');
     }
-    async function submitLcmComp() {
+    function submitLcmComp() {
         let name = document.getElementById('lcmCompName').value.trim();
-        let phone = cleanNumber(document.getElementById('lcmCompPhone').value);
+        let phone = normalizePhone(document.getElementById('lcmCompPhone').value);
         if(!name || !/^09\d{9}$/.test(phone)) return;
-        document.getElementById('lcmCompName').disabled = true; document.getElementById('lcmCompPhone').disabled = true; document.getElementById('lcmCompSubmitBtn').disabled = true;
-        document.getElementById('lcmCompSubmitBtn').innerText = "در حال ثبت در جدول...";
-        await submitScoreToServer('lcmScores', name, phone, lcmScore, 'lcmCompFinalRankText', 'lcmCompUserResult', 'lcmCompFullLeaderboard');
-        document.getElementById('lcmCompSubmitBtn').innerText = "تایید";
+        submitScoreInstant('lcmScores', name, phone, lcmScore, 'lcmCompFinalRankText', 'lcmCompUserResult', 'lcmCompFullLeaderboard');
         document.getElementById('lcmCompPhase3').style.display = 'none'; document.getElementById('lcmCompPhase4').style.display = 'block';
     }
 
@@ -1028,18 +1096,13 @@
     }
     function endSieveComp() {
         document.getElementById('sieveCompPhase2').style.display = 'none'; document.getElementById('sieveCompPhase3').style.display = 'block';
-        document.getElementById('sieveCompName').disabled = false; document.getElementById('sieveCompPhone').disabled = false;
-        document.getElementById('sieveCompName').value = ''; document.getElementById('sieveCompPhone').value = '';
-        document.getElementById('sieveCompSubmitBtn').disabled = true;
+        preparePhase3Inputs('sieveComp');
     }
-    async function submitSieveComp() {
+    function submitSieveComp() {
         let name = document.getElementById('sieveCompName').value.trim();
-        let phone = cleanNumber(document.getElementById('sieveCompPhone').value);
+        let phone = normalizePhone(document.getElementById('sieveCompPhone').value);
         if(!name || !/^09\d{9}$/.test(phone)) return;
-        document.getElementById('sieveCompName').disabled = true; document.getElementById('sieveCompPhone').disabled = true; document.getElementById('sieveCompSubmitBtn').disabled = true;
-        document.getElementById('sieveCompSubmitBtn').innerText = "در حال ثبت در جدول...";
-        await submitScoreToServer('sieveScores', name, phone, sieveCompScore, 'sieveCompFinalRankText', 'sieveCompUserResult', 'sieveCompFullLeaderboard');
-        document.getElementById('sieveCompSubmitBtn').innerText = "تایید";
+        submitScoreInstant('sieveScores', name, phone, sieveCompScore, 'sieveCompFinalRankText', 'sieveCompUserResult', 'sieveCompFullLeaderboard');
         document.getElementById('sieveCompPhase3').style.display = 'none'; document.getElementById('sieveCompPhase4').style.display = 'block';
     }
 </script>
