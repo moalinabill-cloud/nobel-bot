@@ -552,7 +552,7 @@
     <div class="custom-modal-content">
         <div id="sieveCompPhase1">
             <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary);"><i class="fa-solid fa-wand-magic-sparkles"></i> مسابقات غربال</h3>
-            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : روی اعداد اول ضربه بزنید.<br>۲ : با هر عدد اول درست یک امتیاز میگیری.</div>
+            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : روی اعداد اول ضربه بزنید.<br>۲ : هر عدد اول درست ۱+ امتیاز و هر عدد غلط ۱- امتیاز دارد.</div>
             <div id="sieveCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="sieveCompTop10"></div></div>
             <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-green" style="flex:1;" onclick="startSieveComp()">شروع مسابقه</button><button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('sieveCompModal')">بازگشت</button></div>
@@ -597,7 +597,6 @@
         return digits;
     }
 
-    // پیش‌بارگذاری کل جدول‌ها در پس‌زمینه به محض باز شدن سایت
     window.addEventListener('DOMContentLoaded', () => {
         ['primeScores', 'gcdScores', 'lcmScores', 'sieveScores'].forEach(col => {
             syncLeaderboardFromSheet(col);
@@ -1079,16 +1078,44 @@
 
     // 4. مسابقه غربال
     let sieveCompScore = 0;
+    let sieveScoreColorTimer = null;
+
+    function updateSieveScoreUI(isPositive) {
+        const scoreEl = document.getElementById('sieveCompScore');
+        scoreEl.innerText = sieveCompScore;
+        scoreEl.style.transition = 'color 0.2s, transform 0.2s';
+        scoreEl.style.display = 'inline-block';
+        scoreEl.style.color = isPositive ? '#10b981' : '#e11d48';
+        scoreEl.style.transform = 'scale(1.25)';
+
+        clearTimeout(sieveScoreColorTimer);
+        sieveScoreColorTimer = setTimeout(() => {
+            scoreEl.style.color = '';
+            scoreEl.style.transform = 'scale(1)';
+        }, 1000);
+    }
+
     function startSieveComp() {
         document.getElementById('sieveCompPhase1').style.display = 'none'; document.getElementById('sieveCompPhase2').style.display = 'block';
-        sieveCompScore = 0; document.getElementById('sieveCompScore').innerText = '0';
+        sieveCompScore = 0;
+        const scoreEl = document.getElementById('sieveCompScore');
+        scoreEl.innerText = '0';
+        scoreEl.style.color = '';
+
         const grid = document.getElementById('sieveCompGrid'); grid.innerHTML = '';
         for(let i = 1; i <= 500; i++) {
             let cell = document.createElement('div'); cell.className = 'sieve-game-cell'; cell.innerText = i;
             cell.onclick = function() {
                 if(this.classList.contains('correct-tap') || this.classList.contains('wrong-tap')) return;
-                if(isPrimeSimple(i)) { this.classList.add('correct-tap'); document.getElementById('sieveCompScore').innerText = ++sieveCompScore; }
-                else this.classList.add('wrong-tap');
+                if(isPrimeSimple(i)) {
+                    this.classList.add('correct-tap');
+                    sieveCompScore++;
+                    updateSieveScoreUI(true);
+                } else {
+                    this.classList.add('wrong-tap');
+                    sieveCompScore--;
+                    updateSieveScoreUI(false);
+                }
             };
             grid.appendChild(cell);
         }
