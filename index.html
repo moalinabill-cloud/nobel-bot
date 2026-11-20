@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نوبل بات - دستیار هوشمند ریاضی</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* بارگذاری فونت ایران‌یکان */
         @font-face {
@@ -484,7 +485,7 @@
     </div>
 </div>
 
-<!-- پاپ‌آپ آزمون تمرین پلکانی ب.م.م (سوال ۱ آسان تا سوال ۱۰ سخت) -->
+<!-- پاپ‌آپ آزمون تمرین پلکانی ب.م.م (سوال ۱ آسان تا سوال ۱۰ متوسط) -->
 <div id="gcdPracticeTestModal" class="modal-overlay">
     <div class="custom-modal-content">
         <div id="gcdPracContainer">
@@ -514,7 +515,7 @@
     </div>
 </div>
 
-<!-- پاپ‌آپ آزمون تمرین پلکانی ک.م.م -->
+<!-- پاپ‌آپ آزمون تمرین پلکانی ک.م.م (سوال ۱ آسان تا سوال ۱۰ متوسط) -->
 <div id="lcmPracticeTestModal" class="modal-overlay">
     <div class="custom-modal-content">
         <div id="lcmPracContainer">
@@ -609,8 +610,8 @@
             <div class="question-box">اول یا مرکب؟</div>
             <div id="primeCompNumber" class="question-box" style="font-size: 2.5em; font-weight:bold; color:var(--primary);">---</div>
             <div class="game-options">
-                <button type="button" class="game-btn yellow" onclick="answerPrimeComp(true, this)">اول</button>
-                <button type="button" class="game-btn blue" onclick="answerPrimeComp(false, this)">مرکب</button>
+                <button type="button" id="primeCompBtnTrue" class="game-btn yellow" onclick="answerPrimeComp(true, this)">اول</button>
+                <button type="button" id="primeCompBtnFalse" class="game-btn blue" onclick="answerPrimeComp(false, this)">مرکب</button>
             </div>
         </div>
         <div id="primeCompPhase3" style="display:none; text-align:center;">
@@ -1068,7 +1069,7 @@
         closeModal('primePracticeTestModal'); openPracticeModal();
     }
 
-    // ================= ۲. تمرین ۱۰ سوالی پلکانی ب.م.م (سوال ۱ آسان تا سوال ۱۰ سخت) =================
+    // ================= ۲. تمرین ۱۰ سوالی پلکانی ب.م.م (سوال ۱ آسان تا سوال ۱۰ متوسط) =================
     let gcdPracQuestions = [];
     let gcdPracCurrentIndex = 0;
     let gcdPracCorrectAnswers = 0;
@@ -1088,34 +1089,34 @@
     }
 
     function generateGcdStepQuestion(stepIndex) {
+        // پیشرفت تدریجی از سوال 1 (آسان) تا سوال 10 (متوسط)
         const level = stepIndex + 1;
-        let g = 1, m1 = 2, m2 = 3, levelLabel = "سطح ۱ (آسان)";
+        let g = 2, m1 = 1, m2 = 2, levelLabel = `سوال ${level} (آسان)`;
 
-        if (level <= 2) {
+        if (level <= 3) {
+            // سوالات ۱ تا ۳: آسان
             const easyGcds = [2, 3, 4, 5];
             g = easyGcds[Math.floor(Math.random() * easyGcds.length)];
-            [m1, m2] = pickCoprimePair(1, 5);
-            levelLabel = `سطح ${level} (آسان)`;
-        } else if (level <= 4) {
-            const midLowGcds = [3, 4, 6, 8];
-            g = midLowGcds[Math.floor(Math.random() * midLowGcds.length)];
-            [m1, m2] = pickCoprimePair(2, 7);
-            levelLabel = `سطح ${level} (متوسط رو به آسان)`;
+            [m1, m2] = pickCoprimePair(1, 3);
+            levelLabel = `سوال ${level} (آسان)`;
         } else if (level <= 6) {
-            const midHighGcds = [6, 7, 8, 9, 12];
-            g = midHighGcds[Math.floor(Math.random() * midHighGcds.length)];
-            [m1, m2] = pickCoprimePair(3, 9);
-            levelLabel = `سطح ${level} (متوسط)`;
+            // سوالات ۴ تا ۶: آسان رو به متوسط
+            const midEasyGcds = [3, 4, 5, 6];
+            g = midEasyGcds[Math.floor(Math.random() * midEasyGcds.length)];
+            [m1, m2] = pickCoprimePair(2, 5);
+            levelLabel = `سوال ${level} (آسان رو به متوسط)`;
         } else if (level <= 8) {
-            const hardGcds = [9, 12, 14, 15, 16, 18];
-            g = hardGcds[Math.floor(Math.random() * hardGcds.length)];
-            [m1, m2] = pickCoprimePair(4, 11);
-            levelLabel = `سطح ${level} (سخت)`;
+            // سوالات ۷ و ۸: نیمه‌متوسط
+            const midGcds = [4, 6, 7, 8];
+            g = midGcds[Math.floor(Math.random() * midGcds.length)];
+            [m1, m2] = pickCoprimePair(2, 6);
+            levelLabel = `سوال ${level} (متوسط)`;
         } else {
-            const veryHardGcds = [12, 15, 18, 21, 24, 25];
-            g = veryHardGcds[Math.floor(Math.random() * veryHardGcds.length)];
-            [m1, m2] = pickCoprimePair(5, 13);
-            levelLabel = `سطح ${level} (بسیار سخت)`;
+            // سوالات ۹ و ۱۰: متوسط
+            const topMidGcds = [6, 8, 9, 10, 12];
+            g = topMidGcds[Math.floor(Math.random() * topMidGcds.length)];
+            [m1, m2] = pickCoprimePair(3, 7);
+            levelLabel = `سوال ${level} (متوسط)`;
         }
 
         const n1 = g * m1;
@@ -1231,35 +1232,36 @@
         openPracticeModal();
     }
 
-    // ================= ۳. تمرین ۱۰ سوالی پلکانی ک.م.م =================
+    // ================= ۳. تمرین ۱۰ سوالی پلکانی ک.م.م (سوال ۱ آسان تا سوال ۱۰ متوسط) =================
     let lcmPracQuestions = [];
     let lcmPracCurrentIndex = 0;
     let lcmPracCorrectAnswers = 0;
 
     function generateLcmStepQuestion(stepIndex) {
+        // پیشرفت تدریجی از سوال 1 (آسان) تا سوال 10 (متوسط)
         const level = stepIndex + 1;
-        let g = 1, m1 = 2, m2 = 3, levelLabel = "سطح ۱ (آسان)";
+        let g = 2, m1 = 1, m2 = 2, levelLabel = `سوال ${level} (آسان)`;
 
-        if (level <= 2) {
-            g = [2, 3, 4][Math.floor(Math.random() * 3)];
-            [m1, m2] = pickCoprimePair(1, 4);
-            levelLabel = `سطح ${level} (آسان)`;
-        } else if (level <= 4) {
-            g = [2, 3, 4, 5][Math.floor(Math.random() * 4)];
-            [m1, m2] = pickCoprimePair(2, 5);
-            levelLabel = `سطح ${level} (متوسط رو به آسان)`;
+        if (level <= 3) {
+            // سوالات ۱ تا ۳: آسان (ک.م.م‌های کوچک تا حدود ۲۰)
+            g = [2, 3][Math.floor(Math.random() * 2)];
+            [m1, m2] = pickCoprimePair(1, 3);
+            levelLabel = `سوال ${level} (آسان)`;
         } else if (level <= 6) {
-            g = [3, 4, 5, 6][Math.floor(Math.random() * 4)];
-            [m1, m2] = pickCoprimePair(2, 7);
-            levelLabel = `سطح ${level} (متوسط)`;
+            // سوالات ۴ تا ۶: آسان رو به متوسط (ک.م.م تا حدود ۴۰)
+            g = [2, 3, 4][Math.floor(Math.random() * 3)];
+            [m1, m2] = pickCoprimePair(2, 4);
+            levelLabel = `سوال ${level} (آسان رو به متوسط)`;
         } else if (level <= 8) {
-            g = [4, 6, 8, 9][Math.floor(Math.random() * 4)];
-            [m1, m2] = pickCoprimePair(3, 8);
-            levelLabel = `سطح ${level} (سخت)`;
+            // سوالات ۷ و ۸: نیمه‌متوسط (ک.م.م تا حدود ۶۰)
+            g = [3, 4, 5][Math.floor(Math.random() * 3)];
+            [m1, m2] = pickCoprimePair(2, 5);
+            levelLabel = `سوال ${level} (متوسط)`;
         } else {
-            g = [6, 8, 10, 12][Math.floor(Math.random() * 4)];
-            [m1, m2] = pickCoprimePair(3, 9);
-            levelLabel = `سطح ${level} (بسیار سخت)`;
+            // سوالات ۹ و ۱۰: متوسط (ک.م.م تا حدود ۹۰)
+            g = [4, 5, 6][Math.floor(Math.random() * 3)];
+            [m1, m2] = pickCoprimePair(3, 5);
+            levelLabel = `سوال ${level} (متوسط)`;
         }
 
         const n1 = g * m1;
@@ -1385,7 +1387,7 @@
         for (let start = 1; start <= 85; start++) {
             for (let span = 35; span <= 50; span++) {
                 let end = start + span;
-                if (end >= 121) continue; // عدد دوم زیر 121 باشد (حداکثر 120)
+                if (end >= 121) continue;
                 let primeCount = 0;
                 for (let n = start; n <= end; n++) {
                     if (isPrimeSimple(n)) primeCount++;
@@ -1592,11 +1594,20 @@
         currentPrimeNum = parseInt(`${base}${end}`); document.getElementById('primeCompNumber').innerText = currentPrimeNum;
     }
     function answerPrimeComp(guessedPrime, btnElement) {
-        let isCorrect = (guessedPrime === isPrimeSimple(currentPrimeNum));
-        if(isCorrect) { btnElement.classList.add('correct-ans'); document.getElementById('primeCompScore').innerText = ++primeScore; }
-        else { btnElement.classList.add('wrong-ans'); }
-        let allBtns = btnElement.parentElement.querySelectorAll('.game-btn'); allBtns.forEach(b => b.style.pointerEvents = 'none');
-        setTimeout(() => { allBtns.forEach(b => { b.style.pointerEvents = 'auto'; b.classList.remove('correct-ans', 'wrong-ans'); }); nextPrimeQuestion(); }, 500);
+        let actualIsPrime = isPrimeSimple(currentPrimeNum);
+        let isCorrect = (guessedPrime === actualIsPrime);
+        let allBtns = btnElement.parentElement.querySelectorAll('.game-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+        if(isCorrect) {
+            btnElement.classList.add('correct-ans');
+            document.getElementById('primeCompScore').innerText = ++primeScore;
+        } else {
+            btnElement.classList.add('wrong-ans');
+            let correctBtn = document.getElementById(actualIsPrime ? 'primeCompBtnTrue' : 'primeCompBtnFalse');
+            if (correctBtn) correctBtn.classList.add('correct-ans');
+        }
+        setTimeout(() => { allBtns.forEach(b => { b.style.pointerEvents = 'auto'; b.classList.remove('correct-ans', 'wrong-ans'); }); nextPrimeQuestion(); }, 650);
     }
     function endPrimeComp() {
         document.getElementById('primeCompPhase2').style.display = 'none'; document.getElementById('primeCompPhase3').style.display = 'block';
@@ -1610,7 +1621,7 @@
         document.getElementById('primeCompPhase3').style.display = 'none'; document.getElementById('primeCompPhase4').style.display = 'block';
     }
 
-    // 2. مسابقه ب.م.م
+    // 2. مسابقه ب.م.م (سطح متعادل و کمی آسان‌تر)
     let gcdScore = 0, currentGcdAnswer = 0;
     function startGcdComp() {
         document.getElementById('gcdCompPhase1').style.display = 'none'; document.getElementById('gcdCompPhase2').style.display = 'block';
@@ -1618,17 +1629,37 @@
         nextGcdQuestion(); startTimer(60, 'gcdCompTimer', endGcdComp);
     }
     function nextGcdQuestion() {
-        let n1 = Math.floor(Math.random() * 50) + 10, n2 = Math.floor(Math.random() * 50) + 10; currentGcdAnswer = Number(gcdBigInt(BigInt(n1), BigInt(n2)));
+        const easyGcds = [2, 3, 4, 5, 6, 8, 9, 10, 12];
+        const g = easyGcds[Math.floor(Math.random() * easyGcds.length)];
+        const [m1, m2] = pickCoprimePair(1, 5);
+        const n1 = g * m1;
+        const n2 = g * m2;
+        currentGcdAnswer = Number(gcdBigInt(BigInt(n1), BigInt(n2)));
+
         document.getElementById('gcdCompQuestion').innerText = `( ${n2} , ${n1} )`;
-        let opts = [...new Set([currentGcdAnswer, currentGcdAnswer + (Math.floor(Math.random()*3)+1), Math.abs(currentGcdAnswer - (Math.floor(Math.random()*3)+1)) || 1, currentGcdAnswer + 10])];
-        while(opts.length < 4) opts.push(opts[0] + Math.floor(Math.random()*20)+5); opts.sort(() => Math.random() - 0.5);
+        let opts = [...new Set([
+            currentGcdAnswer,
+            currentGcdAnswer + (Math.floor(Math.random() * 2) + 1),
+            Math.max(1, currentGcdAnswer - (Math.floor(Math.random() * 2) + 1)),
+            currentGcdAnswer * 2
+        ])];
+        while(opts.length < 4) opts.push(opts[0] + Math.floor(Math.random() * 8) + 2);
+        opts.sort(() => Math.random() - 0.5);
         document.getElementById('gcdCompOptions').innerHTML = opts.map(opt => `<button type="button" class="game-btn" onclick="answerGcdComp(${opt}, this)">${opt}</button>`).join('');
     }
     function answerGcdComp(ans, btnElement) {
-        if(ans === currentGcdAnswer) { btnElement.classList.add('correct-ans'); document.getElementById('gcdCompScore').innerText = ++gcdScore; }
-        else { btnElement.classList.add('wrong-ans'); }
-        let allBtns = btnElement.parentElement.querySelectorAll('.game-btn'); allBtns.forEach(b => b.style.pointerEvents = 'none');
-        setTimeout(() => { allBtns.forEach(b => { b.style.pointerEvents = 'auto'; b.classList.remove('correct-ans', 'wrong-ans'); }); nextGcdQuestion(); }, 500);
+        let allBtns = btnElement.parentElement.querySelectorAll('.game-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+        if(ans === currentGcdAnswer) {
+            btnElement.classList.add('correct-ans');
+            document.getElementById('gcdCompScore').innerText = ++gcdScore;
+        } else {
+            btnElement.classList.add('wrong-ans');
+            allBtns.forEach(b => {
+                if (Number(b.innerText.trim()) === currentGcdAnswer) b.classList.add('correct-ans');
+            });
+        }
+        setTimeout(() => { allBtns.forEach(b => { b.style.pointerEvents = 'auto'; b.classList.remove('correct-ans', 'wrong-ans'); }); nextGcdQuestion(); }, 650);
     }
     function endGcdComp() {
         document.getElementById('gcdCompPhase2').style.display = 'none'; document.getElementById('gcdCompPhase3').style.display = 'block';
@@ -1642,7 +1673,7 @@
         document.getElementById('gcdCompPhase3').style.display = 'none'; document.getElementById('gcdCompPhase4').style.display = 'block';
     }
 
-    // 3. مسابقه ک.م.م
+    // 3. مسابقه ک.م.م (سطح متعادل و سقف جواب حدود ۱۰۰ الی ۱۲۰)
     let lcmScore = 0, currentLcmAnswer = 0;
     function startLcmComp() {
         document.getElementById('lcmCompPhase1').style.display = 'none'; document.getElementById('lcmCompPhase2').style.display = 'block';
@@ -1650,18 +1681,45 @@
         nextLcmQuestion(); startTimer(60, 'lcmCompTimer', endLcmComp);
     }
     function nextLcmQuestion() {
-        let max = Math.random() > 0.8 ? 30 : 15, n1 = Math.floor(Math.random() * max) + 2, n2 = Math.floor(Math.random() * max) + 2;
-        currentLcmAnswer = Number((BigInt(n1) * BigInt(n2)) / gcdBigInt(BigInt(n1), BigInt(n2)));
+        let n1 = 4, n2 = 6, lcmVal = 12;
+        for (let tries = 0; tries < 50; tries++) {
+            const baseG = [2, 3, 4, 5, 6][Math.floor(Math.random() * 5)];
+            const [m1, m2] = pickCoprimePair(1, 5);
+            const c1 = baseG * m1;
+            const c2 = baseG * m2;
+            const candidateLcm = Number((BigInt(c1) * BigInt(c2)) / gcdBigInt(BigInt(c1), BigInt(c2)));
+            if (candidateLcm <= 120 && c1 !== c2) {
+                n1 = c1;
+                n2 = c2;
+                lcmVal = candidateLcm;
+                break;
+            }
+        }
+        currentLcmAnswer = lcmVal;
         document.getElementById('lcmCompQuestion').innerText = `[ ${n2} , ${n1} ]`;
-        let opts = [...new Set([currentLcmAnswer, currentLcmAnswer + n1, currentLcmAnswer + n2, currentLcmAnswer * 2])];
-        while(opts.length < 4) opts.push(opts[0] + Math.floor(Math.random()*10)+1); opts.sort(() => Math.random() - 0.5);
+        let opts = [...new Set([
+            currentLcmAnswer,
+            currentLcmAnswer + n1,
+            currentLcmAnswer + n2,
+            Math.max(Math.max(n1, n2), currentLcmAnswer - Math.min(n1, n2))
+        ])];
+        while(opts.length < 4) opts.push(opts[0] + Math.floor(Math.random() * 10) + 2);
+        opts.sort(() => Math.random() - 0.5);
         document.getElementById('lcmCompOptions').innerHTML = opts.map(opt => `<button type="button" class="game-btn" onclick="answerLcmComp(${opt}, this)">${opt}</button>`).join('');
     }
     function answerLcmComp(ans, btnElement) {
-        if(ans === currentLcmAnswer) { btnElement.classList.add('correct-ans'); document.getElementById('lcmCompScore').innerText = ++lcmScore; }
-        else { btnElement.classList.add('wrong-ans'); }
-        let allBtns = btnElement.parentElement.querySelectorAll('.game-btn'); allBtns.forEach(b => b.style.pointerEvents = 'none');
-        setTimeout(() => { allBtns.forEach(b => { b.style.pointerEvents = 'auto'; b.classList.remove('correct-ans', 'wrong-ans'); }); nextLcmQuestion(); }, 500);
+        let allBtns = btnElement.parentElement.querySelectorAll('.game-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+        if(ans === currentLcmAnswer) {
+            btnElement.classList.add('correct-ans');
+            document.getElementById('lcmCompScore').innerText = ++lcmScore;
+        } else {
+            btnElement.classList.add('wrong-ans');
+            allBtns.forEach(b => {
+                if (Number(b.innerText.trim()) === currentLcmAnswer) b.classList.add('correct-ans');
+            });
+        }
+        setTimeout(() => { allBtns.forEach(b => { b.style.pointerEvents = 'auto'; b.classList.remove('correct-ans', 'wrong-ans'); }); nextLcmQuestion(); }, 650);
     }
     function endLcmComp() {
         document.getElementById('lcmCompPhase2').style.display = 'none'; document.getElementById('lcmCompPhase3').style.display = 'block';
