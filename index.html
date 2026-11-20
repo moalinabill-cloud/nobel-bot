@@ -9,13 +9,19 @@
     <style>
         @font-face {
             font-family: 'iranyekan';
-            src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebRegular.woff2') format('woff2');
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-yekan-font@v1.0.0/dist/IRANYekanWebRegular.woff2') format('woff2'),
+                 url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebRegular.woff2') format('woff2');
             font-weight: normal;
+            font-style: normal;
+            font-display: swap;
         }
         @font-face {
             font-family: 'iranyekan';
-            src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebBold.woff2') format('woff2');
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-yekan-font@v1.0.0/dist/IRANYekanWebBold.woff2') format('woff2'),
+                 url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebBold.woff2') format('woff2');
             font-weight: bold;
+            font-style: normal;
+            font-display: swap;
         }
 
         :root {
@@ -26,11 +32,15 @@
             --success: #10b981;
         }
 
-        * {
+        *, *::before, *::after, body, button, input, select, textarea, h1, h2, h3, h4, p, span, div {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'iranyekan', Tahoma, sans-serif;
+            font-family: 'iranyekan', Tahoma, sans-serif !important;
+        }
+
+        .fa, .fas, .far, .fal, .fab, .fa-solid, .fa-regular, .fa-brands {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
         }
 
         body {
@@ -115,21 +125,20 @@
             gap: 10px;
             transition: all 0.3s;
             font-size: 16px;
-            font-family: 'iranyekan', Tahoma, sans-serif;
             width: 160px;
         }
 
         .comp-btn {
-            background: var(--success);
-            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+            background: #112BB8;
+            box-shadow: 0 6px 15px rgba(17, 43, 184, 0.38);
         }
-        .comp-btn:hover { background: #059669; transform: translateY(-3px); }
+        .comp-btn:hover { background: #0d2191; transform: translateY(-3px); }
 
         .practice-btn {
-            background: #0dcaf0;
-            box-shadow: 0 6px 15px rgba(13, 202, 240, 0.4);
+            background: #7C63F5;
+            box-shadow: 0 6px 15px rgba(124, 99, 245, 0.38);
         }
-        .practice-btn:hover { background: #0bacbe; transform: translateY(-3px); }
+        .practice-btn:hover { background: #674ce8; transform: translateY(-3px); }
 
         @media (max-width: 400px) {
             .action-btn { width: 140px; font-size: 14px; padding: 12px 14px; }
@@ -261,7 +270,7 @@
         
         .btn-red {
             background: #e11d48; color: white; border: none; padding: 14px; width: 100%; border-radius: 14px;
-            font-weight: bold; cursor: pointer; margin-top: 25px; font-size: 15px; font-family: 'iranyekan', Tahoma, sans-serif;
+            font-weight: bold; cursor: pointer; margin-top: 25px; font-size: 15px;
             transition: all 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px;
         }
         .btn-red:hover { background: #be123c; }
@@ -391,7 +400,7 @@
                 <i class="fa-solid fa-hashtag" style="font-size: 2.5em; color: #ffc107; margin-bottom: 15px;"></i>
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های اعداد اول و مرکب</h4>
             </div>
-            <div class="modal-card" onclick="selectPractice(1)">
+            <div class="modal-card" onclick="startGcdPractice()">
                 <i class="fa-solid fa-divide" style="font-size: 2.5em; color: #0dcaf0; margin-bottom: 15px;"></i>
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های ب.م.م</h4>
             </div>
@@ -424,6 +433,26 @@
             <h3 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> پایان تمرین!</h3>
             <p style="font-size: 18px; margin-bottom: 20px;">تعداد پاسخ‌های درست شما: <span id="primePracFinalScore">0</span> از 10</p>
             <button class="btn-green" onclick="closePrimePractice()">بستن و بازگشت</button>
+        </div>
+    </div>
+</div>
+
+<!-- پاپ‌آپ آزمون تمرین پلکانی ب.م.م (سوال ۱ آسان تا سوال ۱۰ سخت) -->
+<div id="gcdPracticeTestModal" class="modal-overlay">
+    <div class="custom-modal-content">
+        <div id="gcdPracContainer">
+            <div class="game-header">
+                <div>تعداد درست: <span id="gcdPracCorrectCounter">0</span></div>
+                <div>شماره سوال: <span id="gcdPracQNumCounter">1</span> از 10</div>
+            </div>
+            <div class="question-box" id="gcdPracQText" style="min-height: 85px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;">--</div>
+            <div class="game-options" id="gcdPracOptionsContainer"></div>
+            <div id="gcdPracFeedback" style="margin-top: 25px; font-weight: bold; text-align: center; min-height: 50px; font-size: 15px; line-height: 1.6;"></div>
+        </div>
+        <div id="gcdPracEndScreen" style="display:none; text-align:center;">
+            <h3 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> پایان تمرین ب.م.م!</h3>
+            <p style="font-size: 18px; margin-bottom: 20px;">تعداد پاسخ‌های درست شما: <span id="gcdPracFinalScore">0</span> از 10</p>
+            <button class="btn-green" onclick="closeGcdPractice()">بستن و بازگشت</button>
         </div>
     </div>
 </div>
@@ -552,7 +581,7 @@
     <div class="custom-modal-content">
         <div id="sieveCompPhase1">
             <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary);"><i class="fa-solid fa-wand-magic-sparkles"></i> مسابقات غربال</h3>
-            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : روی اعداد اول ضربه بزن .<br>۲ : با هر ضربه درست یک امتیاز میگیری .<br>با هر ضربه اشتباه یک امتیاز منفی میگیری .</div>
+            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : روی اعداد اول ضربه بزن .<br>۲ : با هر ضربه درست یک امتیاز میگیری .<br>۳ : با هر ضربه اشتباه یک امتیاز منفی میگیری .</div>
             <div id="sieveCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="sieveCompTop10"></div></div>
             <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-green" style="flex:1;" onclick="startSieveComp()">شروع مسابقه</button><button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('sieveCompModal')">بازگشت</button></div>
@@ -869,6 +898,171 @@
     
     function closePrimePractice() {
         closeModal('primePracticeTestModal'); openPracticeModal();
+    }
+
+    // ================= تمرین ۱۰ سوالی پلکانی ب.م.م (سوال ۱ آسان تا سوال ۱۰ سخت) =================
+    let gcdPracQuestions = [];
+    let gcdPracCurrentIndex = 0;
+    let gcdPracCorrectAnswers = 0;
+
+    function pickCoprimePair(minK, maxK) {
+        const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+        let x = randInt(minK, maxK);
+        let y = randInt(minK, maxK);
+        let tries = 0;
+        while ((x === y || gcdBigInt(BigInt(x), BigInt(y)) !== 1n) && tries < 60) {
+            x = randInt(minK, maxK);
+            y = randInt(minK, maxK);
+            tries++;
+        }
+        if (x === y) y = x + 1;
+        return [x, y];
+    }
+
+    function generateGcdStepQuestion(stepIndex) {
+        // stepIndex از 0 تا 9 (معادل سوال 1 تا سوال 10)
+        const level = stepIndex + 1;
+        let g = 1, m1 = 2, m2 = 3, levelLabel = "سطح ۱ (آسان)";
+
+        if (level <= 2) {
+            // سوال ۱ و ۲: بسیار آسان
+            const easyGcds = [2, 3, 4, 5];
+            g = easyGcds[Math.floor(Math.random() * easyGcds.length)];
+            [m1, m2] = pickCoprimePair(1, 5);
+            levelLabel = `سطح ${level} (آسان)`;
+        } else if (level <= 4) {
+            // سوال ۳ و ۴: کمی سخت‌تر
+            const midLowGcds = [3, 4, 6, 8];
+            g = midLowGcds[Math.floor(Math.random() * midLowGcds.length)];
+            [m1, m2] = pickCoprimePair(2, 7);
+            levelLabel = `سطح ${level} (متوسط رو به آسان)`;
+        } else if (level <= 6) {
+            // سوال ۵ و ۶: متوسط
+            const midHighGcds = [6, 7, 8, 9, 12];
+            g = midHighGcds[Math.floor(Math.random() * midHighGcds.length)];
+            [m1, m2] = pickCoprimePair(3, 9);
+            levelLabel = `سطح ${level} (متوسط)`;
+        } else if (level <= 8) {
+            // سوال ۷ و ۸: سخت
+            const hardGcds = [9, 12, 14, 15, 16, 18];
+            g = hardGcds[Math.floor(Math.random() * hardGcds.length)];
+            [m1, m2] = pickCoprimePair(4, 11);
+            levelLabel = `سطح ${level} (سخت)`;
+        } else {
+            // سوال ۹ و ۱۰: بسیار سخت
+            const veryHardGcds = [12, 15, 18, 21, 24, 25];
+            g = veryHardGcds[Math.floor(Math.random() * veryHardGcds.length)];
+            [m1, m2] = pickCoprimePair(5, 13);
+            levelLabel = `سطح ${level} (بسیار سخت)`;
+        }
+
+        const n1 = g * m1;
+        const n2 = g * m2;
+        const correctAnswer = Number(gcdBigInt(BigInt(n1), BigInt(n2)));
+
+        const distractors = new Set();
+        const candidates = [
+            1,
+            correctAnswer * 2,
+            Math.max(2, Math.floor(correctAnswer / 2)),
+            correctAnswer + 2,
+            correctAnswer + 3,
+            Math.max(2, correctAnswer - 2),
+            Math.min(n1, n2)
+        ];
+
+        for (let c of candidates) {
+            if (distractors.size >= 3) break;
+            if (c > 0 && c !== correctAnswer) distractors.add(c);
+        }
+        let guard = 1;
+        while (distractors.size < 3) {
+            let extra = correctAnswer + guard * 2;
+            if (extra !== correctAnswer) distractors.add(extra);
+            guard++;
+        }
+
+        const options = [correctAnswer, ...Array.from(distractors).slice(0, 3)].sort(() => Math.random() - 0.5);
+
+        return {
+            levelLabel,
+            pairText: `( ${n2} , ${n1} )`,
+            options,
+            answer: correctAnswer
+        };
+    }
+
+    function startGcdPractice() {
+        closeModal('practiceModalOverlay');
+        document.getElementById('gcdPracticeTestModal').style.display = 'flex';
+        document.getElementById('gcdPracContainer').style.display = 'block';
+        document.getElementById('gcdPracEndScreen').style.display = 'none';
+        document.getElementById('gcdPracFeedback').innerText = '';
+
+        gcdPracCurrentIndex = 0;
+        gcdPracCorrectAnswers = 0;
+        document.getElementById('gcdPracCorrectCounter').innerText = "0";
+
+        gcdPracQuestions = [];
+        for (let i = 0; i < 10; i++) {
+            gcdPracQuestions.push(generateGcdStepQuestion(i));
+        }
+        loadGcdPracticeQuestion();
+    }
+
+    function loadGcdPracticeQuestion() {
+        document.getElementById('gcdPracQNumCounter').innerText = gcdPracCurrentIndex + 1;
+        document.getElementById('gcdPracFeedback').innerText = '';
+        const q = gcdPracQuestions[gcdPracCurrentIndex];
+        document.getElementById('gcdPracQText').innerHTML = `
+            <span style="font-size: 13px; color: var(--primary); background: rgba(79,70,229,0.08); padding: 4px 12px; border-radius: 10px;">${q.levelLabel}</span>
+            <span>ب.م.م اعداد <strong style="color: var(--primary); direction: ltr; display: inline-block;">${q.pairText}</strong> چیست؟</span>
+        `;
+
+        let html = '';
+        q.options.forEach((opt, index) => {
+            html += `<button class="prac-opt-btn" onclick="answerGcdPractice(${index}, this)">${opt}</button>`;
+        });
+        document.getElementById('gcdPracOptionsContainer').innerHTML = html;
+    }
+
+    function answerGcdPractice(selectedIndex, btnElement) {
+        const q = gcdPracQuestions[gcdPracCurrentIndex];
+        const isCorrect = (q.options[selectedIndex] === q.answer);
+        const feedbackEl = document.getElementById('gcdPracFeedback');
+
+        const allBtns = document.getElementById('gcdPracOptionsContainer').querySelectorAll('.prac-opt-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+        if (isCorrect) {
+            btnElement.classList.add('correct-ans');
+            gcdPracCorrectAnswers++;
+            document.getElementById('gcdPracCorrectCounter').innerText = gcdPracCorrectAnswers;
+            feedbackEl.innerText = "آفرین! یک پله جلو رفتی.";
+            feedbackEl.style.color = "var(--success)";
+        } else {
+            btnElement.classList.add('wrong-ans');
+            const correctIdx = q.options.indexOf(q.answer);
+            allBtns[correctIdx].classList.add('correct-ans');
+            feedbackEl.innerText = `پاسخ درست ${q.answer} بود؛ اشکالی ندارد، در سوال بعدی ادامه بده!`;
+            feedbackEl.style.color = "#e11d48";
+        }
+
+        setTimeout(() => {
+            gcdPracCurrentIndex++;
+            if (gcdPracCurrentIndex < 10) {
+                loadGcdPracticeQuestion();
+            } else {
+                document.getElementById('gcdPracContainer').style.display = 'none';
+                document.getElementById('gcdPracEndScreen').style.display = 'block';
+                document.getElementById('gcdPracFinalScore').innerText = gcdPracCorrectAnswers;
+            }
+        }, 2200);
+    }
+
+    function closeGcdPractice() {
+        closeModal('gcdPracticeTestModal');
+        openPracticeModal();
     }
 
     // ================= سیستم سریع جدول رتبه‌بندی و جلوگیری از تکرار شماره =================
