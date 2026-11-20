@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نوبل بات - دستیار هوشمند ریاضی</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
+        /* بارگذاری فونت ایران‌یکان */
         @font-face {
             font-family: 'iranyekan';
-            src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebRegular.woff2') format('woff2');
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-yekan-font@v1.0.0/dist/IRANYekanWebRegular.woff2') format('woff2'),
+                 url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebRegular.woff2') format('woff2');
             font-weight: normal;
+            font-style: normal;
+            font-display: swap;
         }
         @font-face {
             font-family: 'iranyekan';
-            src: url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebBold.woff2') format('woff2');
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-yekan-font@v1.0.0/dist/IRANYekanWebBold.woff2') format('woff2'),
+                 url('https://cdn.fontcdn.ir/Font/Persian/IRANYekan/IRANYekanWebBold.woff2') format('woff2');
             font-weight: bold;
+            font-style: normal;
+            font-display: swap;
         }
 
         :root {
@@ -26,13 +31,37 @@
             --success: #10b981;
         }
 
-        * {
+        /* اعمال یکپارچه فونت ایران‌یکان بر روی تمام اجزا */
+        *, *::before, *::after, body, button, input, select, textarea, h1, h2, h3, h4, p, span, div {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'iranyekan', Tahoma, sans-serif;
+            font-family: 'iranyekan', Tahoma, sans-serif !important;
         }
 
+        /* استایل آیکون‌های برداری داخلی FontAwesome 6.4.0 */
+        i[class*="fa-"] {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            font-style: normal;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        i[class*="fa-"]::before {
+            content: none !important;
+        }
+
+        i[class*="fa-"] svg.fa-inline-svg {
+            width: 1em;
+            height: 1em;
+            fill: currentColor;
+            display: block;
+            overflow: visible;
+        }
+
+        /* پس‌زمینه گرادیانت متحرک */
         body {
             background: linear-gradient(-45deg, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8);
             background-size: 400% 400%;
@@ -52,6 +81,7 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* هدر برنامه */
         .main-header {
             display: flex;
             flex-direction: column;
@@ -115,26 +145,26 @@
             gap: 10px;
             transition: all 0.3s;
             font-size: 16px;
-            font-family: 'iranyekan', Tahoma, sans-serif;
             width: 160px;
         }
 
         .comp-btn {
-            background: var(--success);
-            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+            background: #112BB8;
+            box-shadow: 0 6px 15px rgba(17, 43, 184, 0.38);
         }
-        .comp-btn:hover { background: #059669; transform: translateY(-3px); }
+        .comp-btn:hover { background: #0d2191; transform: translateY(-3px); }
 
         .practice-btn {
-            background: #0dcaf0;
-            box-shadow: 0 6px 15px rgba(13, 202, 240, 0.4);
+            background: #7C63F5;
+            box-shadow: 0 6px 15px rgba(124, 99, 245, 0.38);
         }
-        .practice-btn:hover { background: #0bacbe; transform: translateY(-3px); }
+        .practice-btn:hover { background: #674ce8; transform: translateY(-3px); }
 
         @media (max-width: 400px) {
             .action-btn { width: 140px; font-size: 14px; padding: 12px 14px; }
         }
 
+        /* کانتینر شیشه‌ای اصلی */
         .container {
             width: 100%;
             max-width: 650px;
@@ -151,6 +181,7 @@
             position: relative;
         }
 
+        /* تب‌های چهارگانه */
         .tabs {
             display: flex;
             gap: 8px;
@@ -174,6 +205,7 @@
         .tab-content.active { display: block; animation: slideUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
+        /* فیلدهای ورودی */
         .input-group { position: relative; margin-bottom: 15px; }
         .input-group i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 18px; transition: 0.3s; }
         .input-group input {
@@ -185,6 +217,7 @@
         .dual-inputs { display: flex; gap: 15px; }
         .dual-inputs .input-group { flex: 1; }
 
+        /* باکس نتایج */
         .result-box {
             padding: 20px; background: rgba(255, 255, 255, 0.8); border: 2px dashed rgba(79, 70, 229, 0.4);
             border-radius: 16px; min-height: 100px; font-size: 15px; line-height: 1.8; color: var(--text-dark);
@@ -205,6 +238,7 @@
         .reset-btn i { transition: transform 0.4s; }
         .reset-btn:hover i { transform: rotate(-180deg); }
 
+        /* دکمه اصلی اجرا */
         .main-action-btn {
             position: relative; background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             color: white; border: none; padding: 18px; width: 100%; border-radius: 16px; font-size: 18px;
@@ -221,6 +255,7 @@
         .main-action-btn:hover { transform: translateY(-3px); }
         .main-action-btn:active { transform: translateY(1px); }
 
+        /* استایل‌های غربال متحرک */
         .sieve-warning { background: rgba(255, 243, 205, 0.8); color: #856404; padding: 15px; border-radius: 12px; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; border-right: 4px solid #ffeeba; }
         .sieve-title { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 15px; color: var(--primary); transition: color 0.5s, transform 0.5s; }
         .num-grid { display: flex; flex-wrap: wrap; gap: 8px; direction: ltr; justify-content: flex-start; }
@@ -228,6 +263,7 @@
         .num-item.prime-glow { background: var(--success); box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); transform: scale(1.15); z-index: 10; }
         .fly-away { transform: translateY(-200px) rotate(360deg) scale(0); opacity: 0; pointer-events: none; }
         
+        /* کارت ویدیوی آموزشی */
         .video-card { margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.9); text-align: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.5), 0 5px 15px rgba(0,0,0,0.05); }
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); background: #000; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
@@ -242,6 +278,7 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
+        /* مودال‌ها و پنجره‌های پاپ‌آپ */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.75); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -258,10 +295,11 @@
             padding: 20px 15px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.3s;
         }
         .modal-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 8px 15px rgba(79, 70, 229, 0.15); background: #fff; }
+        .modal-card i { font-size: 2.5em; margin-bottom: 15px; }
         
         .btn-red {
             background: #e11d48; color: white; border: none; padding: 14px; width: 100%; border-radius: 14px;
-            font-weight: bold; cursor: pointer; margin-top: 25px; font-size: 15px; font-family: 'iranyekan', Tahoma, sans-serif;
+            font-weight: bold; cursor: pointer; margin-top: 25px; font-size: 15px;
             transition: all 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px;
         }
         .btn-red:hover { background: #be123c; }
@@ -270,8 +308,9 @@
         .btn-green:hover { background: #059669; }
         .btn-green:disabled { background: #9ca3af; cursor: not-allowed; }
 
-        .game-header { display: flex; justify-content: space-between; font-size: 1.1em; font-weight: bold; margin-bottom: 20px; background: rgba(79, 70, 229, 0.1); padding: 12px; border-radius: 12px; color: var(--primary); }
-        .question-box { border: 2px dashed rgba(79, 70, 229, 0.3); padding: 15px; border-radius: 15px; font-size: 1.4em; margin-bottom: 20px; text-align: center; background: #fff; }
+        /* المان‌های آزمون و مسابقات */
+        .game-header { display: flex; justify-content: space-between; font-size: 1.05em; font-weight: bold; margin-bottom: 18px; background: rgba(79, 70, 229, 0.1); padding: 12px; border-radius: 12px; color: var(--primary); }
+        .question-box { border: 2px dashed rgba(79, 70, 229, 0.3); padding: 15px; border-radius: 15px; font-size: 1.35em; margin-bottom: 18px; text-align: center; background: #fff; }
         .game-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .game-btn, .prac-opt-btn {
             padding: 15px; font-size: 1.2em; border-radius: 12px; cursor: pointer; font-weight: bold;
@@ -308,72 +347,79 @@
         .table-header { background: rgba(79, 70, 229, 0.05); font-weight: bold; color: var(--primary); }
         .table-row:last-child { border-bottom: none; }
 
-        .sieve-comp-grid { display: flex; flex-wrap: wrap; gap: 4px; direction: ltr; max-height: 350px; overflow-y: auto; justify-content: center; margin-top: 15px; border-radius: 12px; background: rgba(79, 70, 229, 0.05); padding: 12px; }
-        .sieve-game-cell { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(79, 70, 229, 0.2); background: #fff; color: var(--text-dark); cursor: pointer; font-size: 14px; border-radius: 6px; user-select: none; transition: background-color 0.2s; font-weight: bold; }
-        .sieve-game-cell:hover { background: rgba(79, 70, 229, 0.1); }
+        /* شبکه غربال (تمرین و مسابقه) */
+        .sieve-comp-grid { display: flex; flex-wrap: wrap; gap: 5px; direction: ltr; max-height: 350px; overflow-y: auto; justify-content: center; margin-top: 12px; border-radius: 12px; background: rgba(79, 70, 229, 0.05); padding: 12px; }
+        .sieve-game-cell { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(79, 70, 229, 0.25); background: #fff; color: var(--text-dark); cursor: pointer; font-size: 14px; border-radius: 8px; user-select: none; transition: all 0.2s; font-weight: bold; }
+        .sieve-game-cell:hover { background: rgba(79, 70, 229, 0.12); transform: scale(1.05); }
         .sieve-game-cell.correct-tap { background-color: var(--success) !important; border-color: #059669 !important; color: #fff !important; }
         .sieve-game-cell.wrong-tap { background-color: #e11d48 !important; border-color: #be123c !important; color: #fff !important; }
     </style>
 </head>
 <body>
 
+<!-- هدر اصلی با عنوان و دکمه‌های مسابقات و تمرین -->
 <header class="main-header">
     <div class="header-center">
         <h1><i class="fa-solid fa-robot"></i> نوبل بات</h1>
     </div>
     
     <div class="header-buttons">
-        <button class="action-btn comp-btn" onclick="openCompMenuModal()">
+        <button type="button" class="action-btn comp-btn" onclick="openCompMenuModal()">
             مسابقات <i class="fa-solid fa-gamepad"></i>
         </button>
-        <button class="action-btn practice-btn" onclick="openPracticeModal()">
+        <button type="button" class="action-btn practice-btn" onclick="openPracticeModal()">
             <i class="fa-solid fa-dumbbell"></i> تمرین
         </button>
     </div>
 </header>
 
+<!-- بدنه اصلی ابزارهای محاسباتی -->
 <div class="container">
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(0)"><i class="fa-solid fa-hashtag"></i> اول و مرکب</button>
-        <button class="tab-btn" onclick="switchTab(1)"><i class="fa-solid fa-divide"></i> ب.م.م</button>
-        <button class="tab-btn" onclick="switchTab(2)"><i class="fa-solid fa-layer-group"></i> ک.م.م</button>
-        <button class="tab-btn" onclick="switchTab(3)"><i class="fa-solid fa-wand-magic-sparkles"></i> غربال</button>
+        <button type="button" class="tab-btn active" onclick="switchTab(0)"><i class="fa-solid fa-hashtag"></i> اول و مرکب</button>
+        <button type="button" class="tab-btn" onclick="switchTab(1)"><i class="fa-solid fa-divide"></i> ب.م.م</button>
+        <button type="button" class="tab-btn" onclick="switchTab(2)"><i class="fa-solid fa-layer-group"></i> ک.م.م</button>
+        <button type="button" class="tab-btn" onclick="switchTab(3)"><i class="fa-solid fa-wand-magic-sparkles"></i> غربال</button>
     </div>
 
+    <!-- تب ۰: اول و مرکب -->
     <div class="tab-content active" id="tab-0">
-        <div class="input-group"><i class="fa-solid fa-pen"></i><input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)"></div>
+        <div class="input-group"><i class="fa-solid fa-pen"></i><input type="text" id="numInput" placeholder="یک عدد وارد کنید (مثلاً 97)" onkeypress="if(event.key==='Enter') executeCurrentTab()"></div>
         <div class="result-box" id="result-0"></div>
     </div>
 
+    <!-- تب ۱: ب.م.م -->
     <div class="tab-content" id="tab-1">
         <div class="dual-inputs">
-            <div class="input-group"><i class="fa-solid fa-1"></i><input type="text" id="bmmInput1" placeholder="عدد اول"></div>
-            <div class="input-group"><i class="fa-solid fa-2"></i><input type="text" id="bmmInput2" placeholder="عدد دوم"></div>
+            <div class="input-group"><i class="fa-solid fa-1"></i><input type="text" id="bmmInput1" placeholder="عدد اول" onkeypress="if(event.key==='Enter') executeCurrentTab()"></div>
+            <div class="input-group"><i class="fa-solid fa-2"></i><input type="text" id="bmmInput2" placeholder="عدد دوم" onkeypress="if(event.key==='Enter') executeCurrentTab()"></div>
         </div>
         <div class="result-box" id="result-1"></div>
     </div>
 
+    <!-- تب ۲: ک.م.م -->
     <div class="tab-content" id="tab-2">
         <div class="dual-inputs">
-            <div class="input-group"><i class="fa-solid fa-1"></i><input type="text" id="kmmInput1" placeholder="عدد اول"></div>
-            <div class="input-group"><i class="fa-solid fa-2"></i><input type="text" id="kmmInput2" placeholder="عدد دوم"></div>
+            <div class="input-group"><i class="fa-solid fa-1"></i><input type="text" id="kmmInput1" placeholder="عدد اول" onkeypress="if(event.key==='Enter') executeCurrentTab()"></div>
+            <div class="input-group"><i class="fa-solid fa-2"></i><input type="text" id="kmmInput2" placeholder="عدد دوم" onkeypress="if(event.key==='Enter') executeCurrentTab()"></div>
         </div>
         <div class="result-box" id="result-2"></div>
     </div>
 
+    <!-- تب ۳: غربال -->
     <div class="tab-content" id="tab-3">
         <div class="sieve-warning">
             <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px; margin-left: 10px;"></i>
             <div style="line-height: 1.8;"><strong>نکته :</strong><br>1 : حداکثر اختلاف مجاز بین دو عدد ، 1000 است .<br>2 : عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد .</div>
         </div>
         <div class="dual-inputs">
-            <div class="input-group"><i class="fa-solid fa-play"></i><input type="text" id="sieveStart" placeholder="عدد شروع (کوچک)"></div>
-            <div class="input-group"><i class="fa-solid fa-stop"></i><input type="text" id="sieveEnd" placeholder="عدد پایان (بزرگ)"></div>
+            <div class="input-group"><i class="fa-solid fa-play"></i><input type="text" id="sieveStart" placeholder="عدد شروع (کوچک)" onkeypress="if(event.key==='Enter') executeCurrentTab()"></div>
+            <div class="input-group"><i class="fa-solid fa-stop"></i><input type="text" id="sieveEnd" placeholder="عدد پایان (بزرگ)" onkeypress="if(event.key==='Enter') executeCurrentTab()"></div>
         </div>
         <div class="result-box" id="result-3"></div>
     </div>
 
-    <button class="main-action-btn" onclick="executeCurrentTab()">
+    <button type="button" class="main-action-btn" onclick="executeCurrentTab()">
         <i id="btnIcon" class="fa-solid fa-magnifying-glass-chart"></i> <span id="btnText">بررسی عدد</span>
     </button>
 </div>
@@ -388,23 +434,23 @@
         </h3>
         <div class="modal-cards-grid">
             <div class="modal-card" onclick="startPrimePractice()">
-                <i class="fa-solid fa-hashtag" style="font-size: 2.5em; color: #ffc107; margin-bottom: 15px;"></i>
+                <i class="fa-solid fa-hashtag" style="color: #ffc107;"></i>
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های اعداد اول و مرکب</h4>
             </div>
-            <div class="modal-card" onclick="selectPractice(1)">
-                <i class="fa-solid fa-divide" style="font-size: 2.5em; color: #0dcaf0; margin-bottom: 15px;"></i>
+            <div class="modal-card" onclick="startGcdPractice()">
+                <i class="fa-solid fa-divide" style="color: #0dcaf0;"></i>
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های ب.م.م</h4>
             </div>
-            <div class="modal-card" onclick="selectPractice(2)">
-                <i class="fa-solid fa-layer-group" style="font-size: 2.5em; color: #20c997; margin-bottom: 15px;"></i>
+            <div class="modal-card" onclick="startLcmPractice()">
+                <i class="fa-solid fa-layer-group" style="color: #20c997;"></i>
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های ک.م.م</h4>
             </div>
-            <div class="modal-card" onclick="selectPractice(3)">
-                <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 2.5em; color: #dc3545; margin-bottom: 15px;"></i>
+            <div class="modal-card" onclick="startSievePractice()">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color: #dc3545;"></i>
                 <h4 style="color: var(--text-dark); font-size: 15px;">تمرین های غربال</h4>
             </div>
         </div>
-        <button class="btn-red" onclick="closeModal('practiceModalOverlay')"><i class="fa-solid fa-arrow-right"></i> برگشت به برنامه</button>
+        <button type="button" class="btn-red" onclick="closeModal('practiceModalOverlay')"><i class="fa-solid fa-arrow-right"></i> برگشت به برنامه</button>
     </div>
 </div>
 
@@ -419,11 +465,111 @@
             <div class="question-box" id="primePracQText" style="min-height: 80px; display:flex; align-items:center; justify-content:center;">--</div>
             <div class="game-options" id="primePracOptionsContainer"></div>
             <div id="primePracFeedback" style="margin-top: 25px; font-weight: bold; text-align: center; min-height: 50px; font-size: 15px; line-height: 1.6;"></div>
+            <button type="button" class="btn-red" style="margin-top: 12px;" onclick="closePrimePractice()"><i class="fa-solid fa-arrow-right"></i> انصراف و بازگشت</button>
         </div>
         <div id="primePracEndScreen" style="display:none; text-align:center;">
             <h3 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> پایان تمرین!</h3>
-            <p style="font-size: 18px; margin-bottom: 20px;">تعداد پاسخ‌های درست شما: <span id="primePracFinalScore">0</span> از 10</p>
-            <button class="btn-green" onclick="closePrimePractice()">بستن و بازگشت</button>
+            <p style="font-size: 18px; margin-bottom: 16px;">تعداد پاسخ‌های درست شما: <span id="primePracFinalScore">0</span> از 10</p>
+            <div class="video-card" style="margin-top: 10px; margin-bottom: 18px;">
+                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;">
+                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 17px; margin-left: 5px;"></i>
+                    اگه هنوز خوب متوجه مفهوم اعداد اول و مرکب نشدی این ویدیو رو ببین.
+                </p>
+                <div class="video-wrapper">
+                    <iframe id="primePracVideoFrame" src="" allowFullScreen="true"></iframe>
+                </div>
+            </div>
+            <button type="button" class="btn-green" onclick="closePrimePractice()">بستن و بازگشت</button>
+        </div>
+    </div>
+</div>
+
+<!-- پاپ‌آپ آزمون تمرین پلکانی ب.م.م (سوال ۱ آسان تا سوال ۱۰ سخت) -->
+<div id="gcdPracticeTestModal" class="modal-overlay">
+    <div class="custom-modal-content">
+        <div id="gcdPracContainer">
+            <div class="game-header">
+                <div>تعداد درست: <span id="gcdPracCorrectCounter">0</span></div>
+                <div>شماره سوال: <span id="gcdPracQNumCounter">1</span> از 10</div>
+            </div>
+            <div class="question-box" id="gcdPracQText" style="min-height: 85px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;">--</div>
+            <div class="game-options" id="gcdPracOptionsContainer"></div>
+            <div id="gcdPracFeedback" style="margin-top: 25px; font-weight: bold; text-align: center; min-height: 50px; font-size: 15px; line-height: 1.6;"></div>
+            <button type="button" class="btn-red" style="margin-top: 12px;" onclick="closeGcdPractice()"><i class="fa-solid fa-arrow-right"></i> انصراف و بازگشت</button>
+        </div>
+        <div id="gcdPracEndScreen" style="display:none; text-align:center;">
+            <h3 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> پایان تمرین ب.م.م!</h3>
+            <p style="font-size: 18px; margin-bottom: 16px;">تعداد پاسخ‌های درست شما: <span id="gcdPracFinalScore">0</span> از 10</p>
+            <div class="video-card" style="margin-top: 10px; margin-bottom: 18px;">
+                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;">
+                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 17px; margin-left: 5px;"></i>
+                    اگه هنوز خوب متوجه مفهوم ب.م.م نشدی این ویدیو رو ببین.
+                </p>
+                <div class="video-wrapper">
+                    <iframe id="gcdPracVideoFrame" src="" allowFullScreen="true"></iframe>
+                </div>
+            </div>
+            <button type="button" class="btn-green" onclick="closeGcdPractice()">بستن و بازگشت</button>
+        </div>
+    </div>
+</div>
+
+<!-- پاپ‌آپ آزمون تمرین پلکانی ک.م.م -->
+<div id="lcmPracticeTestModal" class="modal-overlay">
+    <div class="custom-modal-content">
+        <div id="lcmPracContainer">
+            <div class="game-header">
+                <div>تعداد درست: <span id="lcmPracCorrectCounter">0</span></div>
+                <div>شماره سوال: <span id="lcmPracQNumCounter">1</span> از 10</div>
+            </div>
+            <div class="question-box" id="lcmPracQText" style="min-height: 85px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;">--</div>
+            <div class="game-options" id="lcmPracOptionsContainer"></div>
+            <div id="lcmPracFeedback" style="margin-top: 25px; font-weight: bold; text-align: center; min-height: 50px; font-size: 15px; line-height: 1.6;"></div>
+            <button type="button" class="btn-red" style="margin-top: 12px;" onclick="closeLcmPractice()"><i class="fa-solid fa-arrow-right"></i> انصراف و بازگشت</button>
+        </div>
+        <div id="lcmPracEndScreen" style="display:none; text-align:center;">
+            <h3 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> پایان تمرین ک.م.م!</h3>
+            <p style="font-size: 18px; margin-bottom: 16px;">تعداد پاسخ‌های درست شما: <span id="lcmPracFinalScore">0</span> از 10</p>
+            <div class="video-card" style="margin-top: 10px; margin-bottom: 18px;">
+                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;">
+                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 17px; margin-left: 5px;"></i>
+                    اگه هنوز خوب متوجه مفهوم ک.م.م نشدی این ویدیو رو ببین.
+                </p>
+                <div class="video-wrapper">
+                    <iframe id="lcmPracVideoFrame" src="" allowFullScreen="true"></iframe>
+                </div>
+            </div>
+            <button type="button" class="btn-green" onclick="closeLcmPractice()">بستن و بازگشت</button>
+        </div>
+    </div>
+</div>
+
+<!-- پاپ‌آپ تمرین تعاملی غربال (انتخاب ۱۰ عدد اول در بازه تصادفی زیر ۱۲۱) -->
+<div id="sievePracticeTestModal" class="modal-overlay">
+    <div class="custom-modal-content">
+        <div id="sievePracContainer">
+            <div class="game-header">
+                <div>تعداد اعداد اول پیداشده: <span id="sievePracFoundCounter">0</span> از 10</div>
+                <div>خطا: <span id="sievePracMistakeCounter">0</span></div>
+            </div>
+            <div class="question-box" id="sievePracQText" style="font-size: 16px; line-height: 1.7; margin-bottom: 12px;">--</div>
+            <div id="sievePracGrid" class="sieve-comp-grid" style="max-height: 300px; margin-top: 8px;"></div>
+            <div id="sievePracFeedback" style="margin-top: 16px; font-weight: bold; text-align: center; min-height: 44px; font-size: 14px; line-height: 1.6;"></div>
+            <button type="button" class="btn-red" style="margin-top: 10px;" onclick="closeSievePractice()"><i class="fa-solid fa-arrow-right"></i> انصراف و بازگشت</button>
+        </div>
+        <div id="sievePracEndScreen" style="display:none; text-align:center;">
+            <h3 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> آفرین! پایان تمرین غربال!</h3>
+            <p id="sievePracEndSummary" style="font-size: 16px; margin-bottom: 16px; line-height: 1.7;">شما هر ۱۰ عدد اول را با موفقیت پیدا کردید!</p>
+            <div class="video-card" style="margin-top: 10px; margin-bottom: 18px;">
+                <p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;">
+                    <i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 17px; margin-left: 5px;"></i>
+                    اگه هنوز خوب متوجه مفهوم غربال نشدی این ویدیو رو ببین.
+                </p>
+                <div class="video-wrapper">
+                    <iframe id="sievePracVideoFrame" src="" allowFullScreen="true"></iframe>
+                </div>
+            </div>
+            <button type="button" class="btn-green" onclick="closeSievePractice()">بستن و بازگشت</button>
         </div>
     </div>
 </div>
@@ -441,7 +587,7 @@
             <div class="modal-card" onclick="openCompModal('lcmCompModal')"><i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #20c997; margin-bottom: 15px;"></i><h4 style="color: var(--text-dark); font-size: 15px;">مسابقات ک.م.م</h4></div>
             <div class="modal-card" onclick="openCompModal('sieveCompModal')"><i class="fa-solid fa-trophy" style="font-size: 2.5em; color: #dc3545; margin-bottom: 15px;"></i><h4 style="color: var(--text-dark); font-size: 15px;">مسابقات غربال</h4></div>
         </div>
-        <button class="btn-red" onclick="closeModal('compMenuModal')"><i class="fa-solid fa-arrow-right"></i> برگشت به برنامه</button>
+        <button type="button" class="btn-red" onclick="closeModal('compMenuModal')"><i class="fa-solid fa-arrow-right"></i> برگشت به برنامه</button>
     </div>
 </div>
 
@@ -454,8 +600,8 @@
             <div id="primeCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="primeCompTop10"></div></div>
             <div style="display:flex; gap:10px; margin-top:20px;">
-                <button class="btn-green" style="flex:1;" onclick="startPrimeComp()">شروع مسابقه</button>
-                <button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('primeCompModal')">بازگشت</button>
+                <button type="button" class="btn-green" style="flex:1;" onclick="startPrimeComp()">شروع مسابقه</button>
+                <button type="button" class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('primeCompModal')">بازگشت</button>
             </div>
         </div>
         <div id="primeCompPhase2" style="display:none; text-align: center;">
@@ -463,8 +609,8 @@
             <div class="question-box">اول یا مرکب؟</div>
             <div id="primeCompNumber" class="question-box" style="font-size: 2.5em; font-weight:bold; color:var(--primary);">---</div>
             <div class="game-options">
-                <button class="game-btn yellow" onclick="answerPrimeComp(true, this)">اول</button>
-                <button class="game-btn blue" onclick="answerPrimeComp(false, this)">مرکب</button>
+                <button type="button" class="game-btn yellow" onclick="answerPrimeComp(true, this)">اول</button>
+                <button type="button" class="game-btn blue" onclick="answerPrimeComp(false, this)">مرکب</button>
             </div>
         </div>
         <div id="primeCompPhase3" style="display:none; text-align:center;">
@@ -472,13 +618,13 @@
             <input type="text" id="primeCompName" class="modal-input" placeholder="نام خود را وارد کنید" oninput="checkUserInputs('primeCompName', 'primeCompPhone', 'primeCompSubmitBtn')">
             <input type="tel" id="primeCompPhone" class="modal-input" placeholder="شماره موبایل (مثلاً 09123456789)" maxlength="11" oninput="checkUserInputs('primeCompName', 'primeCompPhone', 'primeCompSubmitBtn')" onkeypress="if(event.key === 'Enter') submitPrimeComp()">
             <p class="phone-hint">شماره شما در جدول نمایش داده نمی‌شود و فقط برای جایگزینی رکورد جدید با رکورد قبلی شماست.</p>
-            <button id="primeCompSubmitBtn" class="btn-green" onclick="submitPrimeComp()" disabled>تایید ثبت نام</button>
+            <button type="button" id="primeCompSubmitBtn" class="btn-green" onclick="submitPrimeComp()" disabled>تایید ثبت نام</button>
         </div>
         <div id="primeCompPhase4" style="display:none; text-align:center;">
             <h3 id="primeCompFinalRankText" style="color: var(--success); margin-bottom: 10px;"></h3>
             <p id="primeCompUserResult" style="font-size: 1.1em; margin-bottom: 20px; font-weight: bold; background:rgba(79,70,229,0.1); padding:10px; border-radius:10px; color:var(--primary);"></p>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="primeCompFullLeaderboard"></div></div>
-            <button class="btn-red" style="margin-top:0;" onclick="backToCompMenu('primeCompModal')">بستن</button>
+            <button type="button" class="btn-red" style="margin-top:0;" onclick="backToCompMenu('primeCompModal')">بستن</button>
         </div>
     </div>
 </div>
@@ -491,7 +637,7 @@
             <div class="comp-guide"><strong>راهنما :</strong><br>۱ : هر عددی که اومد ب.م.م ش رو بدست بیار.<br>۲ : با هر جواب درست یک امتیاز میگیری .</div>
             <div id="gcdCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="gcdCompTop10"></div></div>
-            <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-green" style="flex:1;" onclick="startGcdComp()">شروع مسابقه</button><button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('gcdCompModal')">بازگشت</button></div>
+            <div style="display:flex; gap:10px; margin-top:20px;"><button type="button" class="btn-green" style="flex:1;" onclick="startGcdComp()">شروع مسابقه</button><button type="button" class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('gcdCompModal')">بازگشت</button></div>
         </div>
         <div id="gcdCompPhase2" style="display:none; text-align: center;">
             <div class="game-header"><div class="timer">زمان: <span id="gcdCompTimer">1:00</span></div><div class="score">امتیاز: <span id="gcdCompScore">0</span></div></div>
@@ -504,13 +650,13 @@
             <input type="text" id="gcdCompName" class="modal-input" placeholder="نام خود را وارد کنید" oninput="checkUserInputs('gcdCompName', 'gcdCompPhone', 'gcdCompSubmitBtn')">
             <input type="tel" id="gcdCompPhone" class="modal-input" placeholder="شماره موبایل (مثلاً 09123456789)" maxlength="11" oninput="checkUserInputs('gcdCompName', 'gcdCompPhone', 'gcdCompSubmitBtn')" onkeypress="if(event.key === 'Enter') submitGcdComp()">
             <p class="phone-hint">شماره شما در جدول نمایش داده نمی‌شود و فقط برای جایگزینی رکورد جدید با رکورد قبلی شماست.</p>
-            <button id="gcdCompSubmitBtn" class="btn-green" onclick="submitGcdComp()" disabled>تایید</button>
+            <button type="button" id="gcdCompSubmitBtn" class="btn-green" onclick="submitGcdComp()" disabled>تایید</button>
         </div>
         <div id="gcdCompPhase4" style="display:none; text-align:center;">
             <h3 id="gcdCompFinalRankText" style="color: var(--success); margin-bottom: 10px;"></h3>
             <p id="gcdCompUserResult" style="font-size: 1.1em; margin-bottom: 20px; font-weight: bold; background:rgba(79,70,229,0.1); padding:10px; border-radius:10px; color:var(--primary);"></p>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="gcdCompFullLeaderboard"></div></div>
-            <button class="btn-red" style="margin-top:0;" onclick="backToCompMenu('gcdCompModal')">بستن</button>
+            <button type="button" class="btn-red" style="margin-top:0;" onclick="backToCompMenu('gcdCompModal')">بستن</button>
         </div>
     </div>
 </div>
@@ -523,7 +669,7 @@
             <div class="comp-guide"><strong>راهنما :</strong><br>۱ : هر عددی که اومد ک.م.م ش رو بدست بیار.<br>۲ : با هر جواب درست یک امتیاز میگیری .</div>
             <div id="lcmCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="lcmCompTop10"></div></div>
-            <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-green" style="flex:1;" onclick="startLcmComp()">شروع مسابقه</button><button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('lcmCompModal')">بازگشت</button></div>
+            <div style="display:flex; gap:10px; margin-top:20px;"><button type="button" class="btn-green" style="flex:1;" onclick="startLcmComp()">شروع مسابقه</button><button type="button" class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('lcmCompModal')">بازگشت</button></div>
         </div>
         <div id="lcmCompPhase2" style="display:none; text-align: center;">
             <div class="game-header"><div class="timer">زمان: <span id="lcmCompTimer">1:00</span></div><div class="score">امتیاز: <span id="lcmCompScore">0</span></div></div>
@@ -536,13 +682,13 @@
             <input type="text" id="lcmCompName" class="modal-input" placeholder="نام خود را وارد کنید" oninput="checkUserInputs('lcmCompName', 'lcmCompPhone', 'lcmCompSubmitBtn')">
             <input type="tel" id="lcmCompPhone" class="modal-input" placeholder="شماره موبایل (مثلاً 09123456789)" maxlength="11" oninput="checkUserInputs('lcmCompName', 'lcmCompPhone', 'lcmCompSubmitBtn')" onkeypress="if(event.key === 'Enter') submitLcmComp()">
             <p class="phone-hint">شماره شما در جدول نمایش داده نمی‌شود و فقط برای جایگزینی رکورد جدید با رکورد قبلی شماست.</p>
-            <button id="lcmCompSubmitBtn" class="btn-green" onclick="submitLcmComp()" disabled>تایید</button>
+            <button type="button" id="lcmCompSubmitBtn" class="btn-green" onclick="submitLcmComp()" disabled>تایید</button>
         </div>
         <div id="lcmCompPhase4" style="display:none; text-align:center;">
             <h3 id="lcmCompFinalRankText" style="color: var(--success); margin-bottom: 10px;"></h3>
             <p id="lcmCompUserResult" style="font-size: 1.1em; margin-bottom: 20px; font-weight: bold; background:rgba(79,70,229,0.1); padding:10px; border-radius:10px; color:var(--primary);"></p>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="lcmCompFullLeaderboard"></div></div>
-            <button class="btn-red" style="margin-top:0;" onclick="backToCompMenu('lcmCompModal')">بستن</button>
+            <button type="button" class="btn-red" style="margin-top:0;" onclick="backToCompMenu('lcmCompModal')">بستن</button>
         </div>
     </div>
 </div>
@@ -552,10 +698,10 @@
     <div class="custom-modal-content">
         <div id="sieveCompPhase1">
             <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary);"><i class="fa-solid fa-wand-magic-sparkles"></i> مسابقات غربال</h3>
-            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : روی اعداد اول ضربه بزن .<br>۲ : با هر ضربه درست یک امتیاز میگیری .<br>با هر ضربه اشتباه یک امتیاز منفی میگیری .</div>
+            <div class="comp-guide"><strong>راهنما :</strong><br>۱ : روی اعداد اول ضربه بزن .<br>۲ : با هر ضربه درست یک امتیاز میگیری .<br>۳ : با هر ضربه اشتباه یک امتیاز منفی میگیری .</div>
             <div id="sieveCompMyRank" class="my-rank-banner"></div>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="sieveCompTop10"></div></div>
-            <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-green" style="flex:1;" onclick="startSieveComp()">شروع مسابقه</button><button class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('sieveCompModal')">بازگشت</button></div>
+            <div style="display:flex; gap:10px; margin-top:20px;"><button type="button" class="btn-green" style="flex:1;" onclick="startSieveComp()">شروع مسابقه</button><button type="button" class="btn-red" style="flex:1; margin-top:15px;" onclick="backToCompMenu('sieveCompModal')">بازگشت</button></div>
         </div>
         <div id="sieveCompPhase2" style="display:none; text-align: center;">
             <div class="game-header"><div class="timer">زمان: <span id="sieveCompTimer">1:00</span></div><div class="score">امتیاز: <span id="sieveCompScore">0</span></div></div>
@@ -568,18 +714,58 @@
             <input type="text" id="sieveCompName" class="modal-input" placeholder="نام خود را وارد کنید" oninput="checkUserInputs('sieveCompName', 'sieveCompPhone', 'sieveCompSubmitBtn')">
             <input type="tel" id="sieveCompPhone" class="modal-input" placeholder="شماره موبایل (مثلاً 09123456789)" maxlength="11" oninput="checkUserInputs('sieveCompName', 'sieveCompPhone', 'sieveCompSubmitBtn')" onkeypress="if(event.key === 'Enter') submitSieveComp()">
             <p class="phone-hint">شماره شما در جدول نمایش داده نمی‌شود و فقط برای جایگزینی رکورد جدید با رکورد قبلی شماست.</p>
-            <button id="sieveCompSubmitBtn" class="btn-green" onclick="submitSieveComp()" disabled>تایید</button>
+            <button type="button" id="sieveCompSubmitBtn" class="btn-green" onclick="submitSieveComp()" disabled>تایید</button>
         </div>
         <div id="sieveCompPhase4" style="display:none; text-align:center;">
             <h3 id="sieveCompFinalRankText" style="color: var(--success); margin-bottom: 10px;"></h3>
             <p id="sieveCompUserResult" style="font-size: 1.1em; margin-bottom: 20px; font-weight: bold; background:rgba(79,70,229,0.1); padding:10px; border-radius:10px; color:var(--primary);"></p>
             <div class="leaderboard-table"><div class="table-header"><span>رتبه</span><span>نام</span><span>رکورد</span></div><div id="sieveCompFullLeaderboard"></div></div>
-            <button class="btn-red" style="margin-top:0;" onclick="backToCompMenu('sieveCompModal')">بستن</button>
+            <button type="button" class="btn-red" style="margin-top:0;" onclick="backToCompMenu('sieveCompModal')">بستن</button>
         </div>
     </div>
 </div>
 
 <script>
+    // ================= موتور داخلی آیکون‌های استاندارد Font Awesome 6.4.0 =================
+    const FA6_PATHS = {
+        'fa-robot': { vb: '0 0 640 512', d: 'M320 0c17.7 0 32 14.3 32 32V96H472c39.8 0 72 32.2 72 72V440c0 39.8-32.2 72-72 72H168c-39.8 0-72-32.2-72-72V168c0-39.8 32.2-72 72-72H288V32c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H208zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H304zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H400zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224H64V416H48c-26.5 0-48-21.5-48-48V272c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H576V224h16z' },
+        'fa-gamepad': { vb: '0 0 640 512', d: 'M192 64C86 64 0 150 0 256S86 448 192 448H448c106 0 192-86 192-192s-86-192-192-192H192zM496 168a40 40 0 1 1 0 80 40 40 0 1 1 0-80zM392 304a40 40 0 1 1 80 0 40 40 0 1 1 -80 0zM168 200c0-13.3 10.7-24 24-24s24 10.7 24 24v32h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H216v32c0 13.3-10.7 24-24 24s-24-10.7-24-24V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h32V200z' },
+        'fa-dumbbell': { vb: '0 0 640 512', d: 'M96 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V224v64V448c0 17.7-14.3 32-32 32H128c-17.7 0-32-14.3-32-32V384H64c-17.7 0-32-14.3-32-32V288c-17.7 0-32-14.3-32-32s14.3-32 32-32V160c0-17.7 14.3-32 32-32H96V64zm448 0v64h32c17.7 0 32 14.3 32 32v64c17.7 0 32 14.3 32 32s-14.3 32-32 32v64c0 17.7-14.3 32-32 32H544v64c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32V288 224 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32zM416 224v64H224V224H416z' },
+        'fa-hashtag': { vb: '0 0 448 512', d: 'M181.3 32.4c17.4 2.9 29.2 19.4 26.3 36.8L197.8 128h95.1l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3s29.2 19.4 26.3 36.8L357.8 128H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H347.1L325.8 320H384c17.7 0 32 14.3 32 32s-14.3 32-32 32H315.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8l9.8-58.7H155.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8L90.2 384H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l21.3-128H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3zM187.1 192L165.8 320h95.1l21.3-128H187.1z' },
+        'fa-divide': { vb: '0 0 448 512', d: 'M272 96a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 320a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM400 288c17.7 0 32-14.3 32-32s-14.3-32-32-32H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H400z' },
+        'fa-layer-group': { vb: '0 0 576 512', d: 'M264.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 149.8C37.4 145.8 32 137.3 32 128s5.4-17.9 13.9-21.8L264.5 5.2zM476.9 209.6l53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 277.8C37.4 273.8 32 265.3 32 256s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0l152-70.2zm-152 198.2l152-70.2 53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 405.8C37.4 401.8 32 393.3 32 384s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0z' },
+        'fa-wand-magic-sparkles': { vb: '0 0 576 512', d: 'M234.7 42.7L197 56.8c-3 1.1-5 4-5 7.2s2 6.1 5 7.2l37.7 14.1L248.8 123c1.1 3 4 5 7.2 5s6.1-2 7.2-5l14.1-37.7L315 71.2c3-1.1 5-4 5-7.2s-2-6.1-5-7.2L277.3 42.7 263.2 5c-1.1-3-4-5-7.2-5s-6.1 2-7.2 5L234.7 42.7zM46.1 395.4c-18.7 18.7-18.7 49.1 0 67.9l34.6 34.6c18.7 18.7 49.1 18.7 67.9 0L529.9 116.5c18.7-18.7 18.7-49.1 0-67.9L495.3 14.1c-18.7-18.7-49.1-18.7-67.9 0L46.1 395.4zM484.6 82.6l-105 105-23.3-23.3 105-105 23.3 23.3zM7.5 117.2C3 118.9 0 123.2 0 128s3 9.1 7.5 10.8L64 160l21.2 56.5c1.7 4.5 6 7.5 10.8 7.5s9.1-3 10.8-7.5L128 160l56.5-21.2c4.5-1.7 7.5-6 7.5-10.8s-3-9.1-7.5-10.8L128 96 106.8 39.5C105.1 35 100.8 32 96 32s-9.1 3-10.8 7.5L64 96 7.5 117.2zm352 256c-4.5 1.7-7.5 6-7.5 10.8s3 9.1 7.5 10.8L416 416l21.2 56.5c1.7 4.5 6 7.5 10.8 7.5s9.1-3 10.8-7.5L480 416l56.5-21.2c4.5-1.7 7.5-6 7.5-10.8s-3-9.1-7.5-10.8L480 352l-21.2-56.5c-1.7-4.5-6-7.5-10.8-7.5s-9.1 3-10.8 7.5L416 352l-56.5 21.2z' },
+        'fa-pen': { vb: '0 0 512 512', d: 'M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z' },
+        'fa-1': { vb: '0 0 256 512', d: 'M160 64c0-11.8-6.5-22.6-16.9-28.2s-23-5-32.8 1.6l-96 64C-.5 111.2-4.4 131 5.4 145.8s29.7 18.7 44.4 8.9L96 123.8V416H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96 96c17.7 0 32-14.3 32-32s-14.3-32-32-32H160V64z' },
+        'fa-2': { vb: '0 0 320 512', d: 'M142.9 96c-21.5 0-42.2 8.5-57.4 23.8L54.6 150.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L40.2 74.5C67.5 47.3 104.4 32 142.9 32C223 32 288 97 288 177.1c0 38.5-15.3 75.4-42.5 102.6L109.3 416H288c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9L200.2 234.5c15.2-15.2 23.8-35.9 23.8-57.4c0-44.8-36.3-81.1-81.1-81.1z' },
+        'fa-triangle-exclamation': { vb: '0 0 512 512', d: 'M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z' },
+        'fa-play': { vb: '0 0 384 512', d: 'M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z' },
+        'fa-stop': { vb: '0 0 384 512', d: 'M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z' },
+        'fa-magnifying-glass-chart': { vb: '0 0 512 512', d: 'M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zm-312 8v64c0 13.3 10.7 24 24 24s24-10.7 24-24V216c0-13.3-10.7-24-24-24s-24 10.7-24 24zm80-96V280c0 13.3 10.7 24 24 24s24-10.7 24-24V120c0-13.3-10.7-24-24-24s-24 10.7-24 24zm80 64v96c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24s-24 10.7-24 24z' },
+        'fa-calculator': { vb: '0 0 384 512', d: 'M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM96 64H288c17.7 0 32 14.3 32 32v32c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H96c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z' },
+        'fa-rotate-right': { vb: '0 0 512 512', d: 'M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z' },
+        'fa-arrow-right': { vb: '0 0 448 512', d: 'M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z' },
+        'fa-check-circle': { vb: '0 0 512 512', d: 'M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' },
+        'fa-trophy': { vb: '0 0 576 512', d: 'M400 0H176c-26.5 0-48.1 21.8-47.1 48.2c.2 5.3 .4 10.6 .7 15.8H24C10.7 64 0 74.7 0 88c0 92.6 33.5 157 78.5 200.7c44.3 43.1 98.3 64.8 138.1 75.8c23.4 6.5 39.4 26 39.4 45.6c0 20.9-17 37.9-37.9 37.9H192c-17.7 0-32 14.3-32 32s14.3 32 32 32H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H357.9C337 448 320 431 320 410.1c0-19.6 15.9-39.2 39.4-45.6c39.9-11 93.9-32.7 138.2-75.8C542.5 245 576 180.6 576 88c0-13.3-10.7-24-24-24H446.4c.3-5.2 .5-10.4 .7-15.8C448.1 21.8 426.5 0 400 0zM48.9 112h84.4c9.1 90.1 29.2 150.3 51.9 190.6c-24.9-11-50.8-26.5-73.2-48.3c-32-31.1-58-76-63-142.3zM464.1 254.3c-22.4 21.8-48.3 37.3-73.2 48.3c22.7-40.3 42.8-100.5 51.9-190.6h84.4c-5.1 66.3-31.1 111.2-63 142.3z' },
+        'fa-check-double': { vb: '0 0 448 512', d: 'M342.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 178.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l80 80c12.5 12.5 32.8 12.5 45.3 0l160-160zm96 128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 402.7 54.6 297.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l256-256z' },
+        'fa-clapperboard': { vb: '0 0 512 512', d: 'M448 32H361.9l-1 1-127 127h92.1l1-1L453.8 32.3c-1.9-.2-3.8-.3-5.8-.3zm64 128V96c0-15.1-5.3-29.1-14-40l-104 104H512zM294.1 32H201.9l-1 1L73.9 160h92.1l1-1 127-127zM64 32C28.7 32 0 60.7 0 96v64H6.1l1-1 127-127H64zM512 192H0V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V192z' },
+        'fa-ban': { vb: '0 0 512 512', d: 'M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z' },
+        'fa-cubes': { vb: '0 0 512 512', d: 'M234.5 5.7c13.9-5 29.1-5 43.1 0l192 68.6C495 83.4 512 107.5 512 134.6V377.4c0 27-17 51.2-42.5 60.3l-192 68.6c-13.9 5-29.1 5-43.1 0l-192-68.6C17 428.6 0 404.5 0 377.4V134.6c0-27 17-51.2 42.5-60.3l192-68.6zM256 66L82.3 128 256 190l173.7-62L256 66zm32 368.6l160-57.1v-188L288 246.6v188z' },
+        'fa-star': { vb: '0 0 576 512', d: 'M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z' }
+    };
+
+    function renderAllFAIcons(root = document) {
+        const nodes = root.querySelectorAll ? root.querySelectorAll('i[class*="fa-"]') : [];
+        nodes.forEach(el => {
+            const matchedClass = Array.from(el.classList).find(cls => FA6_PATHS[cls]);
+            if (!matchedClass) return;
+            if (el.dataset.renderedIcon === matchedClass && el.querySelector('svg.fa-inline-svg')) return;
+            const iconDef = FA6_PATHS[matchedClass];
+            el.dataset.renderedIcon = matchedClass;
+            el.innerHTML = `<svg class="fa-inline-svg" viewBox="${iconDef.vb}" aria-hidden="true"><path d="${iconDef.d}"/></svg>`;
+        });
+    }
+
     const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyjnSp1tEXX1EGtptPBLgZ8xEXXd_BE9NEuUcAq6CuhfFtriyjLmxvtiCRF89F_92fM/exec";
     const leaderboardCache = {};
     let currentTabIndex = 0;
@@ -598,6 +784,10 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+        renderAllFAIcons(document);
+        const iconObserver = new MutationObserver(() => renderAllFAIcons(document));
+        iconObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+
         ['primeScores', 'gcdScores', 'lcmScores', 'sieveScores'].forEach(col => {
             syncLeaderboardFromSheet(col);
         });
@@ -638,6 +828,7 @@
         else if (index === 1) { btnText.innerText = "محاسبه ب.م.م"; btnIcon.className = "fa-solid fa-calculator"; } 
         else if (index === 2) { btnText.innerText = "محاسبه ک.م.م"; btnIcon.className = "fa-solid fa-calculator"; } 
         else if (index === 3) { btnText.innerText = "اجرای جادوی غربال"; btnIcon.className = "fa-solid fa-wand-magic-sparkles"; }
+        renderAllFAIcons(document);
         
         document.querySelectorAll('.result-box').forEach(box => { box.classList.remove('show-anim'); box.style.display = 'none'; });
     }
@@ -656,12 +847,13 @@
     function getResultHeader(title, icon, tabIndex) {
         return `<div class="result-header">
             <div class="result-title"><i class="${icon}"></i> ${title}:</div>
-            <button class="reset-btn" onclick="resetTab(${tabIndex})"><i class="fa-solid fa-rotate-right"></i> دوباره</button>
+            <button type="button" class="reset-btn" onclick="resetTab(${tabIndex})"><i class="fa-solid fa-rotate-right"></i> دوباره</button>
         </div>`;
     }
 
     function triggerResultAnim(boxId) {
         const box = document.getElementById(boxId);
+        renderAllFAIcons(box);
         box.classList.remove('show-anim'); box.style.display = 'none';
         void box.offsetWidth; box.style.display = 'block'; box.classList.add('show-anim');
     }
@@ -726,16 +918,16 @@
             let factors = getPrimeFactors(n);
             contentHTML = `عدد <b style="font-size:18px; color:var(--primary);">${n}</b> یک <b>عدد مرکب</b> است.<br><br><b>تجزیه به عوامل اول:</b> <span style="direction:ltr; display:inline-block;">${factors.join(' × ')}</span>`;
         }
-        let videoCard = `<div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> اگه میخوای خودت بتونی اعداد اول و مرکب رو تشخیص بدی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/hydjqz3/vt/frame" allowFullScreen="true"></iframe></div></div>`;
+        let videoCard = `<div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; margin-left: 5px;"></i> اگه میخوای خودت بتونی اعداد اول و مرکب رو تشخیص بدی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/hydjqz3/vt/frame" allowFullScreen="true"></iframe></div></div>`;
         res.innerHTML = headerHTML + contentHTML + videoCard; triggerResultAnim('result-0');
     }
     function calcBMM() {
         let aStr = cleanNumber(document.getElementById('bmmInput1').value), bStr = cleanNumber(document.getElementById('bmmInput2').value);
         let res = document.getElementById('result-1');
         let headerHTML = getResultHeader("نتیجه ب.م.م", "fa-solid fa-check-double", 1);
-        if (!aStr || !bStr) { res.innerHTML = headerHTML + "لطفاً هر دو عدد را وارد کنید."; triggerResultAnim('result-1'); return; }
+        if (!aStr || !bStr || isNaN(aStr) || isNaN(bStr)) { res.innerHTML = headerHTML + "لطفاً هر دو عدد را وارد کنید."; triggerResultAnim('result-1'); return; }
         let a = BigInt(aStr), b = BigInt(bStr), g = gcdBigInt(a, b);
-        let videoCard = `<div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> اگه میخوای یاد بگیرید چطور خودت ب م م هر عددی رو حساب کنی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/ldz5eaf/vt/frame" allowFullScreen="true"></iframe></div></div>`;
+        let videoCard = `<div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; margin-left: 5px;"></i> اگه میخوای یاد بگیرید چطور خودت ب م م هر عددی رو حساب کنی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/ldz5eaf/vt/frame" allowFullScreen="true"></iframe></div></div>`;
         res.innerHTML = headerHTML + `بزرگ‌ترین مقسوم‌علیه مشترک (${a} , ${b}) برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${g}</div>` + videoCard;
         triggerResultAnim('result-1');
     }
@@ -743,9 +935,9 @@
         let aStr = cleanNumber(document.getElementById('kmmInput1').value), bStr = cleanNumber(document.getElementById('kmmInput2').value);
         let res = document.getElementById('result-2');
         let headerHTML = getResultHeader("نتیجه ک.م.م", "fa-solid fa-check-double", 2);
-        if (!aStr || !bStr) { res.innerHTML = headerHTML + "لطفاً هر دو عدد را وارد کنید."; triggerResultAnim('result-2'); return; }
+        if (!aStr || !bStr || isNaN(aStr) || isNaN(bStr)) { res.innerHTML = headerHTML + "لطفاً هر دو عدد را وارد کنید."; triggerResultAnim('result-2'); return; }
         let a = BigInt(aStr), b = BigInt(bStr), g = gcdBigInt(a, b), k = (a * b) / g;
-        let videoCard = `<div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; vertical-align: -2px; margin-left: 5px;"></i> اگه میخوای خودت بتونی ک.م.م اعداد مختلف رو بدست بیاری این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/xhcsubj/vt/frame" allowFullScreen="true"></iframe></div></div>`;
+        let videoCard = `<div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 13px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 16px; margin-left: 5px;"></i> اگه میخوای خودت بتونی ک.م.م اعداد مختلف رو بدست بیاری این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/xhcsubj/vt/frame" allowFullScreen="true"></iframe></div></div>`;
         res.innerHTML = headerHTML + `کوچک‌ترین مضرب مشترک [${a} , ${b}] برابر است با: <br><br><div style="font-size:28px; color:var(--primary); text-align:center; font-weight:bold; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(79,70,229,0.3);">${k}</div>` + videoCard;
         triggerResultAnim('result-2');
     }
@@ -753,9 +945,10 @@
         let start = parseInt(cleanNumber(document.getElementById('sieveStart').value)), end = parseInt(cleanNumber(document.getElementById('sieveEnd').value));
         let res = document.getElementById('result-3'), headerHTML = getResultHeader("نتیجه", "fa-solid fa-check-double", 3);
         triggerResultAnim('result-3');
-        if (isNaN(start) || isNaN(end) || start > end || start < 1) { res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i> خطا: عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.</div>`; return; }
-        if (end - start > 1000) { res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت: حداکثر اختلاف مجاز بین دو عدد ، 1000 است.</div>`; return; }
-        res.innerHTML = headerHTML + `<div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div><div id="numGrid" class="num-grid"></div><div id="sieveVideo" style="display: none; opacity: 0; transition: opacity 0.8s ease;"><div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 18px; vertical-align: -2px; margin-left: 5px;"></i> اگه میخوای خودت بتونی غربال انجام بدی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/mjir865/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div></div></div>`;
+        if (isNaN(start) || isNaN(end) || start > end || start < 1) { res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i> خطا: عدد قسمت سمت راست باید کوچک تر از قسمت سمت چپ باشد.</div>`; renderAllFAIcons(res); return; }
+        if (end - start > 1000) { res.innerHTML = headerHTML + `<div style="color:#e11d48;"><i class="fa-solid fa-ban"></i> محدودیت: حداکثر اختلاف مجاز بین دو عدد ، 1000 است.</div>`; renderAllFAIcons(res); return; }
+        res.innerHTML = headerHTML + `<div id="sieveTitle" class="sieve-title"><i class="fa-solid fa-cubes"></i> اعداد طبیعی</div><div id="numGrid" class="num-grid"></div><div id="sieveVideo" style="display: none; opacity: 0; transition: opacity 0.8s ease;"><div class="video-card"><p style="font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 14px;"><i class="fa-solid fa-clapperboard" style="color: #ed143d; font-size: 18px; margin-left: 5px;"></i> اگه میخوای خودت بتونی غربال انجام بدی این ویدیو رو ببین</p><div class="video-wrapper"><iframe src="https://www.aparat.com/video/video/embed/videohash/mjir865/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div></div></div>`;
+        renderAllFAIcons(res);
         let grid = document.getElementById('numGrid'), title = document.getElementById('sieveTitle'), elements = [];
         for (let i = start; i <= end; i++) {
             let span = document.createElement('span'); span.className = 'num-item'; span.innerText = i;
@@ -771,6 +964,7 @@
             setTimeout(() => {
                 elements.forEach(item => { if (!isPrimeSimple(item.val)) item.el.style.display = 'none'; });
                 title.innerHTML = `<i class="fa-solid fa-star"></i> اعداد اول`; title.style.color = "var(--success)"; title.style.transform = "scale(1.15)";
+                renderAllFAIcons(title);
                 let videoBox = document.getElementById('sieveVideo'); videoBox.style.display = 'block'; setTimeout(() => { videoBox.style.opacity = '1'; }, 50);
             }, 1000 + (800)); 
         }, 1200);
@@ -780,9 +974,8 @@
     function openCompMenuModal() { document.getElementById('compMenuModal').style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function backToCompMenu(currentModalId) { closeModal(currentModalId); openCompMenuModal(); }
-    function selectPractice(index) { closeModal('practiceModalOverlay'); switchTab(index); }
 
-    // ================= تمرین ۱۰ سوالی اعداد اول =================
+    // ================= ۱. تمرین ۱۰ سوالی اعداد اول =================
     let primePracQuestions = [];
     let primePracCurrentIndex = 0;
     let primePracCorrectAnswers = 0;
@@ -792,6 +985,7 @@
         document.getElementById('primePracticeTestModal').style.display = 'flex';
         document.getElementById('primePracContainer').style.display = 'block';
         document.getElementById('primePracEndScreen').style.display = 'none';
+        document.getElementById('primePracVideoFrame').src = '';
         document.getElementById('primePracFeedback').innerText = '';
         
         primePracCurrentIndex = 0; primePracCorrectAnswers = 0;
@@ -829,7 +1023,7 @@
         
         let html = '';
         q.options.forEach((opt, index) => {
-            html += `<button class="prac-opt-btn" onclick="answerPrimePractice(${index}, this)">${opt}</button>`;
+            html += `<button type="button" class="prac-opt-btn" onclick="answerPrimePractice(${index}, this)">${opt}</button>`;
         });
         document.getElementById('primePracOptionsContainer').innerHTML = html;
     }
@@ -863,12 +1057,417 @@
                 document.getElementById('primePracContainer').style.display = 'none';
                 document.getElementById('primePracEndScreen').style.display = 'block';
                 document.getElementById('primePracFinalScore').innerText = primePracCorrectAnswers;
+                document.getElementById('primePracVideoFrame').src = 'https://www.aparat.com/video/video/embed/videohash/hydjqz3/vt/frame';
+                renderAllFAIcons(document.getElementById('primePracEndScreen'));
             }
-        }, 3000);
+        }, 2200);
     }
     
     function closePrimePractice() {
+        document.getElementById('primePracVideoFrame').src = '';
         closeModal('primePracticeTestModal'); openPracticeModal();
+    }
+
+    // ================= ۲. تمرین ۱۰ سوالی پلکانی ب.م.م (سوال ۱ آسان تا سوال ۱۰ سخت) =================
+    let gcdPracQuestions = [];
+    let gcdPracCurrentIndex = 0;
+    let gcdPracCorrectAnswers = 0;
+
+    function pickCoprimePair(minK, maxK) {
+        const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+        let x = randInt(minK, maxK);
+        let y = randInt(minK, maxK);
+        let tries = 0;
+        while ((x === y || gcdBigInt(BigInt(x), BigInt(y)) !== 1n) && tries < 60) {
+            x = randInt(minK, maxK);
+            y = randInt(minK, maxK);
+            tries++;
+        }
+        if (x === y) y = x + 1;
+        return [x, y];
+    }
+
+    function generateGcdStepQuestion(stepIndex) {
+        const level = stepIndex + 1;
+        let g = 1, m1 = 2, m2 = 3, levelLabel = "سطح ۱ (آسان)";
+
+        if (level <= 2) {
+            const easyGcds = [2, 3, 4, 5];
+            g = easyGcds[Math.floor(Math.random() * easyGcds.length)];
+            [m1, m2] = pickCoprimePair(1, 5);
+            levelLabel = `سطح ${level} (آسان)`;
+        } else if (level <= 4) {
+            const midLowGcds = [3, 4, 6, 8];
+            g = midLowGcds[Math.floor(Math.random() * midLowGcds.length)];
+            [m1, m2] = pickCoprimePair(2, 7);
+            levelLabel = `سطح ${level} (متوسط رو به آسان)`;
+        } else if (level <= 6) {
+            const midHighGcds = [6, 7, 8, 9, 12];
+            g = midHighGcds[Math.floor(Math.random() * midHighGcds.length)];
+            [m1, m2] = pickCoprimePair(3, 9);
+            levelLabel = `سطح ${level} (متوسط)`;
+        } else if (level <= 8) {
+            const hardGcds = [9, 12, 14, 15, 16, 18];
+            g = hardGcds[Math.floor(Math.random() * hardGcds.length)];
+            [m1, m2] = pickCoprimePair(4, 11);
+            levelLabel = `سطح ${level} (سخت)`;
+        } else {
+            const veryHardGcds = [12, 15, 18, 21, 24, 25];
+            g = veryHardGcds[Math.floor(Math.random() * veryHardGcds.length)];
+            [m1, m2] = pickCoprimePair(5, 13);
+            levelLabel = `سطح ${level} (بسیار سخت)`;
+        }
+
+        const n1 = g * m1;
+        const n2 = g * m2;
+        const correctAnswer = Number(gcdBigInt(BigInt(n1), BigInt(n2)));
+
+        const distractors = new Set();
+        const candidates = [
+            1,
+            correctAnswer * 2,
+            Math.max(2, Math.floor(correctAnswer / 2)),
+            correctAnswer + 2,
+            correctAnswer + 3,
+            Math.max(2, correctAnswer - 2),
+            Math.min(n1, n2)
+        ];
+
+        for (let c of candidates) {
+            if (distractors.size >= 3) break;
+            if (c > 0 && c !== correctAnswer) distractors.add(c);
+        }
+        let guard = 1;
+        while (distractors.size < 3) {
+            let extra = correctAnswer + guard * 2;
+            if (extra !== correctAnswer) distractors.add(extra);
+            guard++;
+        }
+
+        const options = [correctAnswer, ...Array.from(distractors).slice(0, 3)].sort(() => Math.random() - 0.5);
+
+        return {
+            levelLabel,
+            pairText: `( ${n2} , ${n1} )`,
+            options,
+            answer: correctAnswer
+        };
+    }
+
+    function startGcdPractice() {
+        closeModal('practiceModalOverlay');
+        document.getElementById('gcdPracticeTestModal').style.display = 'flex';
+        document.getElementById('gcdPracContainer').style.display = 'block';
+        document.getElementById('gcdPracEndScreen').style.display = 'none';
+        document.getElementById('gcdPracVideoFrame').src = '';
+        document.getElementById('gcdPracFeedback').innerText = '';
+
+        gcdPracCurrentIndex = 0;
+        gcdPracCorrectAnswers = 0;
+        document.getElementById('gcdPracCorrectCounter').innerText = "0";
+
+        gcdPracQuestions = [];
+        for (let i = 0; i < 10; i++) {
+            gcdPracQuestions.push(generateGcdStepQuestion(i));
+        }
+        loadGcdPracticeQuestion();
+    }
+
+    function loadGcdPracticeQuestion() {
+        document.getElementById('gcdPracQNumCounter').innerText = gcdPracCurrentIndex + 1;
+        document.getElementById('gcdPracFeedback').innerText = '';
+        const q = gcdPracQuestions[gcdPracCurrentIndex];
+        document.getElementById('gcdPracQText').innerHTML = `
+            <span style="font-size: 13px; color: var(--primary); background: rgba(79,70,229,0.08); padding: 4px 12px; border-radius: 10px;">${q.levelLabel}</span>
+            <span>ب.م.م اعداد <strong style="color: var(--primary); direction: ltr; display: inline-block;">${q.pairText}</strong> چیست؟</span>
+        `;
+
+        let html = '';
+        q.options.forEach((opt, index) => {
+            html += `<button type="button" class="prac-opt-btn" onclick="answerGcdPractice(${index}, this)">${opt}</button>`;
+        });
+        document.getElementById('gcdPracOptionsContainer').innerHTML = html;
+    }
+
+    function answerGcdPractice(selectedIndex, btnElement) {
+        const q = gcdPracQuestions[gcdPracCurrentIndex];
+        const isCorrect = (q.options[selectedIndex] === q.answer);
+        const feedbackEl = document.getElementById('gcdPracFeedback');
+
+        const allBtns = document.getElementById('gcdPracOptionsContainer').querySelectorAll('.prac-opt-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+        if (isCorrect) {
+            btnElement.classList.add('correct-ans');
+            gcdPracCorrectAnswers++;
+            document.getElementById('gcdPracCorrectCounter').innerText = gcdPracCorrectAnswers;
+            feedbackEl.innerText = "آفرین! یک پله جلو رفتی.";
+            feedbackEl.style.color = "var(--success)";
+        } else {
+            btnElement.classList.add('wrong-ans');
+            const correctIdx = q.options.indexOf(q.answer);
+            allBtns[correctIdx].classList.add('correct-ans');
+            feedbackEl.innerText = `پاسخ درست ${q.answer} بود؛ اشکالی ندارد، در سوال بعدی ادامه بده!`;
+            feedbackEl.style.color = "#e11d48";
+        }
+
+        setTimeout(() => {
+            gcdPracCurrentIndex++;
+            if (gcdPracCurrentIndex < 10) {
+                loadGcdPracticeQuestion();
+            } else {
+                document.getElementById('gcdPracContainer').style.display = 'none';
+                document.getElementById('gcdPracEndScreen').style.display = 'block';
+                document.getElementById('gcdPracFinalScore').innerText = gcdPracCorrectAnswers;
+                document.getElementById('gcdPracVideoFrame').src = 'https://www.aparat.com/video/video/embed/videohash/ldz5eaf/vt/frame';
+                renderAllFAIcons(document.getElementById('gcdPracEndScreen'));
+            }
+        }, 2000);
+    }
+
+    function closeGcdPractice() {
+        document.getElementById('gcdPracVideoFrame').src = '';
+        closeModal('gcdPracticeTestModal');
+        openPracticeModal();
+    }
+
+    // ================= ۳. تمرین ۱۰ سوالی پلکانی ک.م.م =================
+    let lcmPracQuestions = [];
+    let lcmPracCurrentIndex = 0;
+    let lcmPracCorrectAnswers = 0;
+
+    function generateLcmStepQuestion(stepIndex) {
+        const level = stepIndex + 1;
+        let g = 1, m1 = 2, m2 = 3, levelLabel = "سطح ۱ (آسان)";
+
+        if (level <= 2) {
+            g = [2, 3, 4][Math.floor(Math.random() * 3)];
+            [m1, m2] = pickCoprimePair(1, 4);
+            levelLabel = `سطح ${level} (آسان)`;
+        } else if (level <= 4) {
+            g = [2, 3, 4, 5][Math.floor(Math.random() * 4)];
+            [m1, m2] = pickCoprimePair(2, 5);
+            levelLabel = `سطح ${level} (متوسط رو به آسان)`;
+        } else if (level <= 6) {
+            g = [3, 4, 5, 6][Math.floor(Math.random() * 4)];
+            [m1, m2] = pickCoprimePair(2, 7);
+            levelLabel = `سطح ${level} (متوسط)`;
+        } else if (level <= 8) {
+            g = [4, 6, 8, 9][Math.floor(Math.random() * 4)];
+            [m1, m2] = pickCoprimePair(3, 8);
+            levelLabel = `سطح ${level} (سخت)`;
+        } else {
+            g = [6, 8, 10, 12][Math.floor(Math.random() * 4)];
+            [m1, m2] = pickCoprimePair(3, 9);
+            levelLabel = `سطح ${level} (بسیار سخت)`;
+        }
+
+        const n1 = g * m1;
+        const n2 = g * m2;
+        const correctAnswer = Number((BigInt(n1) * BigInt(n2)) / gcdBigInt(BigInt(n1), BigInt(n2)));
+
+        const distractors = new Set();
+        const candidates = [
+            n1 * n2,
+            Math.max(n1, n2),
+            correctAnswer + g,
+            Math.max(2, correctAnswer - g),
+            correctAnswer * 2
+        ];
+
+        for (let c of candidates) {
+            if (distractors.size >= 3) break;
+            if (c > 0 && c !== correctAnswer) distractors.add(c);
+        }
+        let guard = 1;
+        while (distractors.size < 3) {
+            let extra = correctAnswer + guard * g;
+            if (extra !== correctAnswer) distractors.add(extra);
+            guard++;
+        }
+
+        const options = [correctAnswer, ...Array.from(distractors).slice(0, 3)].sort(() => Math.random() - 0.5);
+
+        return {
+            levelLabel,
+            pairText: `[ ${n2} , ${n1} ]`,
+            options,
+            answer: correctAnswer
+        };
+    }
+
+    function startLcmPractice() {
+        closeModal('practiceModalOverlay');
+        document.getElementById('lcmPracticeTestModal').style.display = 'flex';
+        document.getElementById('lcmPracContainer').style.display = 'block';
+        document.getElementById('lcmPracEndScreen').style.display = 'none';
+        document.getElementById('lcmPracVideoFrame').src = '';
+        document.getElementById('lcmPracFeedback').innerText = '';
+
+        lcmPracCurrentIndex = 0;
+        lcmPracCorrectAnswers = 0;
+        document.getElementById('lcmPracCorrectCounter').innerText = "0";
+
+        lcmPracQuestions = [];
+        for (let i = 0; i < 10; i++) {
+            lcmPracQuestions.push(generateLcmStepQuestion(i));
+        }
+        loadLcmPracticeQuestion();
+    }
+
+    function loadLcmPracticeQuestion() {
+        document.getElementById('lcmPracQNumCounter').innerText = lcmPracCurrentIndex + 1;
+        document.getElementById('lcmPracFeedback').innerText = '';
+        const q = lcmPracQuestions[lcmPracCurrentIndex];
+        document.getElementById('lcmPracQText').innerHTML = `
+            <span style="font-size: 13px; color: var(--primary); background: rgba(79,70,229,0.08); padding: 4px 12px; border-radius: 10px;">${q.levelLabel}</span>
+            <span>ک.م.م اعداد <strong style="color: var(--primary); direction: ltr; display: inline-block;">${q.pairText}</strong> چیست؟</span>
+        `;
+
+        let html = '';
+        q.options.forEach((opt, index) => {
+            html += `<button type="button" class="prac-opt-btn" onclick="answerLcmPractice(${index}, this)">${opt}</button>`;
+        });
+        document.getElementById('lcmPracOptionsContainer').innerHTML = html;
+    }
+
+    function answerLcmPractice(selectedIndex, btnElement) {
+        const q = lcmPracQuestions[lcmPracCurrentIndex];
+        const isCorrect = (q.options[selectedIndex] === q.answer);
+        const feedbackEl = document.getElementById('lcmPracFeedback');
+
+        const allBtns = document.getElementById('lcmPracOptionsContainer').querySelectorAll('.prac-opt-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+        if (isCorrect) {
+            btnElement.classList.add('correct-ans');
+            lcmPracCorrectAnswers++;
+            document.getElementById('lcmPracCorrectCounter').innerText = lcmPracCorrectAnswers;
+            feedbackEl.innerText = "آفرین! پاسخ درست بود.";
+            feedbackEl.style.color = "var(--success)";
+        } else {
+            btnElement.classList.add('wrong-ans');
+            const correctIdx = q.options.indexOf(q.answer);
+            allBtns[correctIdx].classList.add('correct-ans');
+            feedbackEl.innerText = `پاسخ درست ${q.answer} بود؛ اشکالی ندارد، در سوال بعدی ادامه بده!`;
+            feedbackEl.style.color = "#e11d48";
+        }
+
+        setTimeout(() => {
+            lcmPracCurrentIndex++;
+            if (lcmPracCurrentIndex < 10) {
+                loadLcmPracticeQuestion();
+            } else {
+                document.getElementById('lcmPracContainer').style.display = 'none';
+                document.getElementById('lcmPracEndScreen').style.display = 'block';
+                document.getElementById('lcmPracFinalScore').innerText = lcmPracCorrectAnswers;
+                document.getElementById('lcmPracVideoFrame').src = 'https://www.aparat.com/video/video/embed/videohash/xhcsubj/vt/frame';
+                renderAllFAIcons(document.getElementById('lcmPracEndScreen'));
+            }
+        }, 2000);
+    }
+
+    function closeLcmPractice() {
+        document.getElementById('lcmPracVideoFrame').src = '';
+        closeModal('lcmPracticeTestModal');
+        openPracticeModal();
+    }
+
+    // ================= ۴. تمرین تعاملی غربال (انتخاب ۱۰ عدد اول در بازه‌ای با فاصله حداکثر ۵۰ و عدد دوم زیر ۱۲۱) =================
+    let sievePracFoundCount = 0;
+    let sievePracMistakes = 0;
+    let sievePracStartNum = 1;
+    let sievePracEndNum = 50;
+    let sievePracCompleted = false;
+
+    function generateValidSievePracticeRange() {
+        let validRanges = [];
+        for (let start = 1; start <= 85; start++) {
+            for (let span = 35; span <= 50; span++) {
+                let end = start + span;
+                if (end >= 121) continue; // عدد دوم زیر 121 باشد (حداکثر 120)
+                let primeCount = 0;
+                for (let n = start; n <= end; n++) {
+                    if (isPrimeSimple(n)) primeCount++;
+                }
+                if (primeCount >= 10) {
+                    validRanges.push({ start, end });
+                }
+            }
+        }
+        if (validRanges.length === 0) return { start: 1, end: 50 };
+        return validRanges[Math.floor(Math.random() * validRanges.length)];
+    }
+
+    function startSievePractice() {
+        closeModal('practiceModalOverlay');
+        document.getElementById('sievePracticeTestModal').style.display = 'flex';
+        document.getElementById('sievePracContainer').style.display = 'block';
+        document.getElementById('sievePracEndScreen').style.display = 'none';
+        document.getElementById('sievePracVideoFrame').src = '';
+
+        const range = generateValidSievePracticeRange();
+        sievePracStartNum = range.start;
+        sievePracEndNum = range.end;
+        sievePracFoundCount = 0;
+        sievePracMistakes = 0;
+        sievePracCompleted = false;
+
+        document.getElementById('sievePracFoundCounter').innerText = "0";
+        document.getElementById('sievePracMistakeCounter').innerText = "0";
+        document.getElementById('sievePracQText').innerHTML = `اعداد <strong style="color: var(--primary);">${sievePracStartNum} تا ${sievePracEndNum}</strong> — ۱۰ عدد اول را انتخاب کنید`;
+
+        const feedbackEl = document.getElementById('sievePracFeedback');
+        feedbackEl.innerText = "روی خانه‌های اعداد اول کلیک کنید...";
+        feedbackEl.style.color = "var(--text-muted)";
+
+        const grid = document.getElementById('sievePracGrid');
+        grid.innerHTML = '';
+
+        for (let num = sievePracStartNum; num <= sievePracEndNum; num++) {
+            const cell = document.createElement('div');
+            cell.className = 'sieve-game-cell';
+            cell.innerText = num;
+
+            cell.onclick = function() {
+                if (sievePracCompleted || this.classList.contains('correct-tap') || this.classList.contains('wrong-tap')) return;
+
+                if (isPrimeSimple(num)) {
+                    this.classList.add('correct-tap');
+                    sievePracFoundCount++;
+                    document.getElementById('sievePracFoundCounter').innerText = sievePracFoundCount;
+                    feedbackEl.innerText = `آفرین! عدد ${num} اول است. (${sievePracFoundCount} از 10)`;
+                    feedbackEl.style.color = "var(--success)";
+
+                    if (sievePracFoundCount >= 10) {
+                        sievePracCompleted = true;
+                        setTimeout(() => {
+                            document.getElementById('sievePracContainer').style.display = 'none';
+                            document.getElementById('sievePracEndScreen').style.display = 'block';
+                            document.getElementById('sievePracEndSummary').innerHTML = `شما ۱۰ عدد اول را در بازه <b>${sievePracStartNum} تا ${sievePracEndNum}</b> با <b>${sievePracMistakes}</b> خطا پیدا کردید!`;
+                            document.getElementById('sievePracVideoFrame').src = 'https://www.aparat.com/video/video/embed/videohash/mjir865/vt/frame';
+                            renderAllFAIcons(document.getElementById('sievePracEndScreen'));
+                        }, 800);
+                    }
+                } else {
+                    this.classList.add('wrong-tap');
+                    sievePracMistakes++;
+                    document.getElementById('sievePracMistakeCounter').innerText = sievePracMistakes;
+                    feedbackEl.innerText = num === 1
+                        ? "عدد ۱ نه اول است و نه مرکب! دوباره تلاش کن."
+                        : `عدد ${num} مرکب است (مضرب اعداد کوچک‌تر است)؛ دوباره تلاش کن!`;
+                    feedbackEl.style.color = "#e11d48";
+                }
+            };
+
+            grid.appendChild(cell);
+        }
+    }
+
+    function closeSievePractice() {
+        document.getElementById('sievePracVideoFrame').src = '';
+        closeModal('sievePracticeTestModal');
+        openPracticeModal();
     }
 
     // ================= سیستم سریع جدول رتبه‌بندی و جلوگیری از تکرار شماره =================
@@ -1023,7 +1622,7 @@
         document.getElementById('gcdCompQuestion').innerText = `( ${n2} , ${n1} )`;
         let opts = [...new Set([currentGcdAnswer, currentGcdAnswer + (Math.floor(Math.random()*3)+1), Math.abs(currentGcdAnswer - (Math.floor(Math.random()*3)+1)) || 1, currentGcdAnswer + 10])];
         while(opts.length < 4) opts.push(opts[0] + Math.floor(Math.random()*20)+5); opts.sort(() => Math.random() - 0.5);
-        document.getElementById('gcdCompOptions').innerHTML = opts.map(opt => `<button class="game-btn" onclick="answerGcdComp(${opt}, this)">${opt}</button>`).join('');
+        document.getElementById('gcdCompOptions').innerHTML = opts.map(opt => `<button type="button" class="game-btn" onclick="answerGcdComp(${opt}, this)">${opt}</button>`).join('');
     }
     function answerGcdComp(ans, btnElement) {
         if(ans === currentGcdAnswer) { btnElement.classList.add('correct-ans'); document.getElementById('gcdCompScore').innerText = ++gcdScore; }
@@ -1056,7 +1655,7 @@
         document.getElementById('lcmCompQuestion').innerText = `[ ${n2} , ${n1} ]`;
         let opts = [...new Set([currentLcmAnswer, currentLcmAnswer + n1, currentLcmAnswer + n2, currentLcmAnswer * 2])];
         while(opts.length < 4) opts.push(opts[0] + Math.floor(Math.random()*10)+1); opts.sort(() => Math.random() - 0.5);
-        document.getElementById('lcmCompOptions').innerHTML = opts.map(opt => `<button class="game-btn" onclick="answerLcmComp(${opt}, this)">${opt}</button>`).join('');
+        document.getElementById('lcmCompOptions').innerHTML = opts.map(opt => `<button type="button" class="game-btn" onclick="answerLcmComp(${opt}, this)">${opt}</button>`).join('');
     }
     function answerLcmComp(ans, btnElement) {
         if(ans === currentLcmAnswer) { btnElement.classList.add('correct-ans'); document.getElementById('lcmCompScore').innerText = ++lcmScore; }
@@ -1076,7 +1675,7 @@
         document.getElementById('lcmCompPhase3').style.display = 'none'; document.getElementById('lcmCompPhase4').style.display = 'block';
     }
 
-    // 4. مسابقه غربال
+    // 4. مسابقه غربال با انیمیشن امتیاز مثبت و منفی
     let sieveCompScore = 0;
     let sieveScoreColorTimer = null;
 
